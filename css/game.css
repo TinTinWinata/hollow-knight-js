@@ -1,0 +1,14 @@
+
+
+.canvas-container{
+  width: 1000px;
+  height: 600px;
+  border: 1px solid white;
+  position: relative;
+}
+
+.canvas-container canvas{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}

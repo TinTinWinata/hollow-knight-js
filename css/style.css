@@ -1,0 +1,163 @@
+/* Main Styling for All Page */
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing: border-box;
+}
+
+:root{
+  --primary: black;
+  --secondary: white;
+  --gray: rgb(200, 200, 200);
+  --accent: #ff6046;
+  --footer: #e83046;
+  --maxWidth: 1500px;
+}
+
+body{
+  background-color: black;
+  color: white;
+  font-family: 'Noto Sans', sans-serif;
+  letter-spacing: 2px;
+}
+
+a{
+  text-decoration: none;
+  color: white;
+}
+
+
+/* Navbar */
+nav{ 
+  /* z-index 10 because jumbotron is also absolute */
+  position: absolute;
+  left: 50%; 
+  transform: translate(-50%);
+  max-width: 1500px;
+  z-index: 10;
+}
+
+nav .container .play{
+  border-radius: 5px;
+  border:2px solid rgb(154, 154, 154);
+  padding: 13px 30px;
+  font-size: 20px;
+  transition: all 0.5s ease;
+}
+
+
+nav .menu{
+  cursor: pointer;
+  font-weight: 500;
+  margin-left: 20px;
+  transform: all 0.3s ease;
+}
+
+
+nav .left div + div{
+  margin-left:20px;
+}
+
+nav .container .play:hover{
+  border-color: var(--secondary);
+}
+
+nav .container{
+  padding: 20px; 
+}
+
+/* Footer */
+footer{
+  background-color: var(--footer);
+  padding: 30px;
+}
+
+footer a + a{
+  margin-left: 20px;
+}
+
+footer .logo-container:hover{
+  bottom: 3px;
+}
+
+footer .logo{
+
+  filter: invert(51%) sepia(85%) saturate(7415%) hue-rotate(339deg) brightness(96%) contrast(89%);
+}
+
+footer .logo-container{
+  position: relative;
+  transition: all 1s ease;
+  background-color: white;
+  padding: 5px;
+  border-radius: 50%;
+}
+
+footer .logos{
+  margin-bottom: 20px;
+}
+
+
+/* Global Styling */
+
+.noto{
+  font-family: 'Noto Sans', sans-serif;
+}
+.w-full{
+  width: 100%;
+}
+
+.full{
+  width: 100%;
+  height: 100vh;
+}
+
+.cursor-pointer{
+  cursor: pointer;
+}
+
+.center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.absolute{
+  position: absolute;
+}
+
+.absolute-full{
+  width: 100%;
+  height: 100%;
+  position: absolute;;
+  top:0;
+  left: 0;
+}
+
+.flex{
+  display:flex;
+}
+
+.flex-col{
+  flex-direction: column ;
+}
+
+.flex-row{
+  flex-direction: row;
+}
+
+.asd{
+  background-color: red;
+}
+.flex-between{
+  justify-content: space-between;
+}
+
+.relative{
+  position: relative;
+}
+
+.text-center{
+  text-align: center;
+}

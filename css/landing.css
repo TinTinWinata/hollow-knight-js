@@ -1,0 +1,135 @@
+
+.jumbotron-video-container{
+  width: 100%;
+  overflow: hidden;
+  height: 700px;
+}
+
+.jumbotron-video-container video{
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(0,0,0,1) 0%, rgba(9,9,121,0) 100%);
+  filter: brightness(80%);
+}
+
+.jumbotron-card{
+  margin-top: 30px;
+}
+
+.jumbotron-card div+div{
+  margin-left: 20px;
+}
+
+.jumbotron-card div{
+  filter: brightness(90%) saturate(50%);
+  width: 500px;
+  height: 300px;
+  background-size: cover;
+}
+#jumbotron-card-3{
+  background-image: url('/assets/landing/jumbotron_1.jpg');
+}
+#jumbotron-card-2{
+  background-image: url('/assets/landing/jumbotron_2.jpg');
+}
+#jumbotron-card-1{
+  background-image: url('/assets/landing/jumbotron_3.jpg'); 
+}
+
+.jumbotron-card div::after{
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom, transparent 50%, black 100%);
+}
+
+.content{
+  width: var(--maxWidth);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.content-container{
+  margin-top: 100px;
+}
+
+.content iframe{
+  margin-top: 100px;
+
+    /* ------------- */
+    margin-bottom: 200px;
+    /* ------------- */
+
+}
+
+
+.description-text{
+  margin-top: 10px;
+  /* ------------- */
+  margin-bottom: 50px;
+  /* ------------- */
+  text-align: center;
+}
+
+.description-text .header{
+  margin-top: 30px;
+  font-size: 25px;
+  }
+
+.description-text .content{
+  font-size: 15px;
+  margin-top: 20px;
+  width: 60%;
+  }
+  
+
+
+
+.store{
+  /* ------------- */
+  margin-bottom: 200px;
+  /* ------------- */ 
+}
+.store .left p{
+  font-size: 15px;
+  margin-top: 20px;
+}
+
+.store .left .button{
+  width: fit-content;
+  padding: 15px;
+  margin-top: 20px;
+  background-color: white;
+  color: black;
+}
+
+.content-card{
+    /* ------------- */
+    margin-bottom: 200px;
+    /* ------------- */
+}
+
+.content-card h1{
+  margin-bottom: 15px;
+  font-size: 25px;
+}
+
+.content-card p{
+  width: 70%;
+}
+
+.hero{
+    /* ------------- */
+    margin-bottom: 200px;
+    /* ------------- */
+}
+
+.hero h1{
+  margin-bottom: 20px;
+  font-size: 60px;
+}
+
+.hero .text{
+  text-indent: 50px;
+}
