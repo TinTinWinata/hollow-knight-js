@@ -1,11 +1,13 @@
-import { checkCollide } from "../helper";
+import { checkCollide } from "../facade/helper.js";
 
 export class Object {
-  constructor(x, y, w, h, sprite, maxSprite) {
+  constructor(x, y, w, h, sprite, maxSprite, ctx) {
+    this.ctx = ctx;
     this.x = x;
     this.y = y;
     this.w = w;
     this.h = h;
+    this.ctx = ctx;
     this.sprite = sprite;
     this.maxSprite = maxSprite;
     this.spriteIdx = 0;
@@ -16,7 +18,8 @@ export class Object {
   }
 
   render() {
+    this.spriteIdx++;
     const idx = this.spriteIdx % this.maxSprite;
-    ctx.drawImage(this.sprite[idx], this.x, this.y, this.w, this.h);
+    this.ctx.drawImage(this.sprite[idx], this.x, this.y, this.w, this.h);
   }
 }

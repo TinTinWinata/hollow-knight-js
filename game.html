@@ -7,7 +7,8 @@
     <title>Hollow Knight</title>
 
     <!-- Script -->
-    <script src="js/game/script.js"></script>
+    <script type="module" src="/js/game/main.js" defer></script>
+    <script type="module" src="/js/game/setting.js" defer></script>
 
     <!-- CSS -->
     <link rel="stylesheet" href="/css/style.css" />
@@ -24,7 +25,7 @@
   <body>
     <div class="full center">
       <div class="canvas-container">
-        <canvas></canvas>
+        <canvas id="myCanvas"> </canvas>
       </div>
     </div>
   </body>
