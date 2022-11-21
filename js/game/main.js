@@ -2,7 +2,7 @@ import { GET_BG_FIRST, GET_PLAYER_SPRITE, PLAYER_CONF } from "./facade/file.js";
 import { Background } from "./model/background.js";
 import { Ground } from "./model/ground.js";
 import { Player } from "./model/player.js";
-import { GAME } from "./setting.js";
+import { GAME } from "./data.js";
 
 const game = GAME.getInstance();
 
@@ -29,11 +29,6 @@ function isRun() {
   }
 }
 
-function debug(x, y, w, h) {
-  ctx.fillStyle = "red";
-  ctx.fillRect(x, y, w, h);
-}
-
 const ground = new Ground(0, game.height - 80, 600, 100, game.ctx);
 const player = new Player(
   0,
@@ -43,6 +38,7 @@ const player = new Player(
   GET_PLAYER_SPRITE(),
   PLAYER_CONF.maxSprite
 );
+
 const bg = new Background(
   0,
   0,
@@ -52,13 +48,28 @@ const bg = new Background(
   game.ctx
 );
 
+game.objects.push(ground);
+game.characters.push(player);
+
+window.addEventListener("keydown", (e) => {
+  game.keys[e.key] = true;
+});
+
+window.addEventListener("keyup", (e) => {
+  game.keys[e.key] = false;
+});
+
 render();
 
 function render() {
   if (isRun()) {
     bg.render();
-    ground.render();
-    player.render();
+    game.objects.forEach((object) => {
+      object.render();
+    });
+    game.characters.forEach((character) => {
+      character.render();
+    });
   }
   requestAnimationFrame(render);
 }

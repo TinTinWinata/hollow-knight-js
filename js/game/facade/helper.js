@@ -1,4 +1,7 @@
+import { GAME } from "../data.js";
+
 export function checkCollide(x, y, w, h, x1, y1) {
+  console.log(x1 > x, x1 < x + w, y1 > y, y1 < y + h);
   if (x1 > x && x1 < x + w && y1 > y && y1 < y + h) {
     return true;
   } else {

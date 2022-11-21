@@ -1,4 +1,5 @@
-import { checkCollide } from "../facade/helper.js";
+import { checkBlockCollide, checkCollide } from "../facade/helper.js";
+import { GAME } from "../data.js";
 
 export class Object {
   constructor(x, y, w, h, sprite, maxSprite, ctx) {
@@ -16,7 +17,30 @@ export class Object {
   isCollide(x, y) {
     return checkCollide(this.x, this.y, this.w, this.h, x, y);
   }
-
+  isCollideCharacter(char) {
+    return checkBlockCollide(
+      this.x,
+      this.y,
+      this.w,
+      this.h,
+      char.x,
+      char.y,
+      char.w,
+      char.h
+    );
+  }
+  isCollideNextMoveChar(char) {
+    return checkBlockCollide(
+      this.x,
+      this.y,
+      this.w,
+      this.h,
+      char.x + char.vx,
+      char.y + char.vy,
+      char.w + char.vx,
+      char.h + char.vy
+    );
+  }
   render() {
     this.spriteIdx++;
     const idx = this.spriteIdx % this.maxSprite;
