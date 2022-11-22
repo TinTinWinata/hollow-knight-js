@@ -52,6 +52,10 @@ game.objects.push(ground);
 game.characters.push(player);
 
 window.addEventListener("keydown", (e) => {
+  if (e.key == "w") {
+    player.jump();
+  }
+
   game.keys[e.key] = true;
 });
 

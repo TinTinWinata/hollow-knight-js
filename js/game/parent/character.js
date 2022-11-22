@@ -16,6 +16,7 @@ export class Character {
     this.maxVx = 10;
     this.maxVy = 10;
     this.game = GAME.getInstance();
+    this.jumpForce = 6;
   }
 
   // this method will called in rendered (for child class)
@@ -45,10 +46,17 @@ export class Character {
     }
     this.y += this.vy;
     this.x += this.vx;
-    // if (this.vx < this.maxVx) {
-    // }
-    // if (this.vy < this.maxVy) {
-    // }
+
+    this.checkMaxSpeed();
+  }
+
+  checkMaxSpeed() {
+    if (this.vx > this.maxVx) {
+      this.vx = this.maxVx;
+    }
+    if (this.vy < this.maxVy) {
+      this.vy = this.maxVy;
+    }
   }
 
   render() {
