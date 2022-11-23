@@ -58,6 +58,8 @@ game.characters.push(player);
 window.addEventListener("keydown", (e) => {
   if (e.key == "w") {
     player.jump();
+  } else if (e.key == "z") {
+    player.attack();
   }
 
   game.keys[e.key] = true;
@@ -69,6 +71,16 @@ window.addEventListener("keyup", (e) => {
 
 render();
 
+function renderParticle() {
+  const len = game.particles.length;
+  for (let i = 0; i < len; i++) {
+    game.particles[i].render();
+    if (game.particles[i].dead) {
+      game.particles.splice(i, 1);
+    }
+  }
+}
+
 function render() {
   if (isRun()) {
     bg.render();
@@ -78,9 +90,7 @@ function render() {
     game.objects.forEach((object) => {
       object.render();
     });
-    game.objects.forEach((particle) => {
-      particle.render();
-    });
+    renderParticle();
   }
   requestAnimationFrame(render);
 }

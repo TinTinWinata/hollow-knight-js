@@ -15,7 +15,7 @@ export const PLAYER_CONF = {
   },
 };
 
-function GET_PLAYER_ATTACK_SPLASH_SPRITE() {
+export function GET_PLAYER_ATTACK_SPLASH_SPRITE() {
   const imageList = [];
   for (let i = 1; i <= PLAYER_CONF.splash.max; i++) {
     imageList.push(LOAD_IMAGE(`/assets/game/hero/splash/splash_0${i}.png`));

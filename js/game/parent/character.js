@@ -55,6 +55,17 @@ export class Character {
     return collideFlag;
   }
 
+  inFrontNode(offsetX) {
+    const y = this.middleYPos();
+    let x = 0;
+    if (this.backward) {
+      x = this.middleXPos() - offsetX;
+    } else {
+      x = this.middleXPos() + offsetX;
+    }
+    return { x, y };
+  }
+
   logic() {
     this.spriteInterval += 1;
     if (this.spriteInterval > this.config.speed) {

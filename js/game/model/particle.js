@@ -1,4 +1,4 @@
-import { GAME } from "../data";
+import { GAME } from "../data.js";
 
 export class Particle {
   static emit(x, y, w, h, sprite, config) {
@@ -33,6 +33,7 @@ export class Particle {
     }
   }
   render() {
+    console.log(this.sprite[this.idx]); 
     this.checkDeath();
     const game = GAME.getInstance();
     if (!this.dead) {

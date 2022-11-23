@@ -1,11 +1,13 @@
 import { GAME } from "../data.js";
 import {
+  GET_PLAYER_ATTACK_SPLASH_SPRITE,
   GET_PLAYER_IDLE_SPRITE,
   GET_PLAYER_WALK_SPRITE,
   PLAYER_CONF,
 } from "../facade/file.js";
 import { Character } from "../parent/character.js";
 import { Setting } from "../setting.js";
+import { Particle } from "./particle.js";
 
 export class Player extends Character {
   move() {}
@@ -49,6 +51,17 @@ export class Player extends Character {
     }
   }
 
+  attack() {
+    const node = this.inFrontNode(10);
+    Particle.emit(
+      node.x,
+      node.y - this.splashHeight / 2,
+      this.splashWidth,
+      this.splashHeight,
+      GET_PLAYER_ATTACK_SPLASH_SPRITE()
+    );
+  }
+
   checkMovement() {
     if (this.game.keys[Setting.PLAYER_MOVEMENT_RIGHT]) {
       this.changeSprite("walk");
@@ -74,9 +87,10 @@ export class Player extends Character {
     if (this.isGrounded()) this.vy -= this.jumpForce;
   }
 
-
-  initPlayer(){
-    
+  initPlayer() {
+    this.splashWidth = 200;
+    this.splashHeight = 200;
+    this.attackSprite = GET_PLAYER_ATTACK_SPLASH_SPRITE();
   }
 
   constructor(x, y, w, h, sprite, maxSprite) {
