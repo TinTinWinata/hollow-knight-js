@@ -1,4 +1,3 @@
-
 export class GAME {
   static gameInstance;
   static getInstance = () => {
@@ -12,7 +11,8 @@ export class GAME {
     this.objects = [];
     this.characters = [];
     this.keys = [];
-    this.gravity = 2;
+    this.particles = [];
+    this.gravity = 1;
     this.canvas = document.getElementById("myCanvas");
     this.ctx = document.getElementById("myCanvas").getContext("2d");
     this.width = 2000;

@@ -1,22 +1,30 @@
 import { GAME } from "../data.js";
 
 export class Character {
-  constructor(x, y, w, h, sprite, maxSprite) {
+  constructor(x, y, w, h, sprite, config) {
     this.x = x;
     this.y = y;
     this.w = w;
     this.h = h;
     this.sprite = sprite;
-    this.maxSprite = maxSprite;
     this.spriteIdx = 0;
     this.speedX = 1;
     this.speedY = 1;
     this.vx = 0;
     this.vy = 0;
-    this.maxVx = 10;
-    this.maxVy = 10;
+    this.maxSpeed = 7;
+    this.config = config;
     this.game = GAME.getInstance();
-    this.jumpForce = 6;
+    this.jumpForce = 25;
+    this.spriteInterval = 0;
+    this.backward = false;
+  }
+
+  middleXPos() {
+    return this.x + this.w / 2;
+  }
+  middleYPos() {
+    return this.y + this.h / 2;
   }
 
   // this method will called in rendered (for child class)
@@ -34,35 +42,72 @@ export class Character {
     return collideFlag;
   }
 
-  logic() {
-    this.parentMethod();
-    // !Debugging Purpose
-    // GAME.getInstance().debug(this, "red");
+  isGrounded() {
+    let collideFlag = false;
+    this.game.objects.forEach((obj) => {
+      // !Debugging Purpose
+      if (
+        obj.isCollideBlock(this.x, this.y, this.w, this.h + this.game.gravity)
+      ) {
+        collideFlag = true;
+      }
+    });
+    return collideFlag;
+  }
 
+  logic() {
+    this.spriteInterval += 1;
+    if (this.spriteInterval > this.config.speed) {
+      this.spriteIdx += 1;
+      this.spriteInterval = 0;
+    }
+
+    // Call parent method
+    this.parentMethod();
+
+    // If not grounded then gravity will turn down the player
     if (this.isCollideObject()) {
       this.vy = 0;
     } else {
       this.vy += this.game.gravity;
     }
+
+    // Check velocity at max speed
+    this.checkMaxSpeed();
+
     this.y += this.vy;
     this.x += this.vx;
-
-    this.checkMaxSpeed();
   }
 
   checkMaxSpeed() {
-    if (this.vx > this.maxVx) {
-      this.vx = this.maxVx;
+    if (this.vx > this.maxSpeed) {
+      this.vx = this.maxSpeed;
+    } else if (this.vx < -this.maxSpeed) {
+      this.vx = -this.maxSpeed;
     }
-    if (this.vy < this.maxVy) {
-      this.vy = this.maxVy;
-    }
+    // if (this.vy < -this.maxSpeed) {
+    //   this.vy = -this.maxSpeed;
+    // }
   }
 
   render() {
     this.logic();
-    this.spriteIdx++;
-    const idx = this.spriteIdx % this.maxSprite;
-    this.game.ctx.drawImage(this.sprite[idx], this.x, this.y, this.w, this.h);
+    const idx = this.spriteIdx % this.config.max;
+    if (this.backward) {
+      this.game.ctx.save();
+      this.game.ctx.translate(this.x + this.w / 2, this.y + this.h / 2);
+      this.game.ctx.scale(-1, 1);
+      this.game.ctx.drawImage(
+        this.sprite[idx],
+        -this.w / 2,
+        -this.h / 2,
+        this.w,
+        this.h
+      );
+      this.game.ctx.restore();
+    } else {
+      this.game.ctx.scale(1, 1);
+      this.game.ctx.drawImage(this.sprite[idx], this.x, this.y, this.w, this.h);
+    }
   }
 }

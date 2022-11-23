@@ -16,3 +16,7 @@ export function checkBlockCollide(x1, y1, w1, h1, x2, y2, w2, h2) {
     return false;
   }
 }
+
+export function randomInt(min, max) {
+  return Math.round(Math.random() * (max - min) + min);
+}

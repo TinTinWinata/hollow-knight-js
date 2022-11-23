@@ -1,4 +1,11 @@
+import { GAME } from "../data.js";
+
 export class Background {
+  // Static method for generating background
+  // static generateBackground() {
+  //   const game = GAME.getInstance();
+  // }
+
   constructor(x, y, w, h, sprite, ctx) {
     this.sprite = sprite;
     this.ctx = ctx;

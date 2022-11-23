@@ -1,6 +1,6 @@
 import { Background } from "../model/background.js";
 
-export default function createBackground() {
+export function createBackground() {
   return (bg = new Background(
     0,
     0,
@@ -11,13 +11,6 @@ export default function createBackground() {
   ));
 }
 
-export default function createPlayer(){
-   return new Player(
-    0,
-    0,
-    300,
-    300,
-    GET_PLAYER_SPRITE(),
-    PLAYER_CONF.maxSprite
-  );
+export function createPlayer() {
+  return new Player(0, 0, 300, 300, GET_PLAYER_SPRITE(), PLAYER_CONF.maxSprite);
 }

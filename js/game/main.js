@@ -1,8 +1,12 @@
-import { GET_BG_FIRST, GET_PLAYER_SPRITE, PLAYER_CONF } from "./facade/file.js";
+import {
+  GET_BG_FIRST,
+  GET_PLAYER_IDLE_SPRITE,
+  PLAYER_CONF,
+} from "./facade/file.js";
 import { Background } from "./model/background.js";
+import { GAME } from "./data.js";
 import { Ground } from "./model/ground.js";
 import { Player } from "./model/player.js";
-import { GAME } from "./data.js";
 
 const game = GAME.getInstance();
 
@@ -29,14 +33,13 @@ function isRun() {
   }
 }
 
-const ground = new Ground(0, game.height - 80, 600, 100, game.ctx);
 const player = new Player(
   0,
   0,
-  300,
-  300,
-  GET_PLAYER_SPRITE(),
-  PLAYER_CONF.maxSprite
+  140,
+  160,
+  GET_PLAYER_IDLE_SPRITE(),
+  PLAYER_CONF.idle
 );
 
 const bg = new Background(
@@ -48,7 +51,8 @@ const bg = new Background(
   game.ctx
 );
 
-game.objects.push(ground);
+Ground.generateBackground();
+
 game.characters.push(player);
 
 window.addEventListener("keydown", (e) => {
@@ -68,11 +72,14 @@ render();
 function render() {
   if (isRun()) {
     bg.render();
+    game.characters.forEach((character) => {
+      character.render();
+    });
     game.objects.forEach((object) => {
       object.render();
     });
-    game.characters.forEach((character) => {
-      character.render();
+    game.objects.forEach((particle) => {
+      particle.render();
     });
   }
   requestAnimationFrame(render);
