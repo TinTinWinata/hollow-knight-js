@@ -15,8 +15,9 @@ export class Ground extends Object {
 
     // Make top ground with pushing the object
     for (let i = 0; i < w * totalGround; i += w) {
-      console.log("looping");
-      game.objects.push(new Ground(i - offset, y, w + offset, h, game.ctx));
+      const ground = new Ground(i - offset, y, w + offset, h, game.ctx);
+      ground.setColliderOffset(0, 20, 0, 0);
+      game.objects.push(ground);
     }
 
     // Make all ground black below the top ground

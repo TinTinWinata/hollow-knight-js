@@ -36,8 +36,8 @@ function isRun() {
 const player = new Player(
   0,
   0,
-  140,
-  160,
+  200,
+  220,
   GET_PLAYER_IDLE_SPRITE(),
   PLAYER_CONF.idle
 );
@@ -56,10 +56,14 @@ Ground.generateBackground();
 game.characters.push(player);
 
 window.addEventListener("keydown", (e) => {
+  if (e.key == "z") {
+    player.attack();
+  }
+});
+
+window.addEventListener("keydown", (e) => {
   if (e.key == "w") {
     player.jump();
-  } else if (e.key == "z") {
-    player.attack();
   }
 
   game.keys[e.key] = true;
@@ -72,8 +76,7 @@ window.addEventListener("keyup", (e) => {
 render();
 
 function renderParticle() {
-  const len = game.particles.length;
-  for (let i = 0; i < len; i++) {
+  for (let i = 0; i < game.particles.length; i++) {
     game.particles[i].render();
     if (game.particles[i].dead) {
       game.particles.splice(i, 1);
@@ -84,11 +87,12 @@ function renderParticle() {
 function render() {
   if (isRun()) {
     bg.render();
-    game.characters.forEach((character) => {
-      character.render();
-    });
+    // game.debug(player);
     game.objects.forEach((object) => {
       object.render();
+    });
+    game.characters.forEach((character) => {
+      character.render();
     });
     renderParticle();
   }

@@ -18,6 +18,7 @@ export class Character {
     this.jumpForce = 25;
     this.spriteInterval = 0;
     this.backward = false;
+    this.state = "";
   }
 
   middleXPos() {
@@ -60,8 +61,10 @@ export class Character {
     let x = 0;
     if (this.backward) {
       x = this.middleXPos() - offsetX;
+      console.log("backward! :D ", x);
     } else {
       x = this.middleXPos() + offsetX;
+      console.log("no backward! :D", x);
     }
     return { x, y };
   }
@@ -102,6 +105,7 @@ export class Character {
   }
 
   render() {
+    // console.log(this.sprite);
     this.logic();
     const idx = this.spriteIdx % this.config.max;
     if (this.backward) {

@@ -2,6 +2,13 @@ import { checkBlockCollide, checkCollide } from "../facade/helper.js";
 import { GAME } from "../data.js";
 
 export class Object {
+  setColliderOffset(x, y, w, h) {
+    this.offsetX = x;
+    this.offsetY = y;
+    this.offsetW = w;
+    this.offsetH = h;
+  }
+
   constructor(x, y, w, h, sprite, maxSprite, ctx, color) {
     this.color = color;
     this.ctx = ctx;
@@ -16,7 +23,14 @@ export class Object {
   }
 
   isCollide(x, y) {
-    return checkCollide(this.x, this.y, this.w, this.h, x, y);
+    return checkCollide(
+      this.x + this.offsetX,
+      this.y + this.offsetY,
+      this.w + this.offsetW,
+      this.h + this.offsetH,
+      x,
+      y
+    );
   }
 
   isCollideBlock(x, y, w, h) {
@@ -25,10 +39,10 @@ export class Object {
 
   isCollideCharacter(char) {
     return checkBlockCollide(
-      this.x,
-      this.y,
-      this.w,
-      this.h,
+      this.x + this.offsetX,
+      this.y + this.offsetY,
+      this.w + this.offsetW,
+      this.h + this.offsetH,
       char.x,
       char.y,
       char.w,
@@ -37,10 +51,10 @@ export class Object {
   }
   isCollideNextMoveChar(char) {
     return checkBlockCollide(
-      this.x,
-      this.y,
-      this.w,
-      this.h,
+      this.x + this.offsetX,
+      this.y + this.offsetY,
+      this.w + this.offsetW,
+      this.h + this.offsetH,
       char.x + char.vx,
       char.y + char.vy,
       char.w + char.vx,
