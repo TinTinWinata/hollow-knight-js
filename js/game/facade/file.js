@@ -31,6 +31,21 @@ export const PLAYER_CONF = {
   },
 };
 
+export const CRAWLID_CONF = {
+  walk: {
+    max: 4,
+    speed: 10,
+  },
+};
+
+export function GET_CRAWLID_WALK() {
+  const imageList = [];
+  for (let i = 1; i <= CRAWLID_CONF.walk.max; i++) {
+    imageList.push(LOAD_IMAGE(`/assets/game/crawlid/crawlid_0${i}.png`));
+  }
+  return imageList;
+}
+
 export function GET_PLAYER_JUMP_SPRITE() {
   const imageList = [];
   for (let i = 1; i <= PLAYER_CONF.jump.max; i++) {
@@ -64,6 +79,7 @@ export function GET_PLAYER_ATTACK_SPLASH_2_SPRITE() {
 }
 
 export function GET_PLAYER_ATTACK_SPLASH_SPRITE(i) {
+  return GET_PLAYER_ATTACK_SPLASH_1_SPRITE();
   if (i == 1) {
     return GET_PLAYER_ATTACK_SPLASH_1_SPRITE();
   } else {

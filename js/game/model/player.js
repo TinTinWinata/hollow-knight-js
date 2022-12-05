@@ -52,12 +52,19 @@ export class Player extends Character {
       (this.state == "jump" && state != "attack" && state != "jump")
     )
       return;
+
+    // this.spriteIdx = 0;
     switch (state) {
       case "idle":
+        this.state = state;
         this.config = PLAYER_CONF.idle;
         this.sprite = GET_PLAYER_IDLE_SPRITE();
         break;
       case "walk":
+        if (this.state == state) {
+          return;
+        }
+        this.state = "walk";
         this.config = PLAYER_CONF.walk;
         this.sprite = GET_PLAYER_WALK_SPRITE();
         break;
@@ -122,7 +129,21 @@ export class Player extends Character {
     }
   }
 
+  checkCollideEnemy() {
+    if (this.invicible) return;
+    this.game.enemies.forEach((enemy) => {
+      if (enemy.isCollideBlock(this.x, this.y, this.w, this.h)) {
+        this.game.pause = true;
+        this.invicible = true;
+        setTimeout(() => {
+          this.game.pause = false;
+        }, 500);
+      }
+    });
+  }
+
   parentMethod() {
+    this.checkCollideEnemy();
     this.checkState();
     this.checkMovement();
     this.renderLight();
@@ -142,8 +163,21 @@ export class Player extends Character {
     this.splashIndex = 0;
   }
 
+  initAllSprite() {
+    // Initial all sprite first (because there's some bug if init later)
+
+    GET_PLAYER_WALK_SPRITE();
+    GET_PLAYER_ATTACK_SPLASH_SPRITE();
+    GET_PLAYER_ATTACK_SPRITE();
+    GET_PLAYER_WALK_SPRITE();
+    GET_PLAYER_IDLE_SPRITE();
+  }
+
   constructor(x, y, w, h, sprite, maxSprite) {
     super(x, y, w, h, sprite, maxSprite);
+
     this.initPlayer();
+
+    this.initAllSprite();
   }
 }

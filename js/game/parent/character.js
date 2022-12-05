@@ -1,4 +1,5 @@
 import { GAME } from "../data.js";
+import { checkBlockCollide, checkCollide } from "../facade/helper.js";
 
 export class Character {
   constructor(x, y, w, h, sprite, config) {
@@ -19,6 +20,22 @@ export class Character {
     this.spriteInterval = 0;
     this.backward = false;
     this.state = "";
+    this.invicible = false;
+    this.invicibleTime = 100;
+    this.invicibleInterval = 0;
+  }
+
+  checkInvicible() {
+    // Check if is invicible set 100 / 60 second to set to uninvicible
+    if (this.invicible) {
+      this.invicibleInterval += 1;
+      if (this.invicibleInterval > this.invicibleTime) {
+        this.invicibleInterval = 0;
+        this.invicible = false;
+      }
+    } else {
+      this.invicibleInterval = 0;
+    }
   }
 
   middleXPos() {
@@ -61,12 +78,31 @@ export class Character {
     let x = 0;
     if (this.backward) {
       x = this.middleXPos() - offsetX;
-      console.log("backward! :D ", x);
     } else {
       x = this.middleXPos() + offsetX;
-      console.log("no backward! :D", x);
     }
     return { x, y };
+  }
+
+  isCollide(x, y) {
+    return checkCollide(this.x, this.y, this.w, this.h, x, y);
+  }
+
+  isCollideBlock(x, y, w, h) {
+    return checkBlockCollide(this.x, this.y, this.w, this.h, x, y, w, h);
+  }
+
+  checkBound() {
+    // 50 -> Player Offset X
+    if (
+      this.x + 50 + this.vx < 0 ||
+      this.x + this.w + this.vx > this.game.width
+    ) {
+      // this.backward = true;
+      this.vx = 0;
+      return true;
+    }
+    return false;
   }
 
   logic() {
@@ -88,9 +124,15 @@ export class Character {
 
     // Check velocity at max speed
     this.checkMaxSpeed();
+    this.checkBound();
 
+    this.checkInvicible();
+
+    if (this.checkBound()) {
+    } else {
+      this.x += this.vx;
+    }
     this.y += this.vy;
-    this.x += this.vx;
   }
 
   checkMaxSpeed() {
@@ -105,9 +147,12 @@ export class Character {
   }
 
   render() {
-    // console.log(this.sprite);
     this.logic();
     const idx = this.spriteIdx % this.config.max;
+
+    // !Debugging Purpose
+    // console.log("rendering : ", idx, " max : ", this.config.max);
+
     if (this.backward) {
       this.game.ctx.save();
       this.game.ctx.translate(this.x + this.w / 2, this.y + this.h / 2);

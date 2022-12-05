@@ -6,6 +6,8 @@ export class Background {
   //   const game = GAME.getInstance();
   // }
 
+  static GenerateForeground() {}
+
   constructor(x, y, w, h, sprite, ctx) {
     this.sprite = sprite;
     this.ctx = ctx;
@@ -15,7 +17,13 @@ export class Background {
     this.h = h;
   }
 
+  logic() {
+    //
+    const game = GAME.getInstance();
+  }
+
   render() {
+    this.logic();
     this.ctx.drawImage(this.sprite, this.x, this.y, this.w, this.h);
   }
 }

@@ -8,10 +8,14 @@ export class GAME {
   };
 
   constructor() {
+    this.pause = false;
     this.objects = [];
     this.characters = [];
     this.keys = [];
     this.particles = [];
+    this.backgrounds = [];
+    this.foregrounds = [];
+    this.enemies = [];
     this.gravity = 1;
     this.canvas = document.getElementById("myCanvas");
     this.ctx = document.getElementById("myCanvas").getContext("2d");

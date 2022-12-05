@@ -7,6 +7,7 @@ import { Background } from "./model/background.js";
 import { GAME } from "./data.js";
 import { Ground } from "./model/ground.js";
 import { Player } from "./model/player.js";
+import { Crawlid } from "./model/crawlid.js";
 
 const game = GAME.getInstance();
 
@@ -36,8 +37,8 @@ function isRun() {
 const player = new Player(
   0,
   0,
-  200,
-  220,
+  150,
+  170,
   GET_PLAYER_IDLE_SPRITE(),
   PLAYER_CONF.idle
 );
@@ -53,7 +54,9 @@ const bg = new Background(
 
 Ground.generateBackground();
 
+game.backgrounds.push(bg);
 game.characters.push(player);
+game.enemies.push(Crawlid.GenerateCrawlid(1000));
 
 window.addEventListener("keydown", (e) => {
   if (e.key == "z") {
@@ -85,14 +88,19 @@ function renderParticle() {
 }
 
 function render() {
-  if (isRun()) {
-    bg.render();
+  if (isRun() && !game.pause) {
+    game.backgrounds.forEach((obj) => {
+      obj.render();
+    });
     // game.debug(player);
     game.objects.forEach((object) => {
       object.render();
     });
     game.characters.forEach((character) => {
       character.render();
+    });
+    game.enemies.forEach((enemy) => {
+      enemy.render();
     });
     renderParticle();
   }
