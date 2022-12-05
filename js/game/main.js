@@ -8,6 +8,7 @@ import { GAME } from "./data.js";
 import { Ground } from "./model/ground.js";
 import { Player } from "./model/player.js";
 import { Crawlid } from "./model/crawlid.js";
+import { UI } from "./model/ui.js";
 
 const game = GAME.getInstance();
 
@@ -57,6 +58,9 @@ Ground.generateBackground();
 game.backgrounds.push(bg);
 game.characters.push(player);
 game.enemies.push(Crawlid.GenerateCrawlid(1000));
+
+// Get Instance UI
+const ui = UI.getInstance();
 
 window.addEventListener("keydown", (e) => {
   if (e.key == "z") {

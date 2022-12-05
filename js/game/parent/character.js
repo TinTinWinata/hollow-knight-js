@@ -23,6 +23,7 @@ export class Character {
     this.invicible = false;
     this.invicibleTime = 100;
     this.invicibleInterval = 0;
+    this.health = 5;
   }
 
   checkInvicible() {

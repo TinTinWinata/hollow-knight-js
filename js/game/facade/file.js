@@ -38,6 +38,24 @@ export const CRAWLID_CONF = {
   },
 };
 
+export function GET_UI_HEALTH() {
+  const img = new Image();
+  img.src = "/assets/game/ui/health.png";
+  return img;
+}
+
+export function GET_UI_LEFT() {
+  const img = new Image();
+  img.src = "/assets/game/ui/left.png";
+  return img;
+}
+
+export function GET_UI_MONEY() {
+  const img = new Image();
+  img.src = "/assets/game/ui/money.png";
+  return img;
+}
+
 export function GET_CRAWLID_WALK() {
   const imageList = [];
   for (let i = 1; i <= CRAWLID_CONF.walk.max; i++) {

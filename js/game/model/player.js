@@ -10,6 +10,7 @@ import {
 import { Character } from "../parent/character.js";
 import { Setting } from "../setting.js";
 import { Particle } from "./particle.js";
+import { UI } from "./ui.js";
 
 export class Player extends Character {
   move() {}
@@ -91,17 +92,22 @@ export class Player extends Character {
     this.splashIndex += 1;
 
     this.changeSprite("attack");
-    console.log(this.backward);
 
-    // Emit The Whiet Particle Effect
+    const x = this.backward ? node.x - this.splashWidth : node.x;
+    const y = node.y - this.splashHeight / 2;
+    const w = this.splashWidth;
+    const h = this.splashHeight;
+
+    // Emit The White Particle Effect
     Particle.emit(
-      this.backward ? node.x - this.splashWidth : node.x,
-      node.y - this.splashHeight / 2,
-      this.splashWidth,
-      this.splashHeight,
+      x,
+      y,
+      w,
+      h,
       GET_PLAYER_ATTACK_SPLASH_SPRITE(idx),
       PLAYER_CONF.splash,
-      this.backward
+      this.backward,
+      this.playerSplashAttack(x, y, w, h)
     );
   }
 
@@ -129,17 +135,45 @@ export class Player extends Character {
     }
   }
 
+  playerSplashAttack(x, y, w, h) {
+    const game = GAME.getInstance();
+    // console.log("checking splash!");
+    // game.debug(x, y, w, h, "red");
+    console.log("splash : ", x, y, w, h);
+    game.enemies.forEach((enemy) => {
+      if (enemy.isCollideBlock(x, y, w, h)) {
+        console.log("hit!");
+        enemy.hit();
+      }
+    });
+  }
+
   checkCollideEnemy() {
+    const x = this.x + this.offsetX / 2;
+    const y = this.y + this.offsetY / 2;
+    const w = this.w - this.offsetX;
+    const h = this.h - this.offsetY;
+
     if (this.invicible) return;
     this.game.enemies.forEach((enemy) => {
-      if (enemy.isCollideBlock(this.x, this.y, this.w, this.h)) {
+      if (enemy.isCollideBlock(x, y, w, h)) {
+        // Collide With Enemy!
         this.game.pause = true;
         this.invicible = true;
+        this.hit();
         setTimeout(() => {
           this.game.pause = false;
         }, 500);
       }
     });
+  }
+
+  hit() {
+    this.health -= 1;
+
+    // Change UI
+    const ui = UI.getInstance();
+    ui.changeHealth(this.health);
   }
 
   parentMethod() {
@@ -175,9 +209,10 @@ export class Player extends Character {
 
   constructor(x, y, w, h, sprite, maxSprite) {
     super(x, y, w, h, sprite, maxSprite);
-
     this.initPlayer();
-
     this.initAllSprite();
+    this.offsetX = 100;
+    this.offsetY = 100;
+    this.health = 5;
   }
 }

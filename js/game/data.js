@@ -1,5 +1,6 @@
 export class GAME {
   static gameInstance;
+
   static getInstance = () => {
     if (this.gameInstance == null) {
       this.gameInstance = new GAME();
@@ -29,8 +30,8 @@ export class GAME {
     this.ctx.fillRect(x, y, w, h);
   }
 
-  debug(render, color = "blue") {
-    this.ctx.fillStyle = color;
-    this.ctx.fillRect(render.x, render.y, render.w, render.h);
-  }
+  // debug(render, color = "blue") {
+  //   this.ctx.fillStyle = color;
+  //   this.ctx.fillRect(render.x, render.y, render.w, render.h);
+  // }
 }

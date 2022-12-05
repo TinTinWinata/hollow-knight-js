@@ -6,6 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hollow Knight</title>
 
+    <!-- Jquery -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
+      integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
     <!-- Script -->
     <script type="module" src="/js/game/main.js" defer></script>
     <script type="module" src="/js/game/setting.js" defer></script>
@@ -25,6 +33,18 @@
   <body>
     <div class="full center">
       <div class="canvas-container">
+        <div id="ui">
+          <img id="left" src="/assets/game/ui/left.png" alt="" />
+          <img id="money" src="/assets/game/ui/money.png" alt="" />
+          <div class="health-container">
+            <img class="health" src="/assets/game/ui/health.png" alt="" />
+            <img class="health" src="/assets/game/ui/health.png" alt="" />
+            <img class="health" src="/assets/game/ui/health.png" alt="" />
+            <img class="health" src="/assets/game/ui/health.png" alt="" />
+            <img class="health" src="/assets/game/ui/health.png" alt="" />
+          </div>
+          <div id="money-text">1</div>
+        </div>
         <canvas id="myCanvas"> </canvas>
       </div>
     </div>

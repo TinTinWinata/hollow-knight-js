@@ -1,10 +1,13 @@
 import { GAME } from "../data.js";
 
 export class Particle {
-  static emit(x, y, w, h, sprite, config, backward) {
+  static emit(x, y, w, h, sprite, config, backward, callback = null) {
     const game = GAME.getInstance();
     const particle = new this(x, y, w, h, sprite, config, backward);
     game.particles.push(particle);
+    if (callback) {
+      callback();
+    }
   }
 
   constructor(x, y, w, h, sprite, config, backward) {
@@ -19,6 +22,8 @@ export class Particle {
     this.interval = 0;
     this.backward = backward;
   }
+
+
 
   checkDeath() {
     if (this.spriteIdx >= this.config.max - 1) {

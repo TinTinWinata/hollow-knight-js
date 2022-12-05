@@ -12,6 +12,15 @@ export class Crawlid extends Enemy {
     super.maxSpeed = 3;
   }
 
+  die() {
+    // this.maxSpeed = 0;
+    console.log("im dead!");
+  }
+
+  hit() {
+    this.die();
+  }
+
   parentMethod() {
     if (this.backward) {
       this.vx += this.speed;
