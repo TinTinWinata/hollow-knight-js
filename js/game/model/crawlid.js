@@ -1,9 +1,22 @@
-import { CRAWLID_CONF, GET_CRAWLID_WALK } from "../facade/file.js";
+import { GAME } from "../data.js";
+import {
+  CRAWLID_CONF,
+  GET_CRAWLID_DIE,
+  GET_CRAWLID_WALK,
+} from "../facade/file.js";
 import { Enemy } from "../parent/enemies.js";
 
 export class Crawlid extends Enemy {
   static GenerateCrawlid(x) {
-    return new this(x, 100, 100, 80, GET_CRAWLID_WALK(), CRAWLID_CONF.walk);
+    const game = GAME.getInstance();
+    return new this(
+      x,
+      100,
+      100 * game.scale,
+      80 * game.scale,
+      GET_CRAWLID_WALK(),
+      CRAWLID_CONF.walk
+    );
   }
 
   constructor(x, y, w, h, sprite, config) {
@@ -13,12 +26,14 @@ export class Crawlid extends Enemy {
   }
 
   die() {
-    // this.maxSpeed = 0;
-    console.log("im dead!");
+    this.maxSpeed = 0;
+    this.spriteIdx = 0;
+    this.sprite = GET_CRAWLID_DIE();
+    this.dead = true;
   }
 
   hit() {
-    this.die();
+    if (!this.dead) this.die();
   }
 
   parentMethod() {

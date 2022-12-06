@@ -9,6 +9,7 @@ import { Ground } from "./model/ground.js";
 import { Player } from "./model/player.js";
 import { Crawlid } from "./model/crawlid.js";
 import { UI } from "./model/ui.js";
+import Camera from "./facade/camera.js";
 
 const game = GAME.getInstance();
 
@@ -38,8 +39,8 @@ function isRun() {
 const player = new Player(
   0,
   0,
-  150,
-  170,
+  150 * game.scale,
+  170 * game.scale,
   GET_PLAYER_IDLE_SPRITE(),
   PLAYER_CONF.idle
 );
@@ -47,7 +48,7 @@ const player = new Player(
 const bg = new Background(
   0,
   0,
-  game.width + 2000,
+  game.width + 300,
   game.height,
   GET_BG_FIRST(),
   game.ctx
@@ -80,8 +81,6 @@ window.addEventListener("keyup", (e) => {
   game.keys[e.key] = false;
 });
 
-render();
-
 function renderParticle() {
   for (let i = 0; i < game.particles.length; i++) {
     game.particles[i].render();
@@ -91,7 +90,18 @@ function renderParticle() {
   }
 }
 
+// Camera Initialization
+
+const setting = {
+  distance: game.width,
+};
+const camera = new Camera(game.ctx, setting);
+render();
+
 function render() {
+  /* Zooming the camera to 10. */
+  // camera.begin();
+  // camera.moveTo(player.x + 100, player.y);
   if (isRun() && !game.pause) {
     game.backgrounds.forEach((obj) => {
       obj.render();
@@ -100,13 +110,14 @@ function render() {
     game.objects.forEach((object) => {
       object.render();
     });
-    game.characters.forEach((character) => {
-      character.render();
-    });
     game.enemies.forEach((enemy) => {
       enemy.render();
     });
+    game.characters.forEach((character) => {
+      character.render();
+    });
     renderParticle();
   }
+  // camera.end();
   requestAnimationFrame(render);
 }

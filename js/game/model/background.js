@@ -18,8 +18,7 @@ export class Background {
   }
 
   logic() {
-    //
-    const game = GAME.getInstance();
+    
   }
 
   render() {

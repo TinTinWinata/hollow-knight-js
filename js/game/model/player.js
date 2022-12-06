@@ -48,6 +48,7 @@ export class Player extends Character {
   }
 
   changeSprite(state) {
+    // console.log("now : ", this.state, " want to : ", state);
     if (
       this.state == "attack" ||
       (this.state == "jump" && state != "attack" && state != "jump")
@@ -57,7 +58,6 @@ export class Player extends Character {
     // this.spriteIdx = 0;
     switch (state) {
       case "idle":
-        this.state = state;
         this.config = PLAYER_CONF.idle;
         this.sprite = GET_PLAYER_IDLE_SPRITE();
         break;
@@ -65,26 +65,26 @@ export class Player extends Character {
         if (this.state == state) {
           return;
         }
-        this.state = "walk";
         this.config = PLAYER_CONF.walk;
         this.sprite = GET_PLAYER_WALK_SPRITE();
         break;
       case "attack":
-        this.state = "attack";
         this.spriteIdx = 0;
         this.config = PLAYER_CONF.attack;
         this.sprite = GET_PLAYER_ATTACK_SPRITE();
         break;
       case "jump":
-        this.state = "jump";
         this.spriteIdx = 0;
         this.config = PLAYER_CONF.jump;
         this.sprite = GET_PLAYER_JUMP_SPRITE();
         break;
     }
+    this.state = state;
   }
 
   attack() {
+    if (!this.canAttack) return;
+
     // Get Node (x, y) in front of player position
     const node = this.inFrontNode(-10);
 
@@ -109,13 +109,28 @@ export class Player extends Character {
       this.backward,
       this.playerSplashAttack(x, y, w, h)
     );
+
+    this.canAttack = false;
   }
 
   checkMovement() {
+    const { game } = this;
+
     if (this.game.keys[Setting.PLAYER_MOVEMENT_RIGHT]) {
       this.changeSprite("walk");
       this.backward = false;
       this.vx += this.speedX;
+      // if (this.x < game.width / 2 - this.w / 2) {
+      //   this.vx += this.speedX;
+      // } else {
+      //   game.objects.map((obj) => {
+      //     obj.x -= this.speedX * 4;
+      //   });
+      //   game.enemies.map((enemy) => {
+      //     enemy.x -= this.speedX * 4;
+      //   });
+      //   this.vx = 0;
+      // }
     } else if (this.game.keys[Setting.PLAYER_MOVEMENT_LEFT]) {
       this.changeSprite("walk");
       this.vx -= this.speedX;
@@ -139,10 +154,8 @@ export class Player extends Character {
     const game = GAME.getInstance();
     // console.log("checking splash!");
     // game.debug(x, y, w, h, "red");
-    console.log("splash : ", x, y, w, h);
     game.enemies.forEach((enemy) => {
       if (enemy.isCollideBlock(x, y, w, h)) {
-        console.log("hit!");
         enemy.hit();
       }
     });
@@ -156,7 +169,7 @@ export class Player extends Character {
 
     if (this.invicible) return;
     this.game.enemies.forEach((enemy) => {
-      if (enemy.isCollideBlock(x, y, w, h)) {
+      if (enemy.isCollideBlock(x, y, w, h) && !enemy.dead) {
         // Collide With Enemy!
         this.game.pause = true;
         this.invicible = true;
@@ -176,7 +189,19 @@ export class Player extends Character {
     ui.changeHealth(this.health);
   }
 
+  checkAttack() {
+    if (!this.canAttack) {
+      if (this.attackInterval >= this.attackSpeed) {
+        this.attackInterval = 0;
+        this.canAttack = true;
+      } else {
+        this.attackInterval += 1;
+      }
+    }
+  }
+
   parentMethod() {
+    this.checkAttack();
     this.checkCollideEnemy();
     this.checkState();
     this.checkMovement();
@@ -211,6 +236,9 @@ export class Player extends Character {
     super(x, y, w, h, sprite, maxSprite);
     this.initPlayer();
     this.initAllSprite();
+    this.canAttack = true;
+    this.attackSpeed = 30;
+    this.attackInterval = 0;
     this.offsetX = 100;
     this.offsetY = 100;
     this.health = 5;

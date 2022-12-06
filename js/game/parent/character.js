@@ -24,6 +24,7 @@ export class Character {
     this.invicibleTime = 100;
     this.invicibleInterval = 0;
     this.health = 5;
+    this.dead = false;
   }
 
   checkInvicible() {
@@ -107,10 +108,18 @@ export class Character {
   }
 
   logic() {
+    // Incrementing the sprite
     this.spriteInterval += 1;
     if (this.spriteInterval > this.config.speed) {
       this.spriteIdx += 1;
       this.spriteInterval = 0;
+    }
+
+    // If death then sprite index will no go back
+    if (this.dead) {
+      if (this.spriteIdx >= this.config.max) {
+        this.spriteIdx = this.config.max - 1;
+      }
     }
 
     // Call parent method
@@ -149,6 +158,7 @@ export class Character {
 
   render() {
     this.logic();
+
     const idx = this.spriteIdx % this.config.max;
 
     // !Debugging Purpose

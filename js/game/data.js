@@ -9,6 +9,7 @@ export class GAME {
   };
 
   constructor() {
+    this.scale = 1;
     this.pause = false;
     this.objects = [];
     this.characters = [];

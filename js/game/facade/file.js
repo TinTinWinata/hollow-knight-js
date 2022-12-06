@@ -36,12 +36,26 @@ export const CRAWLID_CONF = {
     max: 4,
     speed: 10,
   },
+  die: {
+    max: 5,
+    speed: 3,
+  },
 };
+
+const CACHE = new Map();
 
 export function GET_UI_HEALTH() {
   const img = new Image();
   img.src = "/assets/game/ui/health.png";
   return img;
+}
+
+export function GET_CRAWLID_DIE() {
+  const imageList = [];
+  for (let i = 1; i <= CRAWLID_CONF.die.max; i++) {
+    imageList.push(LOAD_IMAGE(`/assets/game/crawlid/die/die_0${i}.png`));
+  }
+  return imageList;
 }
 
 export function GET_UI_LEFT() {
@@ -65,18 +79,35 @@ export function GET_CRAWLID_WALK() {
 }
 
 export function GET_PLAYER_JUMP_SPRITE() {
+  const cacheName = "player_jump";
+  const cache = CACHE.get(cacheName);
+  if (cache != null) {
+    return cache;
+  }
+
   const imageList = [];
   for (let i = 1; i <= PLAYER_CONF.jump.max; i++) {
     const idx = pad(i);
     imageList.push(LOAD_IMAGE(`/assets/game/hero/jump/jump_${idx}.png`));
   }
+
+  CACHE.set(cacheName, imageList);
   return imageList;
 }
 export function GET_PLAYER_ATTACK_SPRITE() {
+  const cacheName = "player_attack";
+  const cache = CACHE.get(cacheName);
+  if (cache != null) {
+    return cache;
+  }
+
   const imageList = [];
   for (let i = 1; i <= PLAYER_CONF.attack.max; i++) {
     imageList.push(LOAD_IMAGE(`/assets/game/hero/attack/attack_0${i}.png`));
   }
+
+  CACHE.set(cacheName, imageList);
+
   return imageList;
 }
 
@@ -119,21 +150,37 @@ export function GET_FLOOR_SPRITE() {
 }
 
 export function GET_PLAYER_IDLE_SPRITE() {
+  const cacheName = "player_idle";
+  const cache = CACHE.get(cacheName);
+  if (cache != null) {
+    return cache;
+  }
+
   const imageList = [];
   for (let i = 1; i <= PLAYER_CONF.idle.max; i++) {
     imageList.push(LOAD_IMAGE(`/assets/game/hero/idle/idle_0${i}.png`));
   }
+
+  CACHE.set(cacheName, imageList);
   return imageList;
 }
 
 export function GET_PLAYER_WALK_SPRITE() {
+  const cacheName = "player_walk";
+  const cache = CACHE.get(cacheName);
+  if (cache != null) {
+    return cache;
+  }
+
   const imageList = [];
   for (let i = 1; i <= PLAYER_CONF.walk.max; i++) {
     imageList.push(LOAD_IMAGE(`/assets/game/hero/walk/walk_0${i}.png`));
   }
+
+  CACHE.set(cacheName, imageList);
   return imageList;
 }
 
 export function GET_BG_FIRST() {
-  return LOAD_IMAGE("/assets/game/object/background_3.png");
+  return LOAD_IMAGE("/assets/game/object/background_1.png");
 }
