@@ -37,8 +37,8 @@ function isRun() {
 }
 
 const player = new Player(
-  0,
-  0,
+  game.width / 2,
+  game.height - 350,
   150 * game.scale,
   170 * game.scale,
   GET_PLAYER_IDLE_SPRITE(),
@@ -91,7 +91,6 @@ function renderParticle() {
 }
 
 // Camera Initialization
-
 const setting = {
   distance: game.width,
 };
@@ -100,8 +99,8 @@ render();
 
 function render() {
   /* Zooming the camera to 10. */
-  // camera.begin();
-  // camera.moveTo(player.x + 100, player.y);
+  camera.begin();
+  camera.moveTo(player.x + 100, player.y - 50);
   if (isRun() && !game.pause) {
     game.backgrounds.forEach((obj) => {
       obj.render();
@@ -118,6 +117,6 @@ function render() {
     });
     renderParticle();
   }
-  // camera.end();
+  camera.end();
   requestAnimationFrame(render);
 }

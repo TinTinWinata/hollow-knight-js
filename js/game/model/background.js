@@ -17,9 +17,7 @@ export class Background {
     this.h = h;
   }
 
-  logic() {
-    
-  }
+  logic() {}
 
   render() {
     this.logic();

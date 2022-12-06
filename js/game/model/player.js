@@ -1,10 +1,12 @@
 import { GAME } from "../data.js";
 import {
+  GET_HIT,
   GET_PLAYER_ATTACK_SPLASH_SPRITE,
   GET_PLAYER_ATTACK_SPRITE,
   GET_PLAYER_IDLE_SPRITE,
   GET_PLAYER_JUMP_SPRITE,
   GET_PLAYER_WALK_SPRITE,
+  HIT_CONF,
   PLAYER_CONF,
 } from "../facade/file.js";
 import { Character } from "../parent/character.js";
@@ -120,17 +122,7 @@ export class Player extends Character {
       this.changeSprite("walk");
       this.backward = false;
       this.vx += this.speedX;
-      // if (this.x < game.width / 2 - this.w / 2) {
-      //   this.vx += this.speedX;
-      // } else {
-      //   game.objects.map((obj) => {
-      //     obj.x -= this.speedX * 4;
-      //   });
-      //   game.enemies.map((enemy) => {
-      //     enemy.x -= this.speedX * 4;
-      //   });
-      //   this.vx = 0;
-      // }
+      this.vx += this.speedX;
     } else if (this.game.keys[Setting.PLAYER_MOVEMENT_LEFT]) {
       this.changeSprite("walk");
       this.vx -= this.speedX;
@@ -157,6 +149,15 @@ export class Player extends Character {
     game.enemies.forEach((enemy) => {
       if (enemy.isCollideBlock(x, y, w, h)) {
         enemy.hit();
+        Particle.emit(
+          x,
+          y + 100,
+          200,
+          100,
+          GET_HIT(),
+          HIT_CONF.enemy,
+          this.backward
+        );
       }
     });
   }

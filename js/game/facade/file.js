@@ -31,6 +31,12 @@ export const PLAYER_CONF = {
   },
 };
 
+export const HIT_CONF = {
+  enemy: {
+    max: 3,
+    speed: 5,
+  },
+};
 export const CRAWLID_CONF = {
   walk: {
     max: 4,
@@ -75,6 +81,23 @@ export function GET_CRAWLID_WALK() {
   for (let i = 1; i <= CRAWLID_CONF.walk.max; i++) {
     imageList.push(LOAD_IMAGE(`/assets/game/crawlid/crawlid_0${i}.png`));
   }
+  return imageList;
+}
+
+export function GET_HIT() {
+  const cacheName = "hit";
+  const cache = CACHE.get(cacheName);
+  if (cache != null) {
+    return cache;
+  }
+
+  const imageList = [];
+  for (let i = 1; i <= HIT_CONF.enemy.max; i++) {
+    const idx = pad(i);
+    imageList.push(LOAD_IMAGE(`/assets/game/particle/hit/hit_${idx}.png`));
+  }
+
+  CACHE.set(cacheName, imageList);
   return imageList;
 }
 
@@ -182,5 +205,6 @@ export function GET_PLAYER_WALK_SPRITE() {
 }
 
 export function GET_BG_FIRST() {
-  return LOAD_IMAGE("/assets/game/object/background_1.png");
+  /* Not doing anything. It is commented out. */
+  return LOAD_IMAGE("/assets/game/object/background_2.png");
 }

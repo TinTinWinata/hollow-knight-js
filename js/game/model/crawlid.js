@@ -12,8 +12,8 @@ export class Crawlid extends Enemy {
     return new this(
       x,
       100,
-      100 * game.scale,
-      80 * game.scale,
+      110 * game.scale,
+      90 * game.scale,
       GET_CRAWLID_WALK(),
       CRAWLID_CONF.walk
     );

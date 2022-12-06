@@ -1,3 +1,5 @@
+import { GAME } from "../data.js";
+
 /**
  * Camera by @robashton returns Camera object.
  *  constructor initial parameters:
@@ -9,7 +11,7 @@ export default class Camera {
     this.distance = settings.distance || 1000.0;
     this.lookAt = settings.initialPosition || [0, 0];
     this.context = context;
-    this.fieldOfView = settings.fieldOfView || Math.PI / 4.0;
+    this.fieldOfView = settings.fieldOfView || Math.PI / 6.0;
     this.viewport = {
       left: 0,
       right: 0,
@@ -94,6 +96,16 @@ export default class Camera {
    * @param {y axis coord} y
    */
   moveTo(x, y) {
+    const game = GAME.getInstance();
+    // console.log(x);
+    const maxLeft = game.maxLeftX;
+    const maxRight = game.maxRightX;
+    if (x <= maxLeft) {
+      x = maxLeft;
+    }
+    if (x >= maxRight) {
+      x = maxRight;
+    }
     this.lookAt[0] = x;
     this.lookAt[1] = y;
     this.updateViewport();

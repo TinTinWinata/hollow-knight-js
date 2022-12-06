@@ -23,8 +23,6 @@ export class Particle {
     this.backward = backward;
   }
 
-
-
   checkDeath() {
     if (this.spriteIdx >= this.config.max - 1) {
       this.dead = true;

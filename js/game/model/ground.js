@@ -13,19 +13,12 @@ export class Ground extends Object {
     // Offset for making ground makes assembled together
     const offset = 20;
 
-    // Make top ground with pushing the object
-    for (let i = 0; i < w * totalGround; i += w) {
-      const ground = new Ground(i - offset, y, w + offset, h, game.ctx);
-      ground.setColliderOffset(0, 20, 0, 0);
-      game.objects.push(ground);
-    }
-
     // Make all ground black below the top ground
     game.objects.push(
       new Object(
         0,
         y + h / 2,
-        game.width,
+        totalGround * w,
         game.height,
         null,
         null,
@@ -33,6 +26,13 @@ export class Ground extends Object {
         "black"
       )
     );
+
+    // Make top ground with pushing the object
+    for (let i = 0; i < w * totalGround; i += w) {
+      const ground = new Ground(i - offset, y, w + offset, h, game.ctx);
+      ground.setColliderOffset(0, 20, 0, 0);
+      game.objects.push(ground);
+    }
   }
 
   constructor(x, y, w, h, ctx) {

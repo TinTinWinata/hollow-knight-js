@@ -9,7 +9,9 @@ export class GAME {
   };
 
   constructor() {
-    this.scale = 1;
+    this.maxLeftX = 595;
+    this.maxRightX = 1400;
+    this.scale = 0.7;
     this.pause = false;
     this.objects = [];
     this.characters = [];
