@@ -7,21 +7,23 @@ import {
 import { Enemy } from "../parent/enemies.js";
 
 export class Crawlid extends Enemy {
-  static GenerateCrawlid(x) {
+  static GenerateCrawlid(x, backward = false) {
     const game = GAME.getInstance();
     return new this(
       x,
-      100,
+      game.height - 250,
       110 * game.scale,
       90 * game.scale,
       GET_CRAWLID_WALK(),
-      CRAWLID_CONF.walk
+      CRAWLID_CONF.walk,
+      backward
     );
   }
 
-  constructor(x, y, w, h, sprite, config) {
+  constructor(x, y, w, h, sprite, config, backward) {
     super(x, y, w, h, sprite, config);
     super.speed = 24;
+    super.backward = backward;
     super.maxSpeed = 180;
   }
 
@@ -38,7 +40,6 @@ export class Crawlid extends Enemy {
   }
 
   parentMethod() {
-    console.log("vx : ", this.vx);
     // console.log("x : ", this.x);
     if (this.backward) {
       this.vx += this.speed;

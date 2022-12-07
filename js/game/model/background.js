@@ -8,6 +8,8 @@ export class Background {
 
   static GenerateForeground() {}
 
+
+
   constructor(x, y, w, h, sprite, ctx) {
     this.sprite = sprite;
     this.ctx = ctx;

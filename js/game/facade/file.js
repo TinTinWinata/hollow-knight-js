@@ -31,6 +31,11 @@ export const PLAYER_CONF = {
   },
 };
 
+export const FLIES_CONF = {
+  max: 8,
+  speed: 4,
+};
+
 export const HIT_CONF = {
   enemy: {
     max: 3,
@@ -117,6 +122,23 @@ export function GET_PLAYER_JUMP_SPRITE() {
   CACHE.set(cacheName, imageList);
   return imageList;
 }
+
+export function GET_FLIES_SPRITE() {
+  const cacheName = "flies";
+  const cache = CACHE.get(cacheName);
+  if (cache != null) {
+    return cache;
+  }
+
+  const imageList = [];
+  for (let i = 1; i <= FLIES_CONF.max; i++) {
+    imageList.push(LOAD_IMAGE(`/assets/game/flies/flies_0${i}.png`));
+  }
+
+  CACHE.set(cacheName, imageList);
+  return imageList;
+}
+
 export function GET_PLAYER_ATTACK_SPRITE() {
   const cacheName = "player_attack";
   const cache = CACHE.get(cacheName);

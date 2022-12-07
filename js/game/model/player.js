@@ -94,9 +94,13 @@ export class Player extends Character {
     this.splashIndex += 1;
 
     this.changeSprite("attack");
+    const offsetX = 20;
+    const offsetTopY = -20;
 
-    const x = this.backward ? node.x - this.splashWidth : node.x;
-    const y = node.y - this.splashHeight / 2;
+    const x = this.backward
+      ? node.x - this.splashWidth - offsetX
+      : node.x + offsetX;
+    const y = node.y - this.splashHeight / 2 - offsetTopY;
     const w = this.splashWidth;
     const h = this.splashHeight;
 
@@ -149,7 +153,7 @@ export class Player extends Character {
     game.enemies.forEach((enemy) => {
       if (enemy.isCollideBlock(x, y, w, h)) {
         enemy.hit();
-        Particle.HitParticle(enemy.x, enemy.y);
+        // Particle.HitParticle(enemy.x, enemy.y);
       }
     });
   }
@@ -176,7 +180,6 @@ export class Player extends Character {
 
   hit() {
     this.health -= 1;
-
     // Change UI
     const ui = UI.getInstance();
     ui.changeHealth(this.health);
@@ -209,8 +212,8 @@ export class Player extends Character {
   }
 
   initPlayer() {
-    this.splashWidth = 250;
-    this.splashHeight = 250;
+    this.splashWidth = 150;
+    this.splashHeight = 150;
     this.attackSprite = GET_PLAYER_ATTACK_SPLASH_SPRITE();
     this.splashIndex = 0;
   }
@@ -230,7 +233,7 @@ export class Player extends Character {
     this.initPlayer();
     this.initAllSprite();
     this.canAttack = true;
-    this.attackSpeed = 30;
+    this.attackSpeed = 20;
     this.attackInterval = 0;
     this.offsetX = 100;
     this.offsetY = 100;

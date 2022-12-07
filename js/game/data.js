@@ -21,6 +21,7 @@ export class GAME {
     this.foregrounds = [];
     this.enemies = [];
     this.debugs = [];
+    this.flies = [];
     this.gravity = 60;
     this.canvas = document.getElementById("myCanvas");
     this.ctx = document.getElementById("myCanvas").getContext("2d");

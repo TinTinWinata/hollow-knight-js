@@ -1,6 +1,7 @@
 import {
   GET_BG_FIRST,
   GET_PLAYER_IDLE_SPRITE,
+  GET_PLAYER_JUMP_SPRITE,
   PLAYER_CONF,
 } from "./facade/file.js";
 import { Background } from "./model/background.js";
@@ -10,6 +11,7 @@ import { Player } from "./model/player.js";
 import { Crawlid } from "./model/crawlid.js";
 import { UI } from "./model/ui.js";
 import Camera from "./facade/camera.js";
+import { Character } from "./parent/character.js";
 
 const game = GAME.getInstance();
 
@@ -58,10 +60,12 @@ const bg = new Background(
 );
 
 Ground.generateBackground();
+Character.GenerateFlies();
 
 game.backgrounds.push(bg);
 game.characters.push(player);
-game.enemies.push(Crawlid.GenerateCrawlid(1000));
+game.enemies.push(Crawlid.GenerateCrawlid(1));
+game.enemies.push(Crawlid.GenerateCrawlid(game.width - 1));
 
 // Get Instance UI
 const ui = UI.getInstance();
@@ -100,6 +104,8 @@ const setting = {
 const camera = new Camera(game.ctx, setting);
 render();
 
+let i = 1;
+
 function render() {
   /* Zooming the camera to 10. */
   if (isRun() && !game.pause) {
@@ -118,8 +124,13 @@ function render() {
     game.characters.forEach((character) => {
       character.render();
     });
+    game.flies.forEach((fly) => {
+      fly.render();
+    });
+
     game.renderDebugs();
     renderParticle();
+
     camera.end();
   }
   requestAnimationFrame(render);

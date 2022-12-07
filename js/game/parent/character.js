@@ -1,8 +1,25 @@
 import { GAME } from "../data.js";
+import { FLIES_CONF, GET_FLIES_SPRITE } from "../facade/file.js";
 import { checkBlockCollide, checkCollide } from "../facade/helper.js";
 
 export class Character {
-  constructor(x, y, w, h, sprite, config) {
+  static GenerateFlies() {
+    const game = GAME.getInstance();
+    const totalFlies = 10;
+    const w = 100;
+    const h = 100;
+
+    for (let i = 0; i < totalFlies; i++) {
+      const x = Math.random() * game.width;
+      const y = Math.random() * game.height - 350;
+      game.flies.push(
+        new this(x, y, w, h, GET_FLIES_SPRITE(), FLIES_CONF, false)
+      );
+    }
+  }
+
+  constructor(x, y, w, h, sprite, config, gravity = true) {
+    this.gravity = gravity;
     this.x = x;
     this.y = y;
     this.w = w;
@@ -135,7 +152,9 @@ export class Character {
     if (this.isGrounded()) {
       this.vy = 0;
     } else {
-      this.vy += this.game.gravity;
+      if (this.gravity) {
+        this.vy += this.game.gravity;
+      }
     }
 
     // Check velocity at max speed
@@ -160,6 +179,14 @@ export class Character {
     this.logic();
 
     const idx = this.spriteIdx % this.config.max;
+
+    // !Debugging Purpose
+    // console.log("idx : ", idx);
+    // console.log("max : ", this.config.max);
+
+    if (idx < 0 || idx >= this.config.max) {
+      console.log("FAILED! [IDX] : ", idx);
+    }
 
     // !Debugging Purpose
     // console.log("rendering : ", idx, " max : ", this.config.max);
