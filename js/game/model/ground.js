@@ -1,4 +1,4 @@
-import { GAME } from "../data.js";
+import { GAME } from "../game.js";
 import { GET_FLOOR_SPRITE } from "../facade/file.js";
 import { Object } from "../parent/object.js";
 

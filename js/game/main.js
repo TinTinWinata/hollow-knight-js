@@ -5,13 +5,15 @@ import {
   PLAYER_CONF,
 } from "./facade/file.js";
 import { Background } from "./model/background.js";
-import { GAME } from "./data.js";
+import { GAME } from "./game.js";
 import { Ground } from "./model/ground.js";
 import { Player } from "./model/player.js";
 import { Crawlid } from "./model/crawlid.js";
 import { UI } from "./model/ui.js";
 import Camera from "./facade/camera.js";
 import { Character } from "./parent/character.js";
+import { BossDoor } from "./model/bossdoor.js";
+import { Setting } from "./setting.js";
 
 const game = GAME.getInstance();
 
@@ -61,14 +63,23 @@ const bg = new Background(
 
 Ground.generateBackground();
 Character.GenerateFlies();
+// BossDoor.GenerateDoor();
+// BossDoor.GenerateBackground();
+
+const bossDoor = BossDoor.GetInstance();
+bossDoor.generateDoor();
+bossDoor.generateBackground();
 
 game.backgrounds.push(bg);
+game.player = player;
 game.characters.push(player);
-game.enemies.push(Crawlid.GenerateCrawlid(1));
-game.enemies.push(Crawlid.GenerateCrawlid(game.width - 1));
 
-// Get Instance UI
-const ui = UI.getInstance();
+setInterval(() => {
+  if (Setting.TOTAL_CRAWLID >= game.enemies.length) {
+    game.enemies.push(Crawlid.GenerateCrawlid(1));
+    game.enemies.push(Crawlid.GenerateCrawlid(game.width - 1));
+  }
+}, 1000);
 
 window.addEventListener("keydown", (e) => {
   if (e.key == "z") {
@@ -104,20 +115,18 @@ const setting = {
 const camera = new Camera(game.ctx, setting);
 render();
 
-let i = 1;
-
 function render() {
-  /* Zooming the camera to 10. */
-  if (isRun() && !game.pause) {
+  isRun();
+  if (!game.pause) {
     camera.begin();
     camera.moveTo(player.x + 100, player.y - 50);
     game.backgrounds.forEach((obj) => {
       obj.render();
     });
-    // game.debug(player);
     game.objects.forEach((object) => {
       object.render();
     });
+    bossDoor.render();
     game.enemies.forEach((enemy) => {
       enemy.render();
     });
@@ -130,6 +139,7 @@ function render() {
 
     game.renderDebugs();
     renderParticle();
+    // game.debug(player.x, player.y, player.w, player.h);
 
     camera.end();
   }

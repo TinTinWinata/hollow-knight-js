@@ -1,4 +1,4 @@
-import { GAME } from "../data.js";
+import { GAME } from "../game.js";
 
 /**
  * Camera by @robashton returns Camera object.

@@ -1,10 +1,13 @@
-import { GAME } from "../data.js";
+import { GAME } from "../game.js";
 import {
   CRAWLID_CONF,
   GET_CRAWLID_DIE,
   GET_CRAWLID_WALK,
 } from "../facade/file.js";
+import { checkBlockCollide, isInTheLeft } from "../facade/helper.js";
 import { Enemy } from "../parent/enemies.js";
+import { Setting } from "../setting.js";
+import { UI } from "./ui.js";
 
 export class Crawlid extends Enemy {
   static GenerateCrawlid(x, backward = false) {
@@ -22,17 +25,38 @@ export class Crawlid extends Enemy {
 
   constructor(x, y, w, h, sprite, config, backward) {
     super(x, y, w, h, sprite, config);
-    super.speed = 24;
+    super.speed = Setting.CRAWLID_SPEED;
     super.backward = backward;
-    super.maxSpeed = 180;
+    super.maxSpeed = Setting.CRAWLID_MAX_SPEED;
+  }
+
+  checkBackward() {
+    const player = GAME.getInstance().player;
+    if (isInTheLeft(player, this)) {
+      this.backward = false;
+    } else {
+      this.backward = true;
+    }
+  }
+
+  isDead() {
+    return this.dead;
   }
 
   die() {
-    this.vx = 0;
-    this.maxSpeed = 0;
+    this.checkBackward();
+    const knockback = this.backward
+      ? -Setting.KNOCKBACK_POWER
+      : Setting.KNOCKBACK_POWER;
+    this.vx += knockback;
     this.spriteIdx = 0;
     this.sprite = GET_CRAWLID_DIE();
     this.dead = true;
+    UI.getInstance().incrementMoney();
+
+    // Checking killed enemy already max
+    const game = GAME.getInstance();
+    game.checkCrawlidKilled();
   }
 
   hit() {
@@ -40,8 +64,10 @@ export class Crawlid extends Enemy {
   }
 
   parentMethod() {
-    // console.log("x : ", this.x);
+    if (this.dead) return;
+
     if (this.backward) {
+      // Crawlid Movement
       this.vx += this.speed;
     } else {
       this.vx -= this.speed;

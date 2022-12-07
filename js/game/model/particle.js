@@ -1,22 +1,25 @@
-import { GAME } from "../data.js";
+import { GAME } from "../game.js";
 import { GET_HIT, HIT_CONF } from "../facade/file.js";
+import { getRandomFromArray } from "../facade/helper.js";
 
 export class Particle {
   static HitParticle(x, y, backward = false) {
     const w = 500;
     const h = 100;
-    console.log("emit hit particle!");
+    const offsetX = -60;
+    const offsetY = -30;
+    const degree = getRandomFromArray([60, 30]);
     const game = GAME.getInstance();
     Particle.Emit(
-      x - w / 2,
-      y - h / 2,
+      x + offsetX,
+      y + offsetY,
       w,
       h,
       GET_HIT(),
       HIT_CONF.enemy,
       backward,
       null,
-      0
+      degree
     );
   }
 
@@ -66,27 +69,21 @@ export class Particle {
       this.spriteIdx += 1;
     }
   }
+
+  renderWithDegree(degree, game) {
+    game.ctx.save();
+    game.ctx.translate(this.x, this.y);
+    game.ctx.rotate((degree * Math.PI) / 360);
+    game.ctx.drawImage(this.sprite[this.spriteIdx], -this.w / 2, -this.h / 2);
+    game.ctx.restore();
+  }
+
   render() {
     if (!this.dead) {
       const game = GAME.getInstance();
-
       // Render If there's any degree then rotate correspond with the degree
       if (this.degree > 0) {
-        game.ctx.save();
-        game.ctx.translate(game.width / 2, game.height / 2);
-        game.ctx.rotate((this.degree * Math.PI) / 180);
-        console.log("x : ", this.x);
-        console.log("y : ", this.y);
-        console.log(-this.w / 2, -this.h / 2);
-        game.ctx.drawImage(
-          this.sprite[this.spriteIdx],
-          -250,
-          315
-
-          // -this.w / 2,
-          // -this.h / 2
-        );
-        game.ctx.restore();
+        this.renderWithDegree(this.degree, game);
       } else {
         // Render if backward ( rotate 180 )
         if (this.backward) {

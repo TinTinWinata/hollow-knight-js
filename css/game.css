@@ -1,5 +1,7 @@
 
 
+
+
 .canvas-container{
   width: 1000px;
   height: 600px;
@@ -14,7 +16,6 @@
   height: 100%;
 }
 
-
 #ui{
   z-index: 10;
   position:  absolute;
@@ -27,6 +28,17 @@
   top: 50px;
   left: 65px;
   width: 15%;
+}
+
+#title{
+  display: none;  
+  font-family: 'hollowKnight';
+  position: absolute;
+  bottom: 50px;
+  font-size: 30px;
+  left: 50px;
+  color: white;
+  z-index: 10;
 }
 
 #ui #money-text{

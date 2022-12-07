@@ -1,4 +1,4 @@
-import { GAME } from "../data.js";
+import { GAME } from "../game.js";
 
 export function checkCollide(x, y, w, h, x1, y1) {
   console.log(x1 > x, x1 < x + w, y1 > y, y1 < y + h);
@@ -7,6 +7,19 @@ export function checkCollide(x, y, w, h, x1, y1) {
   } else {
     return false;
   }
+}
+
+export function isInTheLeft(obj, obj2) {
+  if (obj.x < obj2.x) {
+    return true;
+  } else {
+    return false;
+  }
+}
+export function getRandomFromArray(arr) {
+  const len = arr.length;
+  const idx = Math.floor(Math.random() * len);
+  return arr[idx];
 }
 
 export function checkBlockCollide(x1, y1, w1, h1, x2, y2, w2, h2) {

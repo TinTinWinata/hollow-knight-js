@@ -15,11 +15,11 @@ export const PLAYER_CONF = {
   },
   splash1: {
     max: 2,
-    speed: 2,
+    speed: 3,
   },
   splash2: {
     max: 2,
-    speed: 2,
+    speed: 3,
   },
   attack: {
     max: 3,
@@ -33,13 +33,13 @@ export const PLAYER_CONF = {
 
 export const FLIES_CONF = {
   max: 8,
-  speed: 4,
+  speed: 6,
 };
 
 export const HIT_CONF = {
   enemy: {
     max: 3,
-    speed: 5,
+    speed: 10,
   },
 };
 export const CRAWLID_CONF = {
@@ -59,6 +59,15 @@ export function GET_UI_HEALTH() {
   const img = new Image();
   img.src = "/assets/game/ui/health.png";
   return img;
+}
+
+export function GET_BOSS_DOOR(n) {
+  // 1 -> Door Background
+  // 2 -> Door
+  // 3 -> White portal
+  const image = new Image();
+  image.src = `/assets/game/boss_door/boss_door_${n}.png`;
+  return image;
 }
 
 export function GET_CRAWLID_DIE() {

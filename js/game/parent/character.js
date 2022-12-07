@@ -1,13 +1,14 @@
-import { GAME } from "../data.js";
+import { GAME } from "../game.js";
 import { FLIES_CONF, GET_FLIES_SPRITE } from "../facade/file.js";
 import { checkBlockCollide, checkCollide } from "../facade/helper.js";
+import { Setting } from "../setting.js";
 
 export class Character {
   static GenerateFlies() {
     const game = GAME.getInstance();
-    const totalFlies = 10;
-    const w = 100;
-    const h = 100;
+    const totalFlies = Setting.GENERATED_FLIES;
+    const w = Setting.FLIES_WIDTH;
+    const h = Setting.FLIES_HEIGHT;
 
     for (let i = 0; i < totalFlies; i++) {
       const x = Math.random() * game.width;
@@ -26,19 +27,19 @@ export class Character {
     this.h = h;
     this.sprite = sprite;
     this.spriteIdx = 0;
-    this.speedX = 60;
+    this.speedX = Setting.CHARACTER_SPEED;
     this.speedY = 1;
     this.vx = 0;
     this.vy = 0;
-    this.maxSpeed = 420;
+    this.maxSpeed = Setting.CHARACTER_MAX_SPEED;
     this.config = config;
     this.game = GAME.getInstance();
-    this.jumpForce = 1300;
+    this.jumpForce = Setting.CHARACTER_JUMP_FORCE;
     this.spriteInterval = 0;
     this.backward = false;
     this.state = "";
     this.invicible = false;
-    this.invicibleTime = 100;
+    this.invicibleTime = 1;
     this.invicibleInterval = 0;
     this.health = 5;
     this.dead = false;
@@ -47,7 +48,8 @@ export class Character {
   checkInvicible() {
     // Check if is invicible set 100 / 60 second to set to uninvicible
     if (this.invicible) {
-      this.invicibleInterval += 1;
+      this.invicibleInterval += 1 * this.game.delta;
+      // console.log(this.invicibleInterval);
       if (this.invicibleInterval > this.invicibleTime) {
         this.invicibleInterval = 0;
         this.invicible = false;
@@ -143,8 +145,11 @@ export class Character {
 
     // console.log("vx : ", this.vx);
     // If not grounded then gravity will turn down the player
-    if (!this.checkBound() && !this.dead) {
+
+    if (!this.checkBound()) {
+      // console.log("speed : ", this.vx * this.game.delta);
       this.x += this.vx * this.game.delta;
+      this.diedStop();
     }
 
     this.y += this.vy * this.game.delta;
@@ -173,6 +178,14 @@ export class Character {
     // if (this.vy < -this.maxSpeed) {
     //   this.vy = -this.maxSpeed;
     // }
+  }
+
+  diedStop() {
+    if (this.dead && this.vx > 0) {
+      this.vx -= 1;
+    } else if (this.dead && this.vx < 0) {
+      this.vx += 1;
+    }
   }
 
   render() {

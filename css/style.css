@@ -1,5 +1,10 @@
 /* Main Styling for All Page */
 
+@font-face{
+  font-family: hollowKnight;
+  src: url('/assets/font/Supernatural_Knight.ttf')
+}
+
 *{
   margin:0;
   padding:0;

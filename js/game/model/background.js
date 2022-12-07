@@ -1,4 +1,7 @@
-import { GAME } from "../data.js";
+import { GAME } from "../game.js";
+import { GET_BOSS_DOOR } from "../facade/file.js";
+import { Object } from "../parent/object.js";
+import { Setting } from "../setting.js";
 
 export class Background {
   // Static method for generating background
@@ -8,8 +11,6 @@ export class Background {
 
   static GenerateForeground() {}
 
-
-
   constructor(x, y, w, h, sprite, ctx) {
     this.sprite = sprite;
     this.ctx = ctx;
@@ -17,6 +18,11 @@ export class Background {
     this.y = y;
     this.w = w;
     this.h = h;
+    this.callbacks = [];
+  }
+
+  pushCallback(cb) {
+    this.callbacks.push(cb);
   }
 
   logic() {}
@@ -24,5 +30,8 @@ export class Background {
   render() {
     this.logic();
     this.ctx.drawImage(this.sprite, this.x, this.y, this.w, this.h);
+    this.callbacks.forEach((callback) => {
+      callback();
+    });
   }
 }

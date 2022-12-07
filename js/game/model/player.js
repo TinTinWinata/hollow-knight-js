@@ -1,4 +1,4 @@
-import { GAME } from "../data.js";
+import { GAME } from "../game.js";
 import {
   GET_HIT,
   GET_PLAYER_ATTACK_SPLASH_SPRITE,
@@ -152,15 +152,17 @@ export class Player extends Character {
     // game.debug(x, y, w, h, "red");
     game.enemies.forEach((enemy) => {
       if (enemy.isCollideBlock(x, y, w, h)) {
+        if (!enemy.isDead()) {
+          Particle.HitParticle(enemy.x, enemy.y);
+        }
         enemy.hit();
-        // Particle.HitParticle(enemy.x, enemy.y);
       }
     });
   }
 
   checkCollideEnemy() {
     const x = this.x + this.offsetX / 2;
-    const y = this.y + this.offsetY / 2;
+    const y = this.y + this.offsetY / 2 + 15;
     const w = this.w - this.offsetX;
     const h = this.h - this.offsetY;
 
@@ -171,6 +173,7 @@ export class Player extends Character {
         this.game.pause = true;
         this.invicible = true;
         this.hit();
+
         setTimeout(() => {
           this.game.pause = false;
         }, 500);
@@ -235,8 +238,8 @@ export class Player extends Character {
     this.canAttack = true;
     this.attackSpeed = 20;
     this.attackInterval = 0;
-    this.offsetX = 100;
-    this.offsetY = 100;
+    this.offsetX = 60;
+    this.offsetY = 40;
     this.health = 5;
   }
 }

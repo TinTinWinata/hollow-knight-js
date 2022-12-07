@@ -1,4 +1,4 @@
-import { GAME } from "../data.js";
+import { GAME } from "../game.js";
 import { GET_UI_HEALTH, GET_UI_LEFT, GET_UI_MONEY } from "../facade/file.js";
 
 export class UI {
@@ -26,6 +26,11 @@ export class UI {
     for (let i = nToHide - 1; i >= 0; i--) {
       $(".health").eq(i).hide();
     }
+  }
+
+  incrementMoney() {
+    this.money += 1;
+    this.changeMoney(this.money);
   }
 
   changeMoney(n) {

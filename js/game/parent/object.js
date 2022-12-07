@@ -1,5 +1,5 @@
 import { checkBlockCollide, checkCollide } from "../facade/helper.js";
-import { GAME } from "../data.js";
+import { GAME } from "../game.js";
 
 export class Object {
   setColliderOffset(x, y, w, h) {

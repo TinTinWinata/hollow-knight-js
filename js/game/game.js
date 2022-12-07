@@ -1,3 +1,7 @@
+import { BossDoor } from "./model/bossdoor.js";
+import { UI } from "./model/ui.js";
+import { Setting } from "./setting.js";
+
 export class GAME {
   static gameInstance;
 
@@ -9,9 +13,10 @@ export class GAME {
   };
 
   constructor() {
+    this.player;
     this.maxLeftX = 595;
     this.maxRightX = 1400;
-    this.scale = 0.7;
+    this.scale = Setting.SCALE;
     this.pause = false;
     this.objects = [];
     this.characters = [];
@@ -22,13 +27,21 @@ export class GAME {
     this.enemies = [];
     this.debugs = [];
     this.flies = [];
-    this.gravity = 60;
+    this.gravity = Setting.GRAVITY;
     this.canvas = document.getElementById("myCanvas");
     this.ctx = document.getElementById("myCanvas").getContext("2d");
-    this.width = 2000;
-    this.height = 1200;
-    this.fps = 60;
+    this.width = Setting.WIDTH;
+    this.height = Setting.HEIGHT;
+    this.fps = Setting.FPS;
     this.delta = 0;
+  }
+
+  checkCrawlidKilled() {
+    const ui = UI.getInstance();
+    if (ui.money > Setting.TOTAL_CRAWLID) {
+      const door = BossDoor.GetInstance();
+      door.openDoor();
+    }
   }
 
   debug(x, y, w, h, color = "red") {
