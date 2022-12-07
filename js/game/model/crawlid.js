@@ -21,11 +21,12 @@ export class Crawlid extends Enemy {
 
   constructor(x, y, w, h, sprite, config) {
     super(x, y, w, h, sprite, config);
-    super.speed = 0.4;
-    super.maxSpeed = 3;
+    super.speed = 24;
+    super.maxSpeed = 180;
   }
 
   die() {
+    this.vx = 0;
     this.maxSpeed = 0;
     this.spriteIdx = 0;
     this.sprite = GET_CRAWLID_DIE();
@@ -37,6 +38,8 @@ export class Crawlid extends Enemy {
   }
 
   parentMethod() {
+    console.log("vx : ", this.vx);
+    // console.log("x : ", this.x);
     if (this.backward) {
       this.vx += this.speed;
     } else {

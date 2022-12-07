@@ -22,6 +22,9 @@ let lastTime = new Date();
 function getDelta() {
   const nowTime = new Date();
   const delta = (nowTime - lastTime) / 1000;
+  game.delta = delta;
+  // !Debugging Purpose
+  // console.log("delta : ", delta);
   lastTime = nowTime;
   return delta;
 }
@@ -99,9 +102,9 @@ render();
 
 function render() {
   /* Zooming the camera to 10. */
-  camera.begin();
-  camera.moveTo(player.x + 100, player.y - 50);
   if (isRun() && !game.pause) {
+    camera.begin();
+    camera.moveTo(player.x + 100, player.y - 50);
     game.backgrounds.forEach((obj) => {
       obj.render();
     });
@@ -115,8 +118,9 @@ function render() {
     game.characters.forEach((character) => {
       character.render();
     });
+    game.renderDebugs();
     renderParticle();
+    camera.end();
   }
-  camera.end();
   requestAnimationFrame(render);
 }

@@ -6,11 +6,13 @@ export class Enemy extends Character {
   }
 
   checkBound() {
-    if (this.x + this.vx < 0 || this.x + this.w + this.vx > this.game.width) {
+    // 50 -> Player Offset X
+    if (
+      (this.backward && this.x + this.w + 1 > this.game.width) ||
+      (!this.backward && this.x - 1 < 0)
+    ) {
       this.vx = 0;
       this.backward = !this.backward;
-      /* Logging a message to the console. */
-      // console.log("checking enemy bound : ", this.backward);
       return true;
     }
     return false;

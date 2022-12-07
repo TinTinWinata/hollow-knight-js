@@ -101,7 +101,7 @@ export class Player extends Character {
     const h = this.splashHeight;
 
     // Emit The White Particle Effect
-    Particle.emit(
+    Particle.Emit(
       x,
       y,
       w,
@@ -149,15 +149,7 @@ export class Player extends Character {
     game.enemies.forEach((enemy) => {
       if (enemy.isCollideBlock(x, y, w, h)) {
         enemy.hit();
-        Particle.emit(
-          x,
-          y + 100,
-          200,
-          100,
-          GET_HIT(),
-          HIT_CONF.enemy,
-          this.backward
-        );
+        Particle.HitParticle(enemy.x, enemy.y);
       }
     });
   }

@@ -20,17 +20,28 @@ export class GAME {
     this.backgrounds = [];
     this.foregrounds = [];
     this.enemies = [];
-    this.gravity = 1;
+    this.debugs = [];
+    this.gravity = 60;
     this.canvas = document.getElementById("myCanvas");
     this.ctx = document.getElementById("myCanvas").getContext("2d");
     this.width = 2000;
     this.height = 1200;
     this.fps = 60;
+    this.delta = 0;
   }
 
   debug(x, y, w, h, color = "red") {
     this.ctx.fillStyle = color;
     this.ctx.fillRect(x, y, w, h);
+  }
+  addDebugs(x, y, w, h, color = "red") {
+    this.debugs.push({ x: x, y: y, w: w, h: h, color: color });
+  }
+  renderDebugs() {
+    this.debugs.forEach((obj) => {
+      this.ctx.fillStyle = obj.color;
+      this.ctx.fillRect(obj.x, obj.y, obj.w, obj.h);
+    });
   }
 
   // debug(render, color = "blue") {

@@ -9,14 +9,14 @@ export class Character {
     this.h = h;
     this.sprite = sprite;
     this.spriteIdx = 0;
-    this.speedX = 1;
+    this.speedX = 60;
     this.speedY = 1;
     this.vx = 0;
     this.vy = 0;
-    this.maxSpeed = 7;
+    this.maxSpeed = 420;
     this.config = config;
     this.game = GAME.getInstance();
-    this.jumpForce = 25;
+    this.jumpForce = 1300;
     this.spriteInterval = 0;
     this.backward = false;
     this.state = "";
@@ -66,9 +66,7 @@ export class Character {
     let collideFlag = false;
     this.game.objects.forEach((obj) => {
       // !Debugging Purpose
-      if (
-        obj.isCollideBlock(this.x, this.y, this.w, this.h + this.game.gravity)
-      ) {
+      if (obj.isCollideBlock(this.x, this.y, this.w, this.h + 1)) {
         collideFlag = true;
       }
     });
@@ -97,11 +95,11 @@ export class Character {
   checkBound() {
     // 50 -> Player Offset X
     if (
-      this.x + 50 + this.vx < 0 ||
-      this.x + this.w + this.vx > this.game.width
+      (!this.backward && this.x + this.w + 1 > this.game.width) ||
+      (this.backward && this.x - 1 < 0)
     ) {
       // this.backward = true;
-      this.vx = 0;
+      // this.vx = 0;
       return true;
     }
     return false;
@@ -109,7 +107,8 @@ export class Character {
 
   logic() {
     // Incrementing the sprite
-    this.spriteInterval += 1;
+    this.spriteInterval += 60 * this.game.delta;
+    // console.log("sprite interval :", this.spriteInterval);
     if (this.spriteInterval > this.config.speed) {
       this.spriteIdx += 1;
       this.spriteInterval = 0;
@@ -125,8 +124,15 @@ export class Character {
     // Call parent method
     this.parentMethod();
 
+    // console.log("vx : ", this.vx);
     // If not grounded then gravity will turn down the player
-    if (this.isCollideObject()) {
+    if (!this.checkBound() && !this.dead) {
+      this.x += this.vx * this.game.delta;
+    }
+
+    this.y += this.vy * this.game.delta;
+
+    if (this.isGrounded()) {
       this.vy = 0;
     } else {
       this.vy += this.game.gravity;
@@ -137,12 +143,6 @@ export class Character {
     this.checkBound();
 
     this.checkInvicible();
-
-    if (this.checkBound()) {
-    } else {
-      this.x += this.vx;
-    }
-    this.y += this.vy;
   }
 
   checkMaxSpeed() {
