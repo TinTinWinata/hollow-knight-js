@@ -100,6 +100,10 @@ export default class Camera {
     // console.log(x);
     const maxLeft = game.maxLeftX;
     const maxRight = game.maxRightX;
+    const maxTop = game.maxTop;
+    if (y < maxTop) {
+      y = maxTop;
+    }
     if (x <= maxLeft) {
       x = maxLeft;
     }

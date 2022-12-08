@@ -1,3 +1,4 @@
+import { GET_BOSS_BG } from "./facade/file.js";
 import { BossDoor } from "./model/bossdoor.js";
 import { UI } from "./model/ui.js";
 import { Setting } from "./setting.js";
@@ -16,6 +17,7 @@ export class GAME {
     this.player;
     this.maxLeftX = 595;
     this.maxRightX = 1400;
+    this.maxTop = 350;
     this.scale = Setting.SCALE;
     this.pause = false;
     this.objects = [];
@@ -24,6 +26,7 @@ export class GAME {
     this.particles = [];
     this.backgrounds = [];
     this.foregrounds = [];
+    this.mainBackground;
     this.enemies = [];
     this.debugs = [];
     this.flies = [];
@@ -34,6 +37,8 @@ export class GAME {
     this.height = Setting.HEIGHT;
     this.fps = Setting.FPS;
     this.delta = 0;
+    this.bossFight = false;
+    this.killedCrawlid = 0;
   }
 
   checkCrawlidKilled() {
@@ -56,6 +61,19 @@ export class GAME {
       this.ctx.fillStyle = obj.color;
       this.ctx.fillRect(obj.x, obj.y, obj.w, obj.h);
     });
+  }
+
+  changeBossScene() {
+    // Settup Background
+    this.mainBackground.sprite = GET_BOSS_BG();
+
+    // Clear Enemy
+    this.bossFight = true;
+    this.enemies.length = 0;
+
+    // Teleport Player
+    const offsetX = 30;
+    this.player.x = offsetX + 0 + this.player.w;
   }
 
   // debug(render, color = "blue") {

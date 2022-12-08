@@ -17,6 +17,7 @@ export class Background {
     this.x = x;
     this.y = y;
     this.w = w;
+    /* Not doing anything. It is a comment. */
     this.h = h;
     this.callbacks = [];
   }

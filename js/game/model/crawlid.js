@@ -56,6 +56,7 @@ export class Crawlid extends Enemy {
 
     // Checking killed enemy already max
     const game = GAME.getInstance();
+    game.killedCrawlid += 1;
     game.checkCrawlidKilled();
   }
 

@@ -236,6 +236,8 @@ export function GET_PLAYER_WALK_SPRITE() {
 }
 
 export function GET_BG_FIRST() {
-  /* Not doing anything. It is commented out. */
   return LOAD_IMAGE("/assets/game/object/background_2.png");
+}
+export function GET_BOSS_BG() {
+  return LOAD_IMAGE("/assets/game/object/background_1.png");
 }

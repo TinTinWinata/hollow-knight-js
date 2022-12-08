@@ -70,12 +70,13 @@ const bossDoor = BossDoor.GetInstance();
 bossDoor.generateDoor();
 bossDoor.generateBackground();
 
-game.backgrounds.push(bg);
+game.mainBackground = bg;
+// game.backgrounds.push(bg);s
 game.player = player;
 game.characters.push(player);
 
 setInterval(() => {
-  if (Setting.TOTAL_CRAWLID >= game.enemies.length) {
+  if (!game.bossFight && Setting.TOTAL_CRAWLID >= game.killedCrawlid) {
     game.enemies.push(Crawlid.GenerateCrawlid(1));
     game.enemies.push(Crawlid.GenerateCrawlid(game.width - 1));
   }
@@ -115,18 +116,22 @@ const setting = {
 const camera = new Camera(game.ctx, setting);
 render();
 
+// !Debugging Purpose
+game.changeBossScene();
+
 function render() {
   isRun();
   if (!game.pause) {
     camera.begin();
     camera.moveTo(player.x + 100, player.y - 50);
+    game.mainBackground.render();
     game.backgrounds.forEach((obj) => {
       obj.render();
     });
     game.objects.forEach((object) => {
       object.render();
     });
-    bossDoor.render();
+    if (!game.bossFight) bossDoor.render();
     game.enemies.forEach((enemy) => {
       enemy.render();
     });

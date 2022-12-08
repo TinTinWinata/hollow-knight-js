@@ -51,7 +51,9 @@ export class BossDoor {
     this.open = false;
     this.bossDoors = [];
     this.showLight = false;
-    // this.generatePortal();
+
+    // !Debugging Purposes
+    this.openDoor();
   }
 
   openDoor() {
@@ -84,14 +86,30 @@ export class BossDoor {
     }
   }
 
+  addListener(key) {
+    const k = key.key;
+    if (Setting.PLAYER_INTERACT.includes(k)) {
+      const game = GAME.getInstance();
+      game.changeBossScene();
+    }
+  }
+
   checkInside() {
     // 1720 - 1800
 
     const game = GAME.getInstance();
-    if (this.showLight && game.player.x >= 1720 && game.player.x <= 1800) {
+    // Check if player inside the
+    if (
+      !game.bossFight &&
+      this.showLight &&
+      game.player.x >= 1720 &&
+      game.player.x <= 1800
+    ) {
       $("#title").fadeIn(2000);
+      window.addEventListener("keypress", this.addListener);
     } else {
       $("#title").fadeOut(2000);
+      window.removeEventListener("keypress", this.addListener);
     }
   }
 
