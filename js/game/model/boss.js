@@ -3,6 +3,7 @@ import {
   GET_BOSS_ATTACK_PREP_SPRITE,
   GET_BOSS_ATTACK_SPRITE,
   GET_BOSS_IDLE_SPRITE,
+  GET_BOSS_JUMP_SPRITE,
 } from "../facade/file.js";
 import { isInTheLeft } from "../facade/helper.js";
 import { GAME } from "../game.js";
@@ -13,6 +14,7 @@ export class Boss extends Enemy {
   static IDLE = 1;
   static ATTACK_PREP = 2;
   static ATTACK = 3;
+  static JUMP = 4;
 
   constructor(x, y, w, h) {
     const sprite = GET_BOSS_IDLE_SPRITE();
@@ -21,14 +23,30 @@ export class Boss extends Enemy {
 
     this.attackTimes = 0;
     this.attacked = false;
-    this.offsetX = 0;
 
     // Debugging Purpose
     window.addEventListener("keypress", (e) => {
       if (e.key == "r") {
         this.attack();
       }
+      if (e.key == "e") {
+        this.jump();
+      }
     });
+  }
+
+  checkOffset() {
+    if (!this.backward) {
+      super.offsetX = 210;
+      super.offsetY = 100;
+      super.offsetW = -300;
+      super.offsetH = -130;
+    } else {
+      super.offsetX = 50;
+      super.offsetY = 100;
+      super.offsetW = -300;
+      super.offsetH = -130;
+    }
   }
 
   getTempNode() {
@@ -61,7 +79,6 @@ export class Boss extends Enemy {
       this.h = Setting.BOSS_HEIGHT;
       this.y = Setting.BOSS_INITIAL_Y;
     }
-    this.offsetX = 0;
   }
 
   improveSize(offsetX, offsetY) {
@@ -91,18 +108,20 @@ export class Boss extends Enemy {
         this.setDefaultSize();
         break;
       case Boss.ATTACK:
-        console.log("ATTACKING!");
         this.sprite = GET_BOSS_ATTACK_SPRITE();
         this.config = BOSS_CONF.attack;
         this.improveSize(50, 100);
         break;
+      case Boss.JUMP:
+        this.sprite = GET_BOSS_JUMP_SPRITE();
+        this.config = BOSS_CONF.jump;
+        this.setDefaultSize();
     }
     this.state = state;
   }
 
   checkAttack() {
     if (this.state == Boss.ATTACK && this.spriteIdx == 2) {
-      console.log("shaking!");
       this.game.shakeScene(1);
     }
     if (this.state == Boss.ATTACK && this.spriteIdx >= this.config.max - 1) {
@@ -113,6 +132,11 @@ export class Boss extends Enemy {
         this.changeState(Boss.IDLE);
       }
     }
+  }
+
+  jump() {
+    this.lookAtPlayer();
+    this.changeState(Boss.JUMP);
   }
 
   attack() {
@@ -150,6 +174,7 @@ export class Boss extends Enemy {
   }
 
   parentMethod() {
+    this.checkOffset();
     this.checkIncrementInvert();
     this.checkAttack();
   }

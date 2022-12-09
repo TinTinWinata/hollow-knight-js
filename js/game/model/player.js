@@ -153,7 +153,7 @@ export class Player extends Character {
     game.enemies.forEach((enemy) => {
       if (enemy.isCollideBlock(x, y, w, h)) {
         if (!enemy.isDead()) {
-          Particle.HitParticle(x + w / 2, y + w / 2);
+          Particle.HitParticle(x + w, y + w / 2);
         }
         enemy.hit();
       }
@@ -210,6 +210,7 @@ export class Player extends Character {
   jump() {
     if (this.isGrounded()) {
       this.vy -= this.jumpForce;
+      console.log("jumpforce : ", this.vy);
       this.changeSprite("jump");
     }
   }

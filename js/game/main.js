@@ -22,7 +22,6 @@ game.canvas.height = game.height;
 
 let lagInterval = 0;
 let lastTime = new Date();
-let frameCounter = 0;
 let timeEllapsed = 0;
 let tempTimeInterval = 0;
 let tempFrameCounter = 0;
@@ -144,8 +143,6 @@ function calculateFps() {
 }
 
 function render() {
-  calculateFps();
-  getDelta();
   if (!game.pause) {
     camera.begin();
 
@@ -153,6 +150,8 @@ function render() {
       camera.shake();
     }
     camera.moveTo(player.x + 100, player.y - 50);
+    calculateFps();
+    getDelta();
     game.mainBackground.render();
     game.backgrounds.forEach((obj) => {
       obj.render();

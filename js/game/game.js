@@ -54,8 +54,11 @@ export class GAME {
   }
 
   debug(x, y, w, h, color = "red") {
+    this.ctx.save();
+    this.ctx.globalAlpha = 0.3;
     this.ctx.fillStyle = color;
     this.ctx.fillRect(x, y, w, h);
+    this.ctx.restore();
   }
   addDebugs(x, y, w, h, color = "red") {
     this.debugs.push({ x: x, y: y, w: w, h: h, color: color });

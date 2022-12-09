@@ -44,6 +44,10 @@ export const BOSS_CONF = {
     max: 8,
     speed: 4,
   },
+  jump: {
+    max: 7,
+    speed: 6,
+  },
 };
 
 export const FLIES_CONF = {
@@ -110,6 +114,23 @@ export function GET_CRAWLID_WALK() {
   for (let i = 1; i <= CRAWLID_CONF.walk.max; i++) {
     imageList.push(LOAD_IMAGE(`/assets/game/crawlid/crawlid_0${i}.png`));
   }
+  return imageList;
+}
+
+export function GET_BOSS_JUMP_SPRITE() {
+  const cacheName = "boss_jump_sprite";
+  const cache = CACHE.get(cacheName);
+  if (cache != null) {
+    return cache;
+  }
+
+  const imageList = [];
+  for (let i = 1; i <= BOSS_CONF.jump.max; i++) {
+    const idx = pad(i);
+    imageList.push(LOAD_IMAGE(`/assets/game/boss/jump/jump_${idx}.png`));
+  }
+
+  CACHE.set(cacheName, imageList);
   return imageList;
 }
 

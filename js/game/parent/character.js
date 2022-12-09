@@ -24,6 +24,11 @@ export class Character {
   }
 
   constructor(x, y, w, h, sprite, config, gravity = true) {
+    this.offsetX = 0;
+    this.offsetY = 0;
+    this.offsetW = 0;
+    this.offsetH = 0;
+
     this.gravity = gravity;
     this.x = x;
     this.y = y;
@@ -91,6 +96,7 @@ export class Character {
     let collideFlag = false;
     this.game.objects.forEach((obj) => {
       // !Debugging Purpose
+
       if (obj.isCollideBlock(this.x, this.y, this.w, this.h + 1)) {
         collideFlag = true;
       }
@@ -114,7 +120,14 @@ export class Character {
   }
 
   isCollideBlock(x, y, w, h) {
-    return checkBlockCollide(this.x, this.y, this.w, this.h, x, y, w, h);
+    const tempx = this.x + this.offsetX;
+    const tempy = this.y + this.offsetY;
+    const tempw = this.w + this.offsetW;
+    const temph = this.h + this.offsetH;
+
+    // !Debuging Purpose
+    // this.game.debug(tempx, tempy, tempw, temph);
+    return checkBlockCollide(tempx, tempy, tempw, temph, x, y, w, h);
   }
 
   checkBound() {
@@ -158,18 +171,13 @@ export class Character {
       this.diedStop();
     }
 
-    if (this.vy * this.game.delta > 0) {
-      console.log("vy : ", this.vy);
-      console.log("delta : ", this.game.delta);
-      console.log("calculate : ", this.vy * this.game.delta);
-    }
     this.y += this.vy * this.game.delta;
 
     if (this.isGrounded()) {
       this.vy = 0;
     } else {
       if (this.gravity) {
-        this.vy += this.game.gravity;
+        this.vy += this.game.gravity * this.game.delta;
       }
     }
 
@@ -231,7 +239,6 @@ export class Character {
 
   checkInvert() {
     if (this.invert !== null && this.invert > 0) {
-      console.log(this.invert);
       this.game.ctx.filter = `invert(${this.invert})`;
     }
   }

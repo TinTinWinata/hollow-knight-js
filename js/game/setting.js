@@ -13,11 +13,10 @@ export class Setting {
 
   static PLAYER_INTERACT = [" ", "e"];
 
-  static FPS = 60;
   static CHARACTER_SPEED = 30;
   static CHARACTER_MAX_SPEED = 300;
   static CHARACTER_JUMP_FORCE = 720;
-  static GRAVITY = 30;
+  static GRAVITY = 1800;
 
   static CRAWLID_SPEED = 24;
   static CRAWLID_MAX_SPEED = 100;
