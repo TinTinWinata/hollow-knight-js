@@ -158,6 +158,11 @@ export class Character {
       this.diedStop();
     }
 
+    if (this.vy * this.game.delta > 0) {
+      console.log("vy : ", this.vy);
+      console.log("delta : ", this.game.delta);
+      console.log("calculate : ", this.vy * this.game.delta);
+    }
     this.y += this.vy * this.game.delta;
 
     if (this.isGrounded()) {

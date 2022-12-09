@@ -22,13 +22,30 @@ game.canvas.height = game.height;
 
 let lagInterval = 0;
 let lastTime = new Date();
+let frameCounter = 0;
+let timeEllapsed = 0;
+let tempTimeInterval = 0;
+let tempFrameCounter = 0;
+
+const ui = UI.getInstance();
+
+function calculateTimeEllapse(delta) {
+  timeEllapsed += delta;
+  tempTimeInterval += delta;
+
+  if (tempTimeInterval > 1) {
+    ui.fps(tempFrameCounter);
+    tempTimeInterval = 0;
+    tempFrameCounter = 0;
+  }
+}
 
 function getDelta() {
   const nowTime = new Date();
   const delta = (nowTime - lastTime) / 1000;
+  calculateTimeEllapse(delta);
+
   game.delta = delta;
-  // !Debugging Purpose
-  // console.log("delta : ", delta);
   lastTime = nowTime;
   return delta;
 }
@@ -122,8 +139,13 @@ render();
 // !Debugging Purpose
 game.changeBossScene();
 
+function calculateFps() {
+  tempFrameCounter += 1;
+}
+
 function render() {
-  isRun();
+  calculateFps();
+  getDelta();
   if (!game.pause) {
     camera.begin();
 
@@ -151,7 +173,6 @@ function render() {
 
     game.renderDebugs();
     renderParticle();
-    // game.debug(player.x, player.y, player.w, player.h);
 
     camera.end();
   }

@@ -34,7 +34,7 @@ export const PLAYER_CONF = {
 export const BOSS_CONF = {
   idle: {
     max: 5,
-    speed: 6,
+    speed: 7,
   },
   attack_prep: {
     max: 6,

@@ -16,6 +16,10 @@ export class UI {
     this.totalHealth = 5;
   }
 
+  fps(n) {
+    $("#fps").html(n);
+  }
+
   reset() {
     $(".health").show();
     $("#money-text").text(0);

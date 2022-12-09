@@ -101,8 +101,8 @@ export class Boss extends Enemy {
   }
 
   checkAttack() {
-    // 2 -> MACE ALREADY IN BOTTOM
     if (this.state == Boss.ATTACK && this.spriteIdx == 2) {
+      console.log("shaking!");
       this.game.shakeScene(1);
     }
     if (this.state == Boss.ATTACK && this.spriteIdx >= this.config.max - 1) {
