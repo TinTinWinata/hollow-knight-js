@@ -15,7 +15,7 @@ export const PLAYER_CONF = {
   },
   splash1: {
     max: 2,
-    speed: 3,
+    speed: 2,
   },
   splash2: {
     max: 2,
@@ -31,6 +31,21 @@ export const PLAYER_CONF = {
   },
 };
 
+export const BOSS_CONF = {
+  idle: {
+    max: 5,
+    speed: 6,
+  },
+  attack_prep: {
+    max: 6,
+    speed: 5,
+  },
+  attack: {
+    max: 8,
+    speed: 4,
+  },
+};
+
 export const FLIES_CONF = {
   max: 8,
   speed: 6,
@@ -39,7 +54,7 @@ export const FLIES_CONF = {
 export const HIT_CONF = {
   enemy: {
     max: 3,
-    speed: 10,
+    speed: 1,
   },
 };
 export const CRAWLID_CONF = {
@@ -95,6 +110,58 @@ export function GET_CRAWLID_WALK() {
   for (let i = 1; i <= CRAWLID_CONF.walk.max; i++) {
     imageList.push(LOAD_IMAGE(`/assets/game/crawlid/crawlid_0${i}.png`));
   }
+  return imageList;
+}
+
+export function GET_BOSS_ATTACK_PREP_SPRITE() {
+  const cacheName = "boss_attack_prep";
+  const cache = CACHE.get(cacheName);
+  if (cache != null) {
+    return cache;
+  }
+
+  const imageList = [];
+  for (let i = 1; i <= BOSS_CONF.attack_prep.max; i++) {
+    const idx = pad(i);
+    imageList.push(
+      LOAD_IMAGE(`/assets/game/boss/attack_prep/attack_prep_${idx}.png`)
+    );
+  }
+
+  CACHE.set(cacheName, imageList);
+  return imageList;
+}
+export function GET_BOSS_ATTACK_SPRITE() {
+  const cacheName = "boss_attack";
+  const cache = CACHE.get(cacheName);
+  if (cache != null) {
+    return cache;
+  }
+
+  const imageList = [];
+  for (let i = 1; i <= BOSS_CONF.attack.max; i++) {
+    const idx = pad(i);
+    imageList.push(LOAD_IMAGE(`/assets/game/boss/attack/attack_${idx}.png`));
+  }
+
+  CACHE.set(cacheName, imageList);
+  return imageList;
+}
+
+export function GET_BOSS_IDLE_SPRITE() {
+  const cacheName = "boss_idle";
+  const cache = CACHE.get(cacheName);
+  if (cache != null) {
+    return cache;
+  }
+
+  const imageList = [];
+  for (let i = 1; i <= BOSS_CONF.idle.max; i++) {
+    const idx = pad(i);
+    imageList.push(LOAD_IMAGE(`/assets/game/boss/idle/idle_${idx}.png`));
+  }
+
+  CACHE.set(cacheName, imageList);
   return imageList;
 }
 
@@ -240,4 +307,29 @@ export function GET_BG_FIRST() {
 }
 export function GET_BOSS_BG() {
   return LOAD_IMAGE("/assets/game/object/background_1.png");
+}
+
+export function GenerateAllFirst() {
+  GET_UI_HEALTH();
+  GET_BOSS_DOOR(1);
+  GET_BOSS_DOOR(2);
+  GET_BOSS_DOOR(3);
+  GET_CRAWLID_DIE();
+  GET_UI_LEFT();
+  GET_UI_MONEY();
+  GET_CRAWLID_WALK();
+  GET_BOSS_ATTACK_PREP_SPRITE();
+  GET_BOSS_ATTACK_SPRITE();
+  GET_BOSS_IDLE_SPRITE();
+  GET_HIT();
+  GET_PLAYER_JUMP_SPRITE();
+  GET_FLIES_SPRITE();
+  GET_PLAYER_ATTACK_SPRITE();
+  GET_PLAYER_ATTACK_SPLASH_1_SPRITE();
+  GET_PLAYER_ATTACK_SPLASH_2_SPRITE();
+  GET_FLOOR_SPRITE();
+  GET_PLAYER_IDLE_SPRITE();
+  GET_PLAYER_WALK_SPRITE();
+  GET_BG_FIRST();
+  GET_BOSS_BG();
 }

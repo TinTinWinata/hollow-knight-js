@@ -8,7 +8,7 @@ export class Particle {
     const h = 100;
     const offsetX = -60;
     const offsetY = -30;
-    const degree = getRandomFromArray([60, 30]);
+    const degree = getRandomFromArray([60, 30, 90, 0, 120, 150]);
     const game = GAME.getInstance();
     Particle.Emit(
       x + offsetX,

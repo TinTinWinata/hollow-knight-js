@@ -1,3 +1,5 @@
+import { isInTheLeft } from "../facade/helper.js";
+import { GAME } from "../game.js";
 import { Character } from "./character.js";
 
 export class Enemy extends Character {

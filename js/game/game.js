@@ -1,4 +1,5 @@
 import { GET_BOSS_BG } from "./facade/file.js";
+import { Boss } from "./model/boss.js";
 import { BossDoor } from "./model/bossdoor.js";
 import { UI } from "./model/ui.js";
 import { Setting } from "./setting.js";
@@ -24,9 +25,12 @@ export class GAME {
     this.characters = [];
     this.keys = [];
     this.particles = [];
+    this.camera = null;
+    this.shake = false;
     this.backgrounds = [];
     this.foregrounds = [];
     this.mainBackground;
+    this.boss = null;
     this.enemies = [];
     this.debugs = [];
     this.flies = [];
@@ -74,6 +78,23 @@ export class GAME {
     // Teleport Player
     const offsetX = 30;
     this.player.x = offsetX + 0 + this.player.w;
+
+    // Create Boss
+    const boss = new Boss(
+      Setting.BOSS_INITIAL_X,
+      Setting.BOSS_INITIAL_Y,
+      Setting.BOSS_WIDTH,
+      Setting.BOSS_HEIGHT
+    );
+    this.enemies.push(boss);
+    this.boss = boss;
+  }
+
+  shakeScene(t) {
+    this.shake = true;
+    setTimeout(() => {
+      this.shake = false;
+    }, t * 1000);
   }
 
   // debug(render, color = "blue") {

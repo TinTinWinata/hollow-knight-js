@@ -39,10 +39,6 @@ export class Crawlid extends Enemy {
     }
   }
 
-  isDead() {
-    return this.dead;
-  }
-
   die() {
     this.checkBackward();
     const knockback = this.backward

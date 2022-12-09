@@ -10,7 +10,9 @@ export function checkCollide(x, y, w, h, x1, y1) {
 }
 
 export function isInTheLeft(obj, obj2) {
-  if (obj.x < obj2.x) {
+  const x1 = obj.x + obj.w / 2;
+  const x2 = obj2.x + obj2.w / 2;
+  if (x1 < x2) {
     return true;
   } else {
     return false;

@@ -1,4 +1,5 @@
 import { GAME } from "../game.js";
+import { Setting } from "../setting.js";
 
 /**
  * Camera by @robashton returns Camera object.
@@ -93,8 +94,17 @@ export default class Camera {
   /**
    * Moves the centre of the viewport to new x, y coords (updates Camera.lookAt)
    * @param {x axis coord} x
+   *
    * @param {y axis coord} y
    */
+
+  shake() {
+    var dx = Math.random() * Setting.SHAKE_SIZE;
+    var dy = Math.random() * Setting.SHAKE_SIZE;
+    this.context.translate(dx, dy);
+    this.context.filter = `blur(2px)`;
+  }
+
   moveTo(x, y) {
     const game = GAME.getInstance();
     // console.log(x);
@@ -104,6 +114,7 @@ export default class Camera {
     if (y < maxTop) {
       y = maxTop;
     }
+
     if (x <= maxLeft) {
       x = maxLeft;
     }

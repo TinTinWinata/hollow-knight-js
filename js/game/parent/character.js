@@ -1,6 +1,10 @@
 import { GAME } from "../game.js";
 import { FLIES_CONF, GET_FLIES_SPRITE } from "../facade/file.js";
-import { checkBlockCollide, checkCollide } from "../facade/helper.js";
+import {
+  checkBlockCollide,
+  checkCollide,
+  isInTheLeft,
+} from "../facade/helper.js";
 import { Setting } from "../setting.js";
 
 export class Character {
@@ -31,6 +35,7 @@ export class Character {
     this.speedY = 1;
     this.vx = 0;
     this.vy = 0;
+    this.invert = 0;
     this.maxSpeed = Setting.CHARACTER_MAX_SPEED;
     this.config = config;
     this.game = GAME.getInstance();
@@ -43,6 +48,7 @@ export class Character {
     this.invicibleInterval = 0;
     this.health = 5;
     this.dead = false;
+    this.callbacks = [];
   }
 
   checkInvicible() {
@@ -167,6 +173,36 @@ export class Character {
     this.checkBound();
 
     this.checkInvicible();
+
+    this.callbacks.forEach((cb) => {
+      cb();
+    });
+  }
+
+  lookAtPlayer() {
+    const game = GAME.getInstance();
+    const obj = game.player;
+    if (isInTheLeft(obj, this)) {
+      console.log("backward");
+      this.backward = true;
+    } else {
+      console.log("forward");
+      this.backward = false;
+    }
+  }
+
+  lookAt(obj) {
+    if (isInTheLeft(obj, this)) {
+      console.log("backward");
+      this.backward = true;
+    } else {
+      console.log("forward");
+      this.backward = false;
+    }
+  }
+
+  isDead() {
+    return this.dead;
   }
 
   checkMaxSpeed() {
@@ -188,6 +224,36 @@ export class Character {
     }
   }
 
+  checkInvert() {
+    if (this.invert !== null && this.invert > 0) {
+      console.log(this.invert);
+      this.game.ctx.filter = `invert(${this.invert})`;
+    }
+  }
+
+  renderBackward(idx) {
+    this.game.ctx.save();
+    this.game.ctx.translate(this.x + this.w / 2, this.y + this.h / 2);
+    this.game.ctx.scale(-1, 1);
+    this.checkInvert();
+    this.game.ctx.drawImage(
+      this.sprite[idx],
+      -this.w / 2,
+      -this.h / 2,
+      this.w,
+      this.h
+    );
+    this.game.ctx.restore();
+  }
+
+  renderForward(idx) {
+    this.game.ctx.save();
+    this.checkInvert();
+    this.game.ctx.scale(1, 1);
+    this.game.ctx.drawImage(this.sprite[idx], this.x, this.y, this.w, this.h);
+    this.game.ctx.restore();
+  }
+
   render() {
     this.logic();
 
@@ -204,21 +270,13 @@ export class Character {
     // !Debugging Purpose
     // console.log("rendering : ", idx, " max : ", this.config.max);
 
+    if (this.invert) {
+    }
+
     if (this.backward) {
-      this.game.ctx.save();
-      this.game.ctx.translate(this.x + this.w / 2, this.y + this.h / 2);
-      this.game.ctx.scale(-1, 1);
-      this.game.ctx.drawImage(
-        this.sprite[idx],
-        -this.w / 2,
-        -this.h / 2,
-        this.w,
-        this.h
-      );
-      this.game.ctx.restore();
+      this.renderBackward(idx);
     } else {
-      this.game.ctx.scale(1, 1);
-      this.game.ctx.drawImage(this.sprite[idx], this.x, this.y, this.w, this.h);
+      this.renderForward(idx);
     }
   }
 }

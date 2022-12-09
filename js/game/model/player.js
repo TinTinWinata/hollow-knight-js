@@ -153,7 +153,7 @@ export class Player extends Character {
     game.enemies.forEach((enemy) => {
       if (enemy.isCollideBlock(x, y, w, h)) {
         if (!enemy.isDead()) {
-          Particle.HitParticle(enemy.x, enemy.y);
+          Particle.HitParticle(x + w / 2, y + w / 2);
         }
         enemy.hit();
       }

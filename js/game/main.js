@@ -63,33 +63,34 @@ const bg = new Background(
 
 Ground.generateBackground();
 Character.GenerateFlies();
-// BossDoor.GenerateDoor();
-// BossDoor.GenerateBackground();
 
+// Generate Bosss Door
 const bossDoor = BossDoor.GetInstance();
 bossDoor.generateDoor();
 bossDoor.generateBackground();
 
+// Setting Game Object
 game.mainBackground = bg;
 // game.backgrounds.push(bg);s
 game.player = player;
 game.characters.push(player);
 
-setInterval(() => {
-  if (!game.bossFight && Setting.TOTAL_CRAWLID >= game.killedCrawlid) {
-    game.enemies.push(Crawlid.GenerateCrawlid(1));
-    game.enemies.push(Crawlid.GenerateCrawlid(game.width - 1));
-  }
-}, 1000);
+// Generatet Crawlid
+// setInterval(() => {
+//   if (!game.bossFight && Setting.TOTAL_CRAWLID >= game.killedCrawlid) {
+//     game.enemies.push(Crawlid.GenerateCrawlid(1));
+//     game.enemies.push(Crawlid.GenerateCrawlid(game.width - 1));
+//   }
+// }, 1000);
 
 window.addEventListener("keydown", (e) => {
-  if (e.key == "z") {
+  if (e.key == Setting.PLAYER_ATTACK) {
     player.attack();
   }
 });
 
 window.addEventListener("keydown", (e) => {
-  if (e.key == "w") {
+  if (e.key == Setting.PLAYER_JUMP) {
     player.jump();
   }
 
@@ -114,6 +115,8 @@ const setting = {
   distance: game.width,
 };
 const camera = new Camera(game.ctx, setting);
+game.camera = camera;
+
 render();
 
 // !Debugging Purpose
@@ -123,6 +126,10 @@ function render() {
   isRun();
   if (!game.pause) {
     camera.begin();
+
+    if (game.shake) {
+      camera.shake();
+    }
     camera.moveTo(player.x + 100, player.y - 50);
     game.mainBackground.render();
     game.backgrounds.forEach((obj) => {

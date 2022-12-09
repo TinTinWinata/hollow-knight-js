@@ -4,11 +4,12 @@ export class Setting {
 
   static SCALE = 0.7;
 
-  static PLAYER_MOVEMENT_UP = "w";
-  static PLAYER_MOVEMENT_LEFT = "a";
-  static PLAYER_MOVEMENT_RIGHT = "d";
-  static PLAYER_MOVEMENT_DOWN = "s";
-  static PLAYER_JUMP = " ";
+  static PLAYER_MOVEMENT_UP = "ArrowUp";
+  static PLAYER_MOVEMENT_LEFT = "ArrowLeft";
+  static PLAYER_MOVEMENT_RIGHT = "ArrowRight";
+  static PLAYER_MOVEMENT_DOWN = "ArrowDown";
+  static PLAYER_JUMP = "z";
+  static PLAYER_ATTACK = "x";
 
   static PLAYER_INTERACT = [" ", "e"];
 
@@ -31,4 +32,14 @@ export class Setting {
   static DOOR_FADE_LIGHT = 0.5;
 
   static TOTAL_CRAWLID = 10;
+
+  static BOSS_INITIAL_X = 500;
+  static BOSS_INITIAL_Y = Setting.HEIGHT - 350 - 250;
+  static BOSS_ATTACK_PREP_TIME = 3;
+  static BOSS_WIDTH = 550;
+  static BOSS_HEIGHT = 400;
+  static BOSS_ATTACK_TIMES = 3;
+  static BOSS_INVERT_MULTIPLIES = 10;
+
+  static SHAKE_SIZE = 20;
 }
