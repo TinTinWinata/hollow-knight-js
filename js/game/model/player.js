@@ -200,6 +200,18 @@ export class Player extends Character {
   }
 
   parentMethod() {
+    const inc = !this.backward ? 1 : -1;
+    console.log(this.x + inc, this.y + this.h / 2)
+
+    let flag = false;  
+    this.game.objects.forEach((obj)=>{
+      const inc = !this.backward ? 1 : -1;
+      if(obj.isCollide(this.x + inc , this.y + this.h / 2)){
+        flag = true;
+      }
+    })
+
+    
     this.checkAttack();
     this.checkCollideEnemy();
     this.checkState();

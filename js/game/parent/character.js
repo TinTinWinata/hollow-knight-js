@@ -78,25 +78,15 @@ export class Character {
   }
 
   // this method will called in rendered (for child class)
-  parentMethod() {}
-
-  isCollideObject(checkX = this.x + this.vx, checkY = this.y + this.vy) {
-    let collideFlag = false;
-    this.game.objects.forEach((obj) => {
-      // !Debugging Purpose
-      // GAME.getInstance().debug(obj, "blue");
-      if (obj.isCollideNextMoveChar(this)) {
-        collideFlag = true;
-      }
-    });
-    return collideFlag;
+  parentMethod() {
   }
+
+
 
   isGrounded() {
     let collideFlag = false;
     this.game.objects.forEach((obj) => {
       // !Debugging Purpose
-
       if (obj.isCollideBlock(this.x, this.y, this.w, this.h + 1)) {
         collideFlag = true;
       }
@@ -165,7 +155,7 @@ export class Character {
     // console.log("vx : ", this.vx);
     // If not grounded then gravity will turn down the player
 
-    if (!this.checkBound()) {
+    if (!this.checkBound() && !this.isCollideObject()) {
       // console.log("speed : ", this.vx * this.game.delta);
       this.x += this.vx * this.game.delta;
       this.diedStop();
@@ -233,7 +223,7 @@ export class Character {
     if (this.dead && this.vx > 0) {
       this.vx -= 1;
     } else if (this.dead && this.vx < 0) {
-      this.vx += 1;
+      c1;
     }
   }
 
@@ -242,6 +232,19 @@ export class Character {
       this.game.ctx.filter = `invert(${this.invert})`;
     }
   }
+
+  isCollideObject(){
+    let flag = false;  
+    this.game.objects.forEach((obj)=>{
+      const inc = !this.backward ? 1 : -1;
+      if(obj.isCollide(this.x + inc , this.y + this.h / 2)){
+        console.log('colliding')
+        flag = true;
+      }
+    })
+    return flag;
+  }
+
 
   renderBackward(idx) {
     this.game.ctx.save();

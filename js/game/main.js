@@ -14,6 +14,7 @@ import Camera from "./facade/camera.js";
 import { Character } from "./parent/character.js";
 import { BossDoor } from "./model/bossdoor.js";
 import { Setting } from "./setting.js";
+import { Object } from "./parent/object.js";
 
 const game = GAME.getInstance();
 
@@ -126,6 +127,9 @@ function renderParticle() {
   }
 }
 
+
+
+
 // Camera Initialization
 const setting = {
   distance: game.width,
@@ -134,6 +138,10 @@ const camera = new Camera(game.ctx, setting);
 game.camera = camera;
 
 render();
+
+// Creating Objects
+game.objects.push(new Object(500, 500, 500, 500, null, null, game.ctx, "red"));
+
 
 // !Debugging Purpose
 // game.changeBossScene();
