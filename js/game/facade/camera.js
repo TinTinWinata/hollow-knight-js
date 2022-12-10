@@ -99,9 +99,10 @@ export default class Camera {
    */
 
   shake() {
+    // const game = GAME.getInstance(); 
     var dx = Math.random() * Setting.SHAKE_SIZE;
-    var dy = Math.random() * Setting.SHAKE_SIZE;
-    this.context.translate(dx, dy);
+    var dy = Math.random() * Setting.SHAKE_SIZE ;
+    this.context.translate(dx , dy);
     this.context.filter = `blur(2px)`;
   }
 

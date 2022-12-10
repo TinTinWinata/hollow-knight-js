@@ -15,8 +15,8 @@ export class Setting {
 
   static CHARACTER_SPEED = 30;
   static CHARACTER_MAX_SPEED = 300;
-  static CHARACTER_JUMP_FORCE = 720;
-  static GRAVITY = 1800;
+  static CHARACTER_JUMP_FORCE = 1000;
+  static GRAVITY = 2250;
 
   static CRAWLID_SPEED = 24;
   static CRAWLID_MAX_SPEED = 100;
@@ -39,6 +39,7 @@ export class Setting {
   static BOSS_HEIGHT = 400;
   static BOSS_ATTACK_TIMES = 3;
   static BOSS_INVERT_MULTIPLIES = 10;
+  static BOSS_JUMP_FORCE = 700;
 
-  static SHAKE_SIZE = 20;
+  static SHAKE_SIZE = 5;
 }

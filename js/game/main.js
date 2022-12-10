@@ -136,7 +136,7 @@ game.camera = camera;
 render();
 
 // !Debugging Purpose
-game.changeBossScene();
+// game.changeBossScene();
 
 function calculateFps() {
   tempFrameCounter += 1;
@@ -147,7 +147,7 @@ function render() {
     camera.begin();
 
     if (game.shake) {
-      camera.shake();
+      // camera.shake();
     }
     camera.moveTo(player.x + 100, player.y - 50);
     calculateFps();

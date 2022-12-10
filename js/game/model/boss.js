@@ -33,6 +33,22 @@ export class Boss extends Enemy {
         this.jump();
       }
     });
+    this.jumping  = false;
+  }
+
+
+  landing(){
+    this.changeState("idle");
+  }
+
+  checkLanding(){
+    if(this.jumping){
+      // Check already landing
+      if(this.vy == 0){
+        // Already Landing
+        this.landing();
+      }
+    }
   }
 
   checkOffset() {
@@ -137,6 +153,8 @@ export class Boss extends Enemy {
   jump() {
     this.lookAtPlayer();
     this.changeState(Boss.JUMP);
+    this.vy -= Setting.BOSS_JUMP_FORCE;
+    this.jumping = true;
   }
 
   attack() {
@@ -177,6 +195,7 @@ export class Boss extends Enemy {
     this.checkOffset();
     this.checkIncrementInvert();
     this.checkAttack();
+    this.checkLanding();
   }
   hit() {
     this.attacked = true;

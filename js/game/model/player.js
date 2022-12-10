@@ -210,7 +210,6 @@ export class Player extends Character {
   jump() {
     if (this.isGrounded()) {
       this.vy -= this.jumpForce;
-      console.log("jumpforce : ", this.vy);
       this.changeSprite("jump");
     }
   }
