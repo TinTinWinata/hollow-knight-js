@@ -29,6 +29,10 @@ export const PLAYER_CONF = {
     max: 11,
     speed: 6,
   },
+  dash: {
+    max: 2,
+    speed: 6,
+  },
 };
 
 export const BOSS_CONF = {
@@ -47,6 +51,17 @@ export const BOSS_CONF = {
   jump: {
     max: 7,
     speed: 6,
+  },
+};
+
+export const BOOFLY_CONF = {
+  fly: {
+    max: 5,
+    speed: 3,
+  },
+  die: {
+    max: 3,
+    speed: 10,
   },
 };
 
@@ -80,6 +95,20 @@ export function GET_UI_HEALTH() {
   return img;
 }
 
+export function GET_PLATFORM_SPRITE() {
+  const cacheName = "platform";
+  const cache = CACHE.get(cacheName);
+
+  if (cache != null) {
+    return cache;
+  } else {
+    const img = new Image();
+    img.src = "/assets/game/platform/platform.png";
+    CACHE.set(cacheName, img);
+    return [img];
+  }
+}
+
 export function GET_BOSS_DOOR(n) {
   // 1 -> Door Background
   // 2 -> Door
@@ -89,11 +118,51 @@ export function GET_BOSS_DOOR(n) {
   return image;
 }
 
+export function GET_BOOFLY_DIE() {
+  const cacheName = "boofly_die";
+  const cache = CACHE.get(cacheName);
+  if (cache != null) {
+    return cache;
+  }
+
+  const imageList = [];
+  for (let i = 1; i <= BOOFLY_CONF.die.max; i++) {
+    imageList.push(LOAD_IMAGE(`/assets/game/boofly/die/die_0${i}.png`));
+  }
+
+  CACHE.set(cacheName, imageList);
+  return imageList;
+}
+
+export function GET_BOOFLY_FLY() {
+  const cacheName = "boofly_fly";
+  const cache = CACHE.get(cacheName);
+  if (cache != null) {
+    return cache;
+  }
+
+  const imageList = [];
+  for (let i = 1; i <= BOOFLY_CONF.fly.max; i++) {
+    imageList.push(LOAD_IMAGE(`/assets/game/boofly/fly/fly_0${i}.png`));
+  }
+
+  CACHE.set(cacheName, imageList);
+  return imageList;
+}
+
 export function GET_CRAWLID_DIE() {
+  const cacheName = "crawlid_die";
+  const cache = CACHE.get(cacheName);
+  if (cache != null) {
+    return cache;
+  }
+
   const imageList = [];
   for (let i = 1; i <= CRAWLID_CONF.die.max; i++) {
     imageList.push(LOAD_IMAGE(`/assets/game/crawlid/die/die_0${i}.png`));
   }
+
+  CACHE.set(cacheName, imageList);
   return imageList;
 }
 
@@ -236,6 +305,23 @@ export function GET_FLIES_SPRITE() {
   return imageList;
 }
 
+export function GET_PLAYER_DASH_SPRITE() {
+  const cacheName = "player_dash";
+  const cache = CACHE.get(cacheName);
+  if (cache != null) {
+    return cache;
+  }
+
+  const imageList = [];
+  for (let i = 1; i <= PLAYER_CONF.dash.max; i++) {
+    imageList.push(LOAD_IMAGE(`/assets/game/hero/dash/dash_0${i}.png`));
+  }
+
+  CACHE.set(cacheName, imageList);
+
+  return imageList;
+}
+
 export function GET_PLAYER_ATTACK_SPRITE() {
   const cacheName = "player_attack";
   const cache = CACHE.get(cacheName);
@@ -331,6 +417,9 @@ export function GET_BOSS_BG() {
 }
 
 export function GenerateAllFirst() {
+  GET_BOOFLY_FLY();
+  GET_PLAYER_DASH_SPRITE();
+  GET_PLATFORM_SPRITE();
   GET_UI_HEALTH();
   GET_BOSS_DOOR(1);
   GET_BOSS_DOOR(2);

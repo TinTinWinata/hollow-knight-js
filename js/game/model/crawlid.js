@@ -12,7 +12,7 @@ import { UI } from "./ui.js";
 export class Crawlid extends Enemy {
   static GenerateCrawlid(x, backward = false) {
     const game = GAME.getInstance();
-    return new this(
+    const obj = new this(
       x,
       game.height - 250,
       110 * game.scale,
@@ -21,6 +21,8 @@ export class Crawlid extends Enemy {
       CRAWLID_CONF.walk,
       backward
     );
+    game.enemies.push(obj);
+    return obj;
   }
 
   constructor(x, y, w, h, sprite, config, backward) {
@@ -57,6 +59,7 @@ export class Crawlid extends Enemy {
   }
 
   hit() {
+    // console.log("hit~!");
     if (!this.dead) this.die();
   }
 

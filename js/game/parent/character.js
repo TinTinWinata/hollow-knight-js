@@ -17,6 +17,7 @@ export class Character {
     for (let i = 0; i < 0; i++) {
       const x = Math.random() * game.width;
       const y = Math.random() * game.height - 350;
+      
       game.flies.push(
         new this(x, y, w, h, GET_FLIES_SPRITE(), FLIES_CONF, false)
       );
@@ -24,10 +25,14 @@ export class Character {
   }
 
   constructor(x, y, w, h, sprite, config, gravity = true) {
+    this.canCollide = true;
+
     this.offsetX = 0;
     this.offsetY = 0;
     this.offsetW = 0;
     this.offsetH = 0;
+
+    this.savedNode = null;
 
     this.gravity = gravity;
     this.x = x;
@@ -50,23 +55,22 @@ export class Character {
     this.state = "";
     this.invicible = false;
     this.invicibleTime = 1;
-    this.invicibleInterval = 0;
+    this.tempInvicible = false;
     this.health = 5;
     this.dead = false;
     this.callbacks = [];
+    this.jumping = false;
+    this.postJump = false;
   }
 
   checkInvicible() {
     // Check if is invicible set 100 / 60 second to set to uninvicible
-    if (this.invicible) {
-      this.invicibleInterval += 1 * this.game.delta;
-      // console.log(this.invicibleInterval);
-      if (this.invicibleInterval > this.invicibleTime) {
-        this.invicibleInterval = 0;
+    if (this.invicible && !this.tempInvicible) {
+      this.tempInvicible = true;
+      setTimeout(() => {
+        this.tempInvicible = false;
         this.invicible = false;
-      }
-    } else {
-      this.invicibleInterval = 0;
+      }, this.invicibleTime * 1000);
     }
   }
 
@@ -83,7 +87,6 @@ export class Character {
   isGrounded() {
     let collideFlag = false;
     this.game.objects.forEach((obj) => {
-      // !Debugging Purpose
       if (obj.isCollideBlock(this.x, this.y, this.w, this.h + 1)) {
         collideFlag = true;
       }
@@ -158,11 +161,13 @@ export class Character {
 
     this.y += this.vy * this.game.delta;
 
-    if (this.isGrounded() || this.isHitUpperWall()) {
-      this.vy = 0;
-    } else {
-      if (this.gravity) {
-        this.vy += this.game.gravity * this.game.delta;
+    if (this.canCollide) {
+      if (this.isGrounded() || this.isHitUpperWall()) {
+        this.vy = 0;
+      } else {
+        if (this.gravity) {
+          this.vy += this.game.gravity * this.game.delta;
+        }
       }
     }
 
@@ -177,10 +182,50 @@ export class Character {
     });
   }
 
+  saveScale() {
+    this.savedNode = {
+      w: this.w,
+      h: this.h,
+    };
+  }
+
+  restoreScale() {
+    if (this.savedNode) {
+      this.w = this.savedNode.w;
+      this.h = this.savedNode.h;
+      this.savedNode = null;
+    } else {
+      console.log("there's nothing to restore!");
+    }
+  }
+
+  save() {
+    this.savedNode = {
+      x: this.x,
+      y: this.y,
+      w: this.w,
+      h: this.h,
+    };
+  }
+
+  restore() {
+    if (this.savedNode) {
+      this.x = this.savedNode.x;
+      this.y = this.savedNode.y;
+      this.w = this.savedNode.w;
+      this.h = this.savedNode.h;
+      this.savedNode = null;
+    } else {
+      console.log("there's nothing to restore!");
+    }
+  }
+
   isHitUpperWall() {
-    return this.game.isCollideObject(
-      this.x + this.w / 2,
-      this.y + 50 + this.vy * this.game.delta
+    return this.game.isCollideObjectBlock(
+      this.x + 5 + this.w / 2,
+      this.y + 50 + this.vy * this.game.delta,
+      5,
+      1
     );
   }
 
@@ -246,18 +291,21 @@ export class Character {
   }
 
   isCollideObject() {
-    let flag = false;
-    this.game.objects.forEach((obj) => {
-      const inc = !this.backward
-        ? this.vx * this.game.delta
-        : this.vx * this.game.delta;
-      this.game.debug(this.x + inc, this.y + this.h / 2, 30, 30, "blue");
+    if (this.canCollide) {
+      let flag = false;
+      this.game.objects.forEach((obj) => {
+        const inc = !this.backward
+          ? this.vx * this.game.delta
+          : this.vx * this.game.delta;
 
-      if (obj.isCollide(this.x + inc, this.y + this.h / 2)) {
-        flag = true;
-      }
-    });
-    return flag;
+        if (obj.isCollide(this.x + inc, this.y + this.h / 2)) {
+          flag = true;
+        }
+      });
+      return flag;
+    } else {
+      return false;
+    }
   }
 
   renderBackward(idx) {
@@ -285,16 +333,7 @@ export class Character {
 
   render() {
     this.logic();
-
     const idx = this.spriteIdx % this.config.max;
-
-    // !Debugging Purpose
-    // console.log("idx : ", idx);
-    // console.log("max : ", this.config.max);
-
-    if (idx < 0 || idx >= this.config.max) {
-      console.log("FAILED! [IDX] : ", idx);
-    }
 
     // !Debugging Purpose
     // console.log("rendering : ", idx, " max : ", this.config.max);

@@ -43,6 +43,15 @@ export class GAME {
     this.delta = 0;
     this.bossFight = false;
     this.killedCrawlid = 0;
+    this.canMove = true;
+    this.bossDoor = null;
+
+    this.lastTime = new Date();
+    this.timeEllapsed = 0;
+    this.tempTimeInterval = 0;
+    this.tempFrameCounter = 0;
+
+    this.ui = UI.getInstance();
   }
 
   checkCrawlidKilled() {
@@ -108,6 +117,122 @@ export class GAME {
       }
     });
     return flag;
+  }
+
+  isCollideObjectBlock(x, y, w, h) {
+    let flag = false;
+    this.objects.forEach((obj) => {
+      if (obj.isCollideBlock(x, y, w, h)) {
+        flag = true;
+      }
+    });
+    return flag;
+  }
+
+  calculateFps() {
+    this.tempFrameCounter += 1;
+  }
+
+  calculateTimeEllapse(delta) {
+    this.timeEllapsed += delta;
+    this.tempTimeInterval += delta;
+
+    if (this.tempTimeInterval > 1) {
+      this.ui.fps(this.tempFrameCounter);
+      this.tempTimeInterval = 0;
+      this.tempFrameCounter = 0;
+    }
+  }
+
+  getDelta() {
+    const nowTime = new Date();
+    const delta = (nowTime - this.lastTime) / 1000;
+    this.calculateTimeEllapse(delta);
+
+    this.delta = delta;
+    this.lastTime = nowTime;
+    return delta;
+  }
+
+  renderParticle() {
+    for (let i = 0; i < this.particles.length; i++) {
+      this.particles[i].render();
+      if (this.particles[i].dead) {
+        this.particles.splice(i, 1);
+      }
+    }
+  }
+
+  pauseGame() {
+    this.save();
+    this.pause = true;
+  }
+  resumeGame() {
+    this.restore();
+    this.pause = false;
+    this.render();
+  }
+
+  save() {
+    this.player.save();
+    this.enemies.forEach((enemy) => {
+      enemy.save();
+    });
+  }
+  restore() {
+    setTimeout(() => {
+      this.player.restore();
+      this.player.vx = 0;
+      this.player.vx = 0;
+      this.enemies.forEach((enemy) => {
+        enemy.restore();
+        enemy.vy = 0;
+        enemy.vx = 0;
+      });
+    }, 1);
+  }
+
+  enemyAlive() {
+    let flag = 0;
+    this.enemies.forEach((enemy) => {
+      if (!enemy.death) {
+        flag += 1;
+      }
+    });
+    return flag;
+  }
+
+  render() {
+    if (!this.pause) {
+      this.camera.begin();
+      if (this.shake) {
+        // this.camera.shake();
+      }
+      this.camera.moveTo(this.player.x + 100, this.player.y - 50);
+      this.calculateFps();
+      this.getDelta();
+      this.mainBackground.render();
+      this.backgrounds.forEach((obj) => {
+        obj.render();
+      });
+      this.objects.forEach((object) => {
+        object.render();
+      });
+      if (!this.bossFight) this.bossDoor.render();
+      this.enemies.forEach((enemy) => {
+        enemy.render();
+      });
+      this.characters.forEach((character) => {
+        character.render();
+      });
+      this.flies.forEach((fly) => {
+        fly.render();
+      });
+      this.renderDebugs();
+      this.renderParticle();
+      this.camera.end();
+    }
+    requestAnimationFrame(this.render.bind(this));
   }
 
   // debug(render, color = "blue") {

@@ -15,56 +15,18 @@ import { Character } from "./parent/character.js";
 import { BossDoor } from "./model/bossdoor.js";
 import { Setting } from "./setting.js";
 import { Object } from "./parent/object.js";
+import { Boofly } from "./model/boofly.js";
 
 const game = GAME.getInstance();
 
 game.canvas.width = game.width;
 game.canvas.height = game.height;
 
-let lagInterval = 0;
-let lastTime = new Date();
-let timeEllapsed = 0;
-let tempTimeInterval = 0;
-let tempFrameCounter = 0;
-
-const ui = UI.getInstance();
-
-function calculateTimeEllapse(delta) {
-  timeEllapsed += delta;
-  tempTimeInterval += delta;
-
-  if (tempTimeInterval > 1) {
-    ui.fps(tempFrameCounter);
-    tempTimeInterval = 0;
-    tempFrameCounter = 0;
-  }
-}
-
-function getDelta() {
-  const nowTime = new Date();
-  const delta = (nowTime - lastTime) / 1000;
-  calculateTimeEllapse(delta);
-
-  game.delta = delta;
-  lastTime = nowTime;
-  return delta;
-}
-
-function isRun() {
-  lagInterval += getDelta();
-  if (lagInterval > 1 / game.fps) {
-    lagInterval = 0;
-    return true;
-  } else {
-    return false;
-  }
-}
-
 const player = new Player(
   game.width / 2,
   game.height - 350,
-  150 * game.scale,
-  170 * game.scale,
+  Setting.CHARACTER_WIDTH * game.scale,
+  Setting.CHARACTER_HEIGHT * game.scale,
   GET_PLAYER_IDLE_SPRITE(),
   PLAYER_CONF.idle
 );
@@ -78,16 +40,18 @@ const bg = new Background(
   game.ctx
 );
 
-// Creating Platform
-game.objects.push(new Object(500, 700, 300, 100, null, null, game.ctx, "red"));
+// Creating Ground
+Ground.GenerateGround();
 
-Ground.generateBackground();
+// Creating Platform
+Ground.GeneratePlatform();
 Character.GenerateFlies();
 
 // Generate Bosss Door
 const bossDoor = BossDoor.GetInstance();
 bossDoor.generateDoor();
 bossDoor.generateBackground();
+game.bossDoor = bossDoor;
 
 // Setting Game Object
 game.mainBackground = bg;
@@ -95,40 +59,42 @@ game.mainBackground = bg;
 game.player = player;
 game.characters.push(player);
 
-// Generatet Crawlid
+// Generate Enemies
+Boofly.Generate();
+Crawlid.GenerateCrawlid(1);
+Crawlid.GenerateCrawlid(game.width - 1);
 setInterval(() => {
-  if (!game.bossFight && Setting.TOTAL_CRAWLID >= game.killedCrawlid) {
-    game.enemies.push(Crawlid.GenerateCrawlid(1));
-    game.enemies.push(Crawlid.GenerateCrawlid(game.width - 1));
+  if (!game.bossFight && game.enemyAlive() <= 10) {
+    Boofly.Generate();
+    Crawlid.GenerateCrawlid(1);
+    Crawlid.GenerateCrawlid(game.width - 1);
   }
-}, 1000);
+}, Setting.ENEMY_SPAWN_TIME);
 
 window.addEventListener("keydown", (e) => {
-  if (e.key == Setting.PLAYER_ATTACK) {
-    player.attack();
+  if (game.canMove) {
+    if (e.key == Setting.PLAYER_ATTACK) {
+      player.attack();
+    } else if (e.key == Setting.PLAYER_DASH) {
+      player.dash();
+    }
   }
 });
 
 window.addEventListener("keydown", (e) => {
-  if (e.key == Setting.PLAYER_JUMP) {
-    player.jump();
+  if (game.canMove) {
+    if (e.key == Setting.PLAYER_JUMP) {
+      player.jump();
+    }
+    game.keys[e.key] = true;
   }
-
-  game.keys[e.key] = true;
 });
 
 window.addEventListener("keyup", (e) => {
-  game.keys[e.key] = false;
-});
-
-function renderParticle() {
-  for (let i = 0; i < game.particles.length; i++) {
-    game.particles[i].render();
-    if (game.particles[i].dead) {
-      game.particles.splice(i, 1);
-    }
+  if (game.canMove) {
+    game.keys[e.key] = false;
   }
-}
+});
 
 // Camera Initialization
 const setting = {
@@ -137,47 +103,7 @@ const setting = {
 const camera = new Camera(game.ctx, setting);
 game.camera = camera;
 
-render();
-
 // !Debugging Purpose
 // game.changeBossScene();
-
-function calculateFps() {
-  tempFrameCounter += 1;
-}
-
-function render() {
-  if (!game.pause) {
-    camera.begin();
-
-    if (game.shake) {
-      // camera.shake();
-    }
-    camera.moveTo(player.x + 100, player.y - 50);
-    calculateFps();
-    getDelta();
-    game.mainBackground.render();
-    game.backgrounds.forEach((obj) => {
-      obj.render();
-    });
-    game.objects.forEach((object) => {
-      object.render();
-    });
-    if (!game.bossFight) bossDoor.render();
-    game.enemies.forEach((enemy) => {
-      enemy.render();
-    });
-    game.characters.forEach((character) => {
-      character.render();
-    });
-    game.flies.forEach((fly) => {
-      fly.render();
-    });
-
-    game.renderDebugs();
-    renderParticle();
-
-    camera.end();
-  }
-  requestAnimationFrame(render);
-}
+console.log(game.pause);
+game.render();

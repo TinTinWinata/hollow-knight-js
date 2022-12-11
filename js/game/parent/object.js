@@ -81,10 +81,10 @@ export class Object {
     this.ctx.fillRect(this.x, this.y, this.w, this.h);
   }
   render() {
-    if (this.sprite) {
-      this.renderWithSprite();
-    } else if (this.color) {
+    if (this.color) {
       this.renderWithColor();
+    } else if (this.sprite) {
+      this.renderWithSprite();
     }
   }
 }

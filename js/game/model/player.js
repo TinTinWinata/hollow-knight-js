@@ -3,6 +3,7 @@ import {
   GET_HIT,
   GET_PLAYER_ATTACK_SPLASH_SPRITE,
   GET_PLAYER_ATTACK_SPRITE,
+  GET_PLAYER_DASH_SPRITE,
   GET_PLAYER_IDLE_SPRITE,
   GET_PLAYER_JUMP_SPRITE,
   GET_PLAYER_WALK_SPRITE,
@@ -45,20 +46,25 @@ export class Player extends Character {
   }
 
   importantState(state) {
-    const states = ["jump", "attack"];
+    const states = ["jump", "attack", "dash"];
     return states.includes(state);
   }
 
   changeSprite(state) {
-    // console.log("now : ", this.state, " want to : ", state);
     if (
       this.state == "attack" ||
-      (this.state == "jump" && state != "attack" && state != "jump")
+      (this.state == "jump" && state != "attack" && state != "jump") ||
+      this.state == "dash"
     )
       return;
 
-    // this.spriteIdx = 0;
+    if (this.state == state) return;
     switch (state) {
+      case "dash":
+        this.spriteIdx = 0;
+        this.config = PLAYER_CONF.dash;
+        this.sprite = GET_PLAYER_DASH_SPRITE();
+        break;
       case "idle":
         this.config = PLAYER_CONF.idle;
         this.sprite = GET_PLAYER_IDLE_SPRITE();
@@ -119,10 +125,19 @@ export class Player extends Character {
     this.canAttack = false;
   }
 
-  checkMovement() {
-    const { game } = this;
+  clearKey() {
+    this.game.keys = [];
+  }
 
-    if (this.game.keys[Setting.PLAYER_MOVEMENT_RIGHT]) {
+  checkMovement() {
+    if (this.state == "dash" && this.spriteIdx == this.config.max - 1) {
+      // this.clearKey();
+      if (this.backward) {
+        this.vx += -Setting.CHARACTER_DASH_FORCE * this.game.delta;
+      } else {
+        this.vx += Setting.CHARACTER_DASH_FORCE * this.game.delta;
+      }
+    } else if (this.game.keys[Setting.PLAYER_MOVEMENT_RIGHT]) {
       this.changeSprite("walk");
       this.backward = false;
       this.vx += this.speedX;
@@ -139,20 +154,22 @@ export class Player extends Character {
 
   // Always be called when super class render (object)
 
-  checkState() {
+  checkAttackJumpState() {
     // Check if attacking state
-    if (this.spriteIdx == this.config.max - 1) {
+    if (
+      (this.state == "attack" || this.state == "jump") &&
+      this.spriteIdx == this.config.max - 1
+    ) {
       this.state = "";
     }
   }
 
   playerSplashAttack(x, y, w, h) {
     const game = GAME.getInstance();
-    // console.log("checking splash!");
-    // game.debug(x, y, w, h, "red");
     game.enemies.forEach((enemy) => {
       if (enemy.isCollideBlock(x, y, w, h)) {
         if (!enemy.isDead()) {
+          console.log("hit!");
           Particle.HitParticle(x + w, y + w / 2);
         }
         enemy.hit();
@@ -170,12 +187,14 @@ export class Player extends Character {
     this.game.enemies.forEach((enemy) => {
       if (enemy.isCollideBlock(x, y, w, h) && !enemy.dead) {
         // Collide With Enemy!
-        this.game.pause = true;
-        this.invicible = true;
+        this.game.pauseGame();
+        this.clearKey();
+        this.game.canMove = true;
         this.hit();
-
         setTimeout(() => {
-          this.game.pause = false;
+          this.invicible = true;
+          this.game.canMove = true;
+          this.game.resumeGame();
         }, 500);
       }
     });
@@ -200,64 +219,61 @@ export class Player extends Character {
   }
 
   isGrounded() {
-    let collideFlag = false;
-    this.game.debug(
+    return this.game.isCollideObjectBlock(
       this.x + 40,
       this.y + this.h + this.vy * this.game.delta,
       30,
-      30,
-      "red"
+      1
     );
-
-    this.game.objects.forEach((obj) => {
-      if (
-        obj.isCollide(this.x + 40, this.y + this.h + this.vy * this.game.delta)
-      ) {
-        collideFlag = true;
-      }
-    });
-    return collideFlag;
   }
 
   isCollideObject() {
     let flag = false;
     this.game.objects.forEach((obj) => {
       const offsetX = 35 + this.vx * this.game.delta;
-      const offsetBackwardX = -58 + this.vx * this.game.delta;
+      const offsetBackwardX = -70 + this.vx * this.game.delta;
       const inc = !this.backward ? 1 + offsetBackwardX + this.w : -1 + offsetX;
-      this.game.debug(
-        this.x + inc,
-        this.y + 70 + this.vy * this.game.delta,
-        this.w / 4,
-        this.h / 3,
-        "blue"
-      );
+
       // this.game.debug(obj.x, obj.y, obj.w, obj.h, "yellow");
-      if (
-        obj.isCollideBlock(
-          this.x + inc,
-          this.y + 70 + this.vy * this.game.delta,
-          this.w / 4,
-          this.h / 3
-        )
-      ) {
+
+      const x = this.x + inc;
+      const y = this.y + 50 + this.vy * this.game.delta;
+      const w = this.w / 4 + 10;
+      const h = 50;
+
+      // this.game.debug(x, y, w, h, "blue");
+      if (obj.isCollideBlock(x, y, w, h)) {
         flag = true;
       }
     });
     return flag;
   }
 
+  checkDashState() {
+    if (this.state == "dash") {
+      const lastIdx = this.config.max - 1;
+      // Keep Getting Last Index
+      if (this.spriteIdx > lastIdx) {
+        this.spriteIdx = 1;
+        this.spriteIdx = lastIdx;
+      }
+    }
+  }
+
   parentMethod() {
-    const inc = !this.backward ? 1 : -1;
+    // This method will be called every time (update methods)
+    this.checkJumping();
     this.checkAttack();
     this.checkCollideEnemy();
-    this.checkState();
+    this.checkAttackJumpState();
     this.checkMovement();
+    this.checkDashState();
     this.renderLight();
   }
 
   jump() {
-    if (this.canJump()) {
+    if (this.canJump() && this.state != "dash") {
+      this.jumping = true;
       this.vy -= this.jumpForce;
       this.changeSprite("jump");
     }
@@ -272,7 +288,6 @@ export class Player extends Character {
 
   initAllSprite() {
     // Initial all sprite first (because there's some bug if init later)
-
     GET_PLAYER_WALK_SPRITE();
     GET_PLAYER_ATTACK_SPLASH_SPRITE();
     GET_PLAYER_ATTACK_SPRITE();
@@ -280,10 +295,57 @@ export class Player extends Character {
     GET_PLAYER_IDLE_SPRITE();
   }
 
+  restoreDefaultScale() {
+    this.w = Setting.CHARACTER_WIDTH * this.game.scale;
+    this.h = Setting.CHARACTER_HEIGHT * this.game.scale;
+  }
+
+  dash() {
+    if (this.canDash && this.canJump() && !this.jumping && !this.postJump) {
+      this.saveScale();
+      this.vx = 1000;
+      this.w = 150; // Sprite width of dash
+      this.changeSprite("dash");
+      this.canDash = false;
+      setTimeout(() => {
+        this.restoreDefaultScale();
+        this.state = "";
+        this.changeSprite("idle");
+      }, Setting.CHARACTER_DASH_TIME);
+      setTimeout(() => {
+        this.canDash = true;
+      }, Setting.CHARACTER_DASH_TIMEOUT);
+    }
+  }
+
+  checkJumping() {
+    if (this.postJump) {
+      this.config = {
+        max: this.config.max,
+        speed: 4,
+      };
+      if (this.spriteIdx == this.config.max - 1) {
+        this.changeSprite("idle");
+        this.postJump = false;
+      }
+    }
+    if (this.jumping && this.state != "attack") {
+      const lastIdx = this.config.max - 4;
+      if (this.spriteIdx >= lastIdx) {
+        this.spriteIdx = lastIdx;
+      }
+      if (this.isGrounded()) {
+        this.jumping = false;
+        this.postJump = true;
+      }
+    }
+  }
+
   constructor(x, y, w, h, sprite, maxSprite) {
     super(x, y, w, h, sprite, maxSprite);
     this.initPlayer();
     this.initAllSprite();
+    this.canDash = true;
     this.canAttack = true;
     this.attackSpeed = 20;
     this.attackInterval = 0;

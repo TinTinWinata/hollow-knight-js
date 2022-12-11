@@ -3,8 +3,8 @@ import { GAME } from "../game.js";
 import { Character } from "./character.js";
 
 export class Enemy extends Character {
-  constructor(x, y, w, h, sprite, config) {
-    super(x, y, w, h, sprite, config);
+  constructor(x, y, w, h, sprite, config, gravity = true) {
+    super(x, y, w, h, sprite, config, gravity);
   }
 
   checkBound() {

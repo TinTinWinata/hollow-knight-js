@@ -17,6 +17,10 @@ export function isInTheLeft(obj, obj2) {
     return false;
   }
 }
+export function getDistance(x1, y1, x2, y2) {
+  return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
+}
+
 export function getRandomFromArray(arr) {
   const len = arr.length;
   const idx = Math.floor(Math.random() * len);

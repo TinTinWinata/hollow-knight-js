@@ -1,14 +1,43 @@
 import { GAME } from "../game.js";
-import { GET_FLOOR_SPRITE } from "../facade/file.js";
+import { GET_FLOOR_SPRITE, GET_PLATFORM_SPRITE } from "../facade/file.js";
 import { Object } from "../parent/object.js";
+import { Setting } from "../setting.js";
 
 export class Ground extends Object {
+  static GeneratePlatform() {
+    const sprite = GET_PLATFORM_SPRITE();
+    const nodeList = [
+      {
+        x: 300,
+        y: 800,
+        w: 400,
+      },
+      {
+        x: 900,
+        y: 700,
+        w: 300,
+      },
+      {
+        x: 400,
+        y: 600,
+        w: 300,
+      },
+    ];
+    const game = GAME.getInstance();
+    for (let i = 0; i < nodeList.length; i++) {
+      // Create position
+      const h = Setting.PLATFORM_HEIGHT;
+      const y = nodeList[i].y;
+      const x = nodeList[i].x;
+      const w = nodeList[i].w;
 
-  static generatePlatform(){
-    
+      const obj = new Object(x, y, w, h, sprite, 1, game.ctx, null);
+      console.log("pushing");
+      game.objects.push(obj);
+    }
   }
 
-  static generateBackground() {
+  static GenerateGround() {
     const game = GAME.getInstance();
     const y = game.height - 200;
     const w = 300;
