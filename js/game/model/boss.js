@@ -29,22 +29,22 @@ export class Boss extends Enemy {
       if (e.key == "r") {
         this.attack();
       }
-      if (e.key == "e") {
+      if (e.key == "t") {
+        console.log("jumping");
         this.jump();
       }
     });
-    this.jumping  = false;
+    this.jumping = false;
   }
 
-
-  landing(){
+  landing() {
     this.changeState("idle");
   }
 
-  checkLanding(){
-    if(this.jumping){
+  checkLanding() {
+    if (this.jumping) {
       // Check already landing
-      if(this.vy == 0){
+      if (this.vy == 0) {
         // Already Landing
         this.landing();
       }

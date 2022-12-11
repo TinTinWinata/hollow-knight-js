@@ -78,10 +78,7 @@ export class Character {
   }
 
   // this method will called in rendered (for child class)
-  parentMethod() {
-  }
-
-
+  parentMethod() {}
 
   isGrounded() {
     let collideFlag = false;
@@ -114,9 +111,7 @@ export class Character {
     const tempy = this.y + this.offsetY;
     const tempw = this.w + this.offsetW;
     const temph = this.h + this.offsetH;
-
     // !Debuging Purpose
-    // this.game.debug(tempx, tempy, tempw, temph);
     return checkBlockCollide(tempx, tempy, tempw, temph, x, y, w, h);
   }
 
@@ -233,18 +228,18 @@ export class Character {
     }
   }
 
-  isCollideObject(){
-    let flag = false;  
-    this.game.objects.forEach((obj)=>{
+  isCollideObject() {
+    let flag = false;
+    this.game.objects.forEach((obj) => {
       const inc = !this.backward ? 1 : -1;
-      if(obj.isCollide(this.x + inc , this.y + this.h / 2)){
-        console.log('colliding')
+      this.game.debug(this.x + inc, this.y + this.h / 2, 30, 30, "blue");
+      // this.game.debug(obj.x, obj.y, obj.w, obj.h, "yellow");
+      if (obj.isCollide(this.x + inc, this.y + this.h / 2)) {
         flag = true;
       }
-    })
+    });
     return flag;
   }
-
 
   renderBackward(idx) {
     this.game.ctx.save();

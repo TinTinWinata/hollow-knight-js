@@ -20,12 +20,16 @@ export class Object {
     this.sprite = sprite;
     this.maxSprite = maxSprite;
     this.spriteIdx = 0;
+    this.offsetX = 0;
+    this.offsetY = 0;
+    this.offsetW = 0;
+    this.offsetH = 0;
   }
 
   isCollide(x, y) {
     const game = GAME.getInstance();
     // game.debug(this.x, this.y, this.w, this.h)
-    game.debug(x, y, 30, 30)
+    // game.debug(x, y, 30, 30);
     // console.log('asd')
     return checkCollide(
       this.x + this.offsetX,

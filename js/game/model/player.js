@@ -199,19 +199,53 @@ export class Player extends Character {
     }
   }
 
-  parentMethod() {
-    const inc = !this.backward ? 1 : -1;
-    console.log(this.x + inc, this.y + this.h / 2)
+  isGrounded() {
+    let collideFlag = false;
+    this.game.objects.forEach((obj) => {
+      if (
+        obj.isCollide(
+          this.x + 40,
+          this.y + 10 + this.h + this.vy * this.game.delta
+        )
+      ) {
+        collideFlag = true;
+      }
+    });
+    return collideFlag;
+  }
 
-    let flag = false;  
-    this.game.objects.forEach((obj)=>{
-      const inc = !this.backward ? 1 : -1;
-      if(obj.isCollide(this.x + inc , this.y + this.h / 2)){
+  isCollideObject() {
+    let flag = false;
+    this.game.objects.forEach((obj) => {
+      const offsetX = 35 + this.vx * this.game.delta;
+      const offsetBackwardX = -58 + this.vx * this.game.delta;
+      const inc = !this.backward ? 1 + offsetBackwardX + this.w : -1 + offsetX;
+      this.game.debug(
+        this.x + inc,
+        this.y + 70,
+        this.w / 4,
+        this.h / 3,
+        "blue"
+      );
+      this.game.debug(obj.x, obj.y, obj.w, obj.h, "yellow");
+      if (
+        obj.isCollideBlock(
+          this.x + inc,
+          this.y + this.h / 2,
+          this.w,
+          this.h / 2
+        )
+      ) {
         flag = true;
       }
-    })
+    });
+    return flag;
+  }
 
-    
+  parentMethod() {
+    console.log(this.isGrounded());
+    const inc = !this.backward ? 1 : -1;
+    // console.log(this.isGrounded());
     this.checkAttack();
     this.checkCollideEnemy();
     this.checkState();

@@ -127,9 +127,6 @@ function renderParticle() {
   }
 }
 
-
-
-
 // Camera Initialization
 const setting = {
   distance: game.width,
@@ -140,8 +137,7 @@ game.camera = camera;
 render();
 
 // Creating Objects
-game.objects.push(new Object(500, 500, 500, 500, null, null, game.ctx, "red"));
-
+game.objects.push(new Object(500, 800, 300, 100, null, null, game.ctx, "red"));
 
 // !Debugging Purpose
 // game.changeBossScene();
