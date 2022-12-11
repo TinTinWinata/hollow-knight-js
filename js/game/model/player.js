@@ -201,7 +201,20 @@ export class Player extends Character {
 
   isGrounded() {
     let collideFlag = false;
+    this.game.debug(
+      this.x + 40,
+      this.y + 10 + this.h + this.vy * this.game.delta,
+      30,
+      30,
+      "red"
+    );
+    console.log(
+      "player : ",
+      this.x + 40,
+      this.y + 10 + this.h + this.vy * this.game.delta
+    );
     this.game.objects.forEach((obj) => {
+      console.log("object : ", obj.x, obj.y, obj.w, obj.h);
       if (
         obj.isCollide(
           this.x + 40,
@@ -211,6 +224,7 @@ export class Player extends Character {
         collideFlag = true;
       }
     });
+    console.log(collideFlag);
     return collideFlag;
   }
 
@@ -222,7 +236,7 @@ export class Player extends Character {
       const inc = !this.backward ? 1 + offsetBackwardX + this.w : -1 + offsetX;
       this.game.debug(
         this.x + inc,
-        this.y + 70,
+        this.y + 70 + this.vy * this.game.delta,
         this.w / 4,
         this.h / 3,
         "blue"
@@ -231,19 +245,19 @@ export class Player extends Character {
       if (
         obj.isCollideBlock(
           this.x + inc,
-          this.y + this.h / 2,
-          this.w,
-          this.h / 2
+          this.y + 70 + this.vy * this.game.delta,
+          this.w / 4,
+          this.h / 3
         )
       ) {
         flag = true;
       }
     });
+    console.log(flag);
     return flag;
   }
 
   parentMethod() {
-    console.log(this.isGrounded());
     const inc = !this.backward ? 1 : -1;
     // console.log(this.isGrounded());
     this.checkAttack();

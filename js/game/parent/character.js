@@ -14,7 +14,7 @@ export class Character {
     const w = Setting.FLIES_WIDTH;
     const h = Setting.FLIES_HEIGHT;
 
-    for (let i = 0; i < totalFlies; i++) {
+    for (let i = 0; i < 0; i++) {
       const x = Math.random() * game.width;
       const y = Math.random() * game.height - 350;
       game.flies.push(
@@ -231,9 +231,11 @@ export class Character {
   isCollideObject() {
     let flag = false;
     this.game.objects.forEach((obj) => {
-      const inc = !this.backward ? 1 : -1;
+      const inc = !this.backward
+        ? this.vx * this.game.delta
+        : this.vx * this.game.delta;
       this.game.debug(this.x + inc, this.y + this.h / 2, 30, 30, "blue");
-      // this.game.debug(obj.x, obj.y, obj.w, obj.h, "yellow");
+
       if (obj.isCollide(this.x + inc, this.y + this.h / 2)) {
         flag = true;
       }
