@@ -9,8 +9,6 @@ export class Particle {
     const offsetX = -60;
     const offsetY = -30;
     const degree = getRandomFromArray([60, 30, 90, 120, 150]);
-    const game = GAME.getInstance();
-    console.log(x + offsetX, y + offsetY, w, h);
     Particle.Emit(
       x + offsetX,
       y + offsetY,
@@ -80,7 +78,6 @@ export class Particle {
   }
 
   render() {
-    console.log("rendering particle! ", this.sprite);
     if (!this.dead) {
       const game = GAME.getInstance();
       // Render If there's any degree then rotate correspond with the degree

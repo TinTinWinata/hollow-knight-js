@@ -52,6 +52,14 @@ export const BOSS_CONF = {
     max: 7,
     speed: 6,
   },
+  land: {
+    max: 3,
+    speed: 5,
+  },
+  die: {
+    max: 9,
+    speed: 5,
+  },
 };
 
 export const BOOFLY_CONF = {
@@ -89,6 +97,20 @@ export const CRAWLID_CONF = {
 
 const CACHE = new Map();
 
+export function GET_REST_SPRITE() {
+  const cacheName = "bench";
+  const cache = CACHE.get(cacheName);
+
+  if (cache != null) {
+    return cache;
+  } else {
+    const img = new Image();
+    img.src = "/assets/game/object/bench.png";
+    CACHE.set(cacheName, [img]);
+    return [img];
+  }
+}
+
 export function GET_UI_HEALTH() {
   const img = new Image();
   img.src = "/assets/game/ui/health.png";
@@ -104,7 +126,7 @@ export function GET_PLATFORM_SPRITE() {
   } else {
     const img = new Image();
     img.src = "/assets/game/platform/platform.png";
-    CACHE.set(cacheName, img);
+    CACHE.set(cacheName, [img]);
     return [img];
   }
 }
@@ -146,6 +168,34 @@ export function GET_BOOFLY_FLY() {
     imageList.push(LOAD_IMAGE(`/assets/game/boofly/fly/fly_0${i}.png`));
   }
 
+  CACHE.set(cacheName, imageList);
+  return imageList;
+}
+
+export function GET_BOSS_DIE_SPRITE() {
+  const cacheName = "boss_die";
+  const cache = CACHE.get(cacheName);
+  if (cache != null) {
+    return cache;
+  }
+  const imageList = [];
+  for (let i = 1; i <= BOSS_CONF.die.max; i++) {
+    imageList.push(LOAD_IMAGE(`/assets/game/boss/die/die_0${i}.png`));
+  }
+  CACHE.set(cacheName, imageList);
+  return imageList;
+}
+
+export function GET_BOSS_LAND_SPRITE() {
+  const cacheName = "boss_land";
+  const cache = CACHE.get(cacheName);
+  if (cache != null) {
+    return cache;
+  }
+  const imageList = [];
+  for (let i = 1; i <= BOSS_CONF.land.max; i++) {
+    imageList.push(LOAD_IMAGE(`/assets/game/boss/land/land_0${i}.png`));
+  }
   CACHE.set(cacheName, imageList);
   return imageList;
 }
@@ -417,6 +467,9 @@ export function GET_BOSS_BG() {
 }
 
 export function GenerateAllFirst() {
+  GET_BOSS_DIE_SPRITE();
+  GET_BOSS_LAND_SPRITE();
+  GET_REST_SPRITE();
   GET_BOOFLY_FLY();
   GET_PLAYER_DASH_SPRITE();
   GET_PLATFORM_SPRITE();

@@ -20,9 +20,23 @@ export class UI {
     $("#fps").html(n);
   }
 
+  whiteScreen(n) {
+    $("#white-screen").fadeIn(n);
+    setTimeout(() => {
+      $("#white-screen").fadeOut(n);
+    }, n);
+  }
+
   reset() {
     $(".health").show();
     $("#money-text").text(0);
+  }
+
+  showRest() {
+    $("#rest").fadeIn(1000);
+  }
+  hideRest() {
+    $("#rest").fadeOut(300);
   }
 
   changeHealth(n) {

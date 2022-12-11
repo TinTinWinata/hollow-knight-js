@@ -16,6 +16,7 @@ import { BossDoor } from "./model/bossdoor.js";
 import { Setting } from "./setting.js";
 import { Object } from "./parent/object.js";
 import { Boofly } from "./model/boofly.js";
+import { Rest } from "./model/rest.js";
 
 const game = GAME.getInstance();
 
@@ -59,17 +60,21 @@ game.mainBackground = bg;
 game.player = player;
 game.characters.push(player);
 
+// Generate Rest
+Rest.GenerateRest();
+
 // Generate Enemies
-Boofly.Generate();
-Crawlid.GenerateCrawlid(1);
-Crawlid.GenerateCrawlid(game.width - 1);
-setInterval(() => {
-  if (!game.bossFight && game.enemyAlive() <= 10) {
-    Boofly.Generate();
-    Crawlid.GenerateCrawlid(1);
-    Crawlid.GenerateCrawlid(game.width - 1);
-  }
-}, Setting.ENEMY_SPAWN_TIME);
+// Boofly.Generate();
+// Crawlid.GenerateCrawlid(1);
+// Crawlid.GenerateCrawlid(game.width - 1);
+
+// setInterval(() => {
+//   if (!game.bossFight && game.enemyAlive() <= 10) {
+//     Boofly.Generate();
+//     Crawlid.GenerateCrawlid(1);
+//     Crawlid.GenerateCrawlid(game.width - 1);
+//   }
+// }, Setting.ENEMY_SPAWN_TIME);
 
 window.addEventListener("keydown", (e) => {
   if (game.canMove) {
@@ -105,5 +110,4 @@ game.camera = camera;
 
 // !Debugging Purpose
 // game.changeBossScene();
-console.log(game.pause);
 game.render();

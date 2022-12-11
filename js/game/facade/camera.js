@@ -25,51 +25,29 @@ export default class Camera {
     this.init();
   }
 
-  /**
-   * Camera Initialization
-   * -Add listeners.
-   * -Initial calculations.
-   */
   init() {
     this.addListeners();
     this.updateViewport();
   }
 
-  /**
-   * Applies to canvas context the parameters:
-   *  -Scale
-   *  -Translation
-   */
   begin() {
     this.context.save();
     this.applyScale();
     this.applyTranslation();
   }
 
-  /**
-   * 2d Context restore() method
-   */
   end() {
     this.context.restore();
   }
 
-  /**
-   * 2d Context scale(Camera.viewport.scale[0], Camera.viewport.scale[0]) method
-   */
   applyScale() {
     this.context.scale(this.viewport.scale[0], this.viewport.scale[1]);
   }
 
-  /**
-   * 2d Context translate(-Camera.viewport.left, -Camera.viewport.top) method
-   */
   applyTranslation() {
     this.context.translate(-this.viewport.left, -this.viewport.top);
   }
 
-  /**
-   * Camera.viewport data update
-   */
   updateViewport() {
     this.aspectRatio = this.context.canvas.width / this.context.canvas.height;
     this.viewport.width = this.distance * Math.tan(this.fieldOfView);
@@ -82,33 +60,20 @@ export default class Camera {
     this.viewport.scale[1] = this.context.canvas.height / this.viewport.height;
   }
 
-  /**
-   * Zooms to certain z distance
-   * @param {*z distance} z
-   */
   zoomTo(z) {
     this.distance = z;
     this.updateViewport();
   }
 
-  /**
-   * Moves the centre of the viewport to new x, y coords (updates Camera.lookAt)
-   * @param {x axis coord} x
-   *
-   * @param {y axis coord} y
-   */
-
   shake() {
-    // const game = GAME.getInstance(); 
     var dx = Math.random() * Setting.SHAKE_SIZE;
-    var dy = Math.random() * Setting.SHAKE_SIZE ;
-    this.context.translate(dx , dy);
+    var dy = Math.random() * Setting.SHAKE_SIZE;
+    this.context.translate(dx, dy);
     this.context.filter = `blur(2px)`;
   }
 
   moveTo(x, y) {
     const game = GAME.getInstance();
-    // console.log(x);
     const maxLeft = game.maxLeftX;
     const maxRight = game.maxRightX;
     const maxTop = game.maxTop;
@@ -127,14 +92,6 @@ export default class Camera {
     this.updateViewport();
   }
 
-  /**
-   * Transform a coordinate pair from screen coordinates (relative to the canvas) into world coordinates (useful for intersection between mouse and entities)
-   * Optional: obj can supply an object to be populated with the x/y (for object-reuse in garbage collection efficient code)
-   * @param {x axis coord} x
-   * @param {y axis coord} y
-   * @param {obj can supply an object to be populated with the x/y} obj
-   * @returns
-   */
   screenToWorld(x, y, obj) {
     obj = obj || {};
     obj.x = x / this.viewport.scale[0] + this.viewport.left;
@@ -142,14 +99,6 @@ export default class Camera {
     return obj;
   }
 
-  /**
-   * Transform a coordinate pair from world coordinates into screen coordinates (relative to the canvas) - useful for placing DOM elements over the scene.
-   * Optional: obj can supply an object to be populated with the x/y (for object-reuse in garbage collection efficient code).
-   * @param {x axis coord} x
-   * @param {y axis coord} y
-   * @param {obj can supply an object to be populated with the x/y} obj
-   * @returns
-   */
   worldToScreen(x, y, obj) {
     obj = obj || {};
     obj.x = (x - this.viewport.left) * this.viewport.scale[0];

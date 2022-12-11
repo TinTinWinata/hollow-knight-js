@@ -2,8 +2,10 @@ import {
   BOSS_CONF,
   GET_BOSS_ATTACK_PREP_SPRITE,
   GET_BOSS_ATTACK_SPRITE,
+  GET_BOSS_DIE_SPRITE,
   GET_BOSS_IDLE_SPRITE,
   GET_BOSS_JUMP_SPRITE,
+  GET_BOSS_LAND_SPRITE,
 } from "../facade/file.js";
 import { isInTheLeft } from "../facade/helper.js";
 import { GAME } from "../game.js";
@@ -15,6 +17,8 @@ export class Boss extends Enemy {
   static ATTACK_PREP = 2;
   static ATTACK = 3;
   static JUMP = 4;
+  static LAND = 5;
+  static DEATH = 6;
 
   constructor(x, y, w, h) {
     const sprite = GET_BOSS_IDLE_SPRITE();
@@ -23,6 +27,7 @@ export class Boss extends Enemy {
 
     this.attackTimes = 0;
     this.attacked = false;
+    this.health = Setting.BOSS_HEALTH;
 
     // Debugging Purpose
     window.addEventListener("keypress", (e) => {
@@ -30,15 +35,19 @@ export class Boss extends Enemy {
         this.attack();
       }
       if (e.key == "t") {
-        console.log("jumping");
         this.jump();
+      }
+      if (e.key == "y") {
+        this.die();
       }
     });
     this.jumping = false;
   }
 
   landing() {
-    this.changeState("idle");
+    this.jumping = false;
+    this.changeState(Boss.LAND);
+    this.game.shakeScene(1);
   }
 
   checkLanding() {
@@ -101,9 +110,9 @@ export class Boss extends Enemy {
     this.setCurrentTemp();
     this.offset = offsetX;
     if (this.backward) {
-      this.x += -offsetX - 70;
+      // this.x += -offsetX - 70;
     } else {
-      this.x -= -offsetX - 70;
+      // this.x -= -offsetX - 70;
     }
     this.y -= offsetY;
     this.w = Setting.BOSS_WIDTH + offsetX;
@@ -111,6 +120,7 @@ export class Boss extends Enemy {
   }
 
   changeState(state) {
+    console.log(state);
     this.spriteIdx = 0;
     switch (state) {
       case Boss.IDLE:
@@ -132,13 +142,24 @@ export class Boss extends Enemy {
         this.sprite = GET_BOSS_JUMP_SPRITE();
         this.config = BOSS_CONF.jump;
         this.setDefaultSize();
+        break;
+      case Boss.LAND:
+        this.sprite = GET_BOSS_LAND_SPRITE();
+        this.config = BOSS_CONF.land;
+        this.setDefaultSize();
+        break;
+      case Boss.DEATH:
+        this.sprite = GET_BOSS_DIE_SPRITE();
+        this.config = BOSS_CONF.die;
+        this.improveSize(50, 100);
+        break;
     }
     this.state = state;
   }
 
   checkAttack() {
     if (this.state == Boss.ATTACK && this.spriteIdx == 2) {
-      this.game.shakeScene(1);
+      this.game.shakeScene(2);
     }
     if (this.state == Boss.ATTACK && this.spriteIdx >= this.config.max - 1) {
       this.spriteIdx = 0;
@@ -191,13 +212,77 @@ export class Boss extends Enemy {
     }
   }
 
+  checkJumpState() {
+    if (this.jumping) {
+      if (this.backward) {
+        this.vx += -Setting.BOSS_JUMP_SPEED * this.game.delta;
+      } else {
+        this.vx += Setting.BOSS_JUMP_SPEED * this.game.delta;
+      }
+      if (this.spriteIdx >= this.config.max - 1) {
+        this.spriteIdx = this.config.max - 1;
+      }
+    }
+  }
+
+  checkLandState() {
+    if (this.state == Boss.LAND) {
+      this.vx = 0;
+      if (this.spriteIdx >= this.config.max - 1) {
+        this.changeState(Boss.IDLE);
+      }
+    }
+  }
+
+  checkDeathState() {
+    if (this.state == Boss.DEATH) {
+      if (this.spriteIdx >= this.config.max - 2) {
+        this.vx = 0;
+        this.spriteIdx = this.config.max - 2;
+        // setTimeout(() => {
+        // this.spriteIdx = 1;
+        // }, 2000);
+      }
+    }
+  }
+
   parentMethod() {
+    this.checkJumpState();
     this.checkOffset();
     this.checkIncrementInvert();
     this.checkAttack();
     this.checkLanding();
+    this.checkLandState();
+    this.checkDeathState();
   }
+
+  die() {
+    this.canCollide = false;
+    const game = GAME.getInstance();
+    this.lookAtPlayer();
+    // if (isInTheLeft(game.player, this)) {
+    //   this.backward = true;
+    // } else {
+    //   this.backward = false;
+    // }
+    if (this.backward) {
+      this.vx += Setting.BOSS_DEATH_SPEED * this.game.delta;
+    } else {
+      this.vx += -Setting.BOSS_DEATH_SPEED * this.game.delta;
+    }
+    this.maxSpeed = Setting.BOSS_DEATH_SPEED;
+    this.changeState(Boss.DEATH);
+  }
+
+  decrementHealth() {
+    this.health -= 1;
+    if (this.health <= 0) {
+      this.die();
+    }
+  }
+
   hit() {
+    this.die();
     this.attacked = true;
   }
 }

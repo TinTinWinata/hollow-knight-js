@@ -22,6 +22,7 @@ export class GAME {
     this.scale = Setting.SCALE;
     this.pause = false;
     this.objects = [];
+    this.grounds = [];
     this.characters = [];
     this.keys = [];
     this.particles = [];
@@ -87,6 +88,9 @@ export class GAME {
     this.bossFight = true;
     this.enemies.length = 0;
 
+    // Clear Object
+    this.objects.length = 0;
+
     // Teleport Player
     const offsetX = 30;
     this.player.x = offsetX + 0 + this.player.w;
@@ -107,6 +111,16 @@ export class GAME {
     setTimeout(() => {
       this.shake = false;
     }, t * 1000);
+  }
+
+  isCollideObjectGrounded(x, y) {
+    let flag = false;
+    this.grounds.forEach((obj) => {
+      if (obj.isCollide(x, y)) {
+        flag = true;
+      }
+    });
+    return flag;
   }
 
   isCollideObject(x, y) {
@@ -170,7 +184,7 @@ export class GAME {
   resumeGame() {
     this.restore();
     this.pause = false;
-    this.render();
+    // this.render();
   }
 
   save() {
@@ -206,13 +220,16 @@ export class GAME {
     if (!this.pause) {
       this.camera.begin();
       if (this.shake) {
-        // this.camera.shake();
+        this.camera.shake();
       }
       this.camera.moveTo(this.player.x + 100, this.player.y - 50);
       this.calculateFps();
       this.getDelta();
       this.mainBackground.render();
       this.backgrounds.forEach((obj) => {
+        obj.render();
+      });
+      this.grounds.forEach((obj) => {
         obj.render();
       });
       this.objects.forEach((object) => {

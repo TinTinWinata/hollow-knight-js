@@ -22,6 +22,8 @@ export class Setting {
   static CHARACTER_DASH_FORCE = 150000;
   static CHARACTER_DASH_TIME = 500;
   static CHARACTER_DASH_TIMEOUT = 2000; // 2 seconds
+  static CHARACTER_MAX_HEALTH = 5;
+
   static GRAVITY = 2650;
 
   static BOOFLY_WIDTH = 100;
@@ -53,12 +55,15 @@ export class Setting {
   static BOSS_HEIGHT = 400;
   static BOSS_ATTACK_TIMES = 3;
   static BOSS_INVERT_MULTIPLIES = 10;
-  static BOSS_JUMP_FORCE = 700;
+  static BOSS_JUMP_FORCE = 1500;
+  static BOSS_HEALTH = 100;
+  static BOSS_JUMP_SPEED = 1000;
+  static BOSS_DEATH_SPEED = 100000;
 
   static ENEMY_SPAWN_TIME = 10000; // 10 seconds
   static ENEMY_SPAWN_PER_TIME = 3;
 
-  static SHAKE_SIZE = 5;
+  static SHAKE_SIZE = 20;
 
   static TOTAL_PLATFORM = 10;
   static PLATFORM_HEIGHT = 30;

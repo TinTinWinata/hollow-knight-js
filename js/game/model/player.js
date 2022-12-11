@@ -50,6 +50,10 @@ export class Player extends Character {
     return states.includes(state);
   }
 
+  maxHealth() {
+    this.health = Setting.CHARACTER_MAX_HEALTH;
+  }
+
   changeSprite(state) {
     if (
       this.state == "attack" ||
@@ -169,7 +173,6 @@ export class Player extends Character {
     game.enemies.forEach((enemy) => {
       if (enemy.isCollideBlock(x, y, w, h)) {
         if (!enemy.isDead()) {
-          console.log("hit!");
           Particle.HitParticle(x + w, y + w / 2);
         }
         enemy.hit();
@@ -219,11 +222,19 @@ export class Player extends Character {
   }
 
   isGrounded() {
-    return this.game.isCollideObjectBlock(
-      this.x + 40,
-      this.y + this.h + this.vy * this.game.delta,
-      30,
-      1
+    return (
+      this.game.isCollideObjectBlock(
+        this.x + 40,
+        this.y + this.h + this.vy * this.game.delta,
+        30,
+        1
+      ) ||
+      this.game.isCollideObjectGrounded(
+        this.x + 40,
+        this.y + this.h + this.vy * this.game.delta,
+        30,
+        1
+      )
     );
   }
 
@@ -351,6 +362,6 @@ export class Player extends Character {
     this.attackInterval = 0;
     this.offsetX = 60;
     this.offsetY = 40;
-    this.health = 5;
+    this.health = Setting.CHARACTER_MAX_HEALTH;
   }
 }

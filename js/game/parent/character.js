@@ -13,11 +13,9 @@ export class Character {
     const totalFlies = Setting.GENERATED_FLIES;
     const w = Setting.FLIES_WIDTH;
     const h = Setting.FLIES_HEIGHT;
-
-    for (let i = 0; i < 0; i++) {
+    for (let i = 0; i < totalFlies; i++) {
       const x = Math.random() * game.width;
       const y = Math.random() * game.height - 350;
-      
       game.flies.push(
         new this(x, y, w, h, GET_FLIES_SPRITE(), FLIES_CONF, false)
       );
@@ -91,6 +89,11 @@ export class Character {
         collideFlag = true;
       }
     });
+    this.game.grounds.forEach((obj) => {
+      if (obj.isCollideBlock(this.x, this.y, this.w, this.h + 1)) {
+        collideFlag = true;
+      }
+    });
     return collideFlag;
   }
 
@@ -106,6 +109,7 @@ export class Character {
   }
 
   isCollide(x, y) {
+    if (!this.canCollide) return false;
     return checkCollide(this.x, this.y, this.w, this.h, x, y);
   }
 
@@ -114,7 +118,8 @@ export class Character {
     const tempy = this.y + this.offsetY;
     const tempw = this.w + this.offsetW;
     const temph = this.h + this.offsetH;
-    // !Debuging Purpose
+
+    if (!this.canCollide) return false;
     return checkBlockCollide(tempx, tempy, tempw, temph, x, y, w, h);
   }
 
@@ -241,8 +246,7 @@ export class Character {
 
   lookAtPlayer() {
     const game = GAME.getInstance();
-    const obj = game.player;
-    if (isInTheLeft(obj, this)) {
+    if (isInTheLeft(game.player, this)) {
       console.log("backward");
       this.backward = true;
     } else {

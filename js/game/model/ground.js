@@ -32,7 +32,6 @@ export class Ground extends Object {
       const w = nodeList[i].w;
 
       const obj = new Object(x, y, w, h, sprite, 1, game.ctx, null);
-      console.log("pushing");
       game.objects.push(obj);
     }
   }
@@ -48,7 +47,7 @@ export class Ground extends Object {
     const offset = 20;
 
     // Make all ground black below the top ground
-    game.objects.push(
+    game.grounds.push(
       new Object(
         0,
         y + h / 2,
@@ -64,7 +63,7 @@ export class Ground extends Object {
     for (let i = 0; i < w * totalGround; i += w) {
       const ground = new Ground(i - offset, y, w + offset, h, game.ctx);
       ground.setColliderOffset(0, 0, 0, 0);
-      game.objects.push(ground);
+      game.grounds.push(ground);
     }
   }
 
