@@ -3,6 +3,11 @@ import { GET_FLOOR_SPRITE } from "../facade/file.js";
 import { Object } from "../parent/object.js";
 
 export class Ground extends Object {
+
+  static generatePlatform(){
+    
+  }
+
   static generateBackground() {
     const game = GAME.getInstance();
     const y = game.height - 200;
@@ -26,11 +31,10 @@ export class Ground extends Object {
         "black"
       )
     );
-
     // Make top ground with pushing the object
     for (let i = 0; i < w * totalGround; i += w) {
       const ground = new Ground(i - offset, y, w + offset, h, game.ctx);
-      ground.setColliderOffset(0, 20, 0, 0);
+      ground.setColliderOffset(0, 0, 0, 0);
       game.objects.push(ground);
     }
   }

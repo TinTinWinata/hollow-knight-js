@@ -203,28 +203,19 @@ export class Player extends Character {
     let collideFlag = false;
     this.game.debug(
       this.x + 40,
-      this.y + 10 + this.h + this.vy * this.game.delta,
+      this.y + this.h + this.vy * this.game.delta,
       30,
       30,
       "red"
     );
-    console.log(
-      "player : ",
-      this.x + 40,
-      this.y + 10 + this.h + this.vy * this.game.delta
-    );
+
     this.game.objects.forEach((obj) => {
-      console.log("object : ", obj.x, obj.y, obj.w, obj.h);
       if (
-        obj.isCollide(
-          this.x + 40,
-          this.y + 10 + this.h + this.vy * this.game.delta
-        )
+        obj.isCollide(this.x + 40, this.y + this.h + this.vy * this.game.delta)
       ) {
         collideFlag = true;
       }
     });
-    console.log(collideFlag);
     return collideFlag;
   }
 
@@ -241,7 +232,7 @@ export class Player extends Character {
         this.h / 3,
         "blue"
       );
-      this.game.debug(obj.x, obj.y, obj.w, obj.h, "yellow");
+      // this.game.debug(obj.x, obj.y, obj.w, obj.h, "yellow");
       if (
         obj.isCollideBlock(
           this.x + inc,
@@ -253,13 +244,11 @@ export class Player extends Character {
         flag = true;
       }
     });
-    console.log(flag);
     return flag;
   }
 
   parentMethod() {
     const inc = !this.backward ? 1 : -1;
-    // console.log(this.isGrounded());
     this.checkAttack();
     this.checkCollideEnemy();
     this.checkState();
@@ -268,7 +257,7 @@ export class Player extends Character {
   }
 
   jump() {
-    if (this.isGrounded()) {
+    if (this.canJump()) {
       this.vy -= this.jumpForce;
       this.changeSprite("jump");
     }

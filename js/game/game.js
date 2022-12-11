@@ -100,6 +100,16 @@ export class GAME {
     }, t * 1000);
   }
 
+  isCollideObject(x, y) {
+    let flag = false;
+    this.objects.forEach((obj) => {
+      if (obj.isCollide(x, y)) {
+        flag = true;
+      }
+    });
+    return flag;
+  }
+
   // debug(render, color = "blue") {
   //   this.ctx.fillStyle = color;
   //   this.ctx.fillRect(render.x, render.y, render.w, render.h);

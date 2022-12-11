@@ -158,7 +158,7 @@ export class Character {
 
     this.y += this.vy * this.game.delta;
 
-    if (this.isGrounded()) {
+    if (this.isGrounded() || this.isHitUpperWall()) {
       this.vy = 0;
     } else {
       if (this.gravity) {
@@ -175,6 +175,23 @@ export class Character {
     this.callbacks.forEach((cb) => {
       cb();
     });
+  }
+
+  isHitUpperWall() {
+    return this.game.isCollideObject(
+      this.x + this.w / 2,
+      this.y + 50 + this.vy * this.game.delta
+    );
+  }
+
+  canJump() {
+    return (
+      this.isGrounded() &&
+      !this.game.isCollideObject(
+        this.x + this.w / 2,
+        this.y + this.vy * this.game.delta
+      )
+    );
   }
 
   lookAtPlayer() {
@@ -218,7 +235,7 @@ export class Character {
     if (this.dead && this.vx > 0) {
       this.vx -= 1;
     } else if (this.dead && this.vx < 0) {
-      c1;
+      this.vx += 1;
     }
   }
 

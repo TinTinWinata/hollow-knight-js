@@ -78,6 +78,9 @@ const bg = new Background(
   game.ctx
 );
 
+// Creating Platform
+game.objects.push(new Object(500, 700, 300, 100, null, null, game.ctx, "red"));
+
 Ground.generateBackground();
 Character.GenerateFlies();
 
@@ -93,12 +96,12 @@ game.player = player;
 game.characters.push(player);
 
 // Generatet Crawlid
-// setInterval(() => {
-//   if (!game.bossFight && Setting.TOTAL_CRAWLID >= game.killedCrawlid) {
-//     game.enemies.push(Crawlid.GenerateCrawlid(1));
-//     game.enemies.push(Crawlid.GenerateCrawlid(game.width - 1));
-//   }
-// }, 1000);
+setInterval(() => {
+  if (!game.bossFight && Setting.TOTAL_CRAWLID >= game.killedCrawlid) {
+    game.enemies.push(Crawlid.GenerateCrawlid(1));
+    game.enemies.push(Crawlid.GenerateCrawlid(game.width - 1));
+  }
+}, 1000);
 
 window.addEventListener("keydown", (e) => {
   if (e.key == Setting.PLAYER_ATTACK) {
@@ -135,9 +138,6 @@ const camera = new Camera(game.ctx, setting);
 game.camera = camera;
 
 render();
-
-// Creating Objects
-game.objects.push(new Object(500, 800, 300, 100, null, null, game.ctx, "red"));
 
 // !Debugging Purpose
 // game.changeBossScene();
