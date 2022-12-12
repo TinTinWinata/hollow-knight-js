@@ -265,6 +265,7 @@ export class Character {
       this.backward = false;
     }
   }
+  /* Moving the canvas by dx and dy. */
 
   lookAt(obj) {
     if (isInTheLeft(obj, this)) {

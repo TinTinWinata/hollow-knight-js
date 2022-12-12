@@ -30,7 +30,7 @@ export class Boss extends Enemy {
     const sprite = GET_BOSS_IDLE_SPRITE();
     const config = BOSS_CONF.idle;
     super(x, y, w, h, sprite, config);
-
+    super.maxSpeed = Setting.BOSS_MAX_SPEED;
     this.attackTimes = 0;
     this.attacked = false;
     this.armor = Setting.BOSS_ARMOR;
@@ -127,13 +127,31 @@ export class Boss extends Enemy {
     }
   }
 
+  improvePos(offsetX) {
+    const node = this.getTempNode();
+    if (node) {
+      this.setPosToNode(node);
+    } else {
+      this.w = Setting.BOSS_WIDTH;
+      this.h = Setting.BOSS_HEIGHT;
+      this.y = Setting.BOSS_INITIAL_Y;
+    }
+
+    if (this.backward) {
+      this.x += offsetX;
+    } else {
+      this.x -= offsetX;
+    }
+  }
+
   improveSize(offsetX, offsetY) {
     this.setCurrentTemp();
     this.offset = offsetX;
+    console.log("backward : ", this.backward);
     if (this.backward) {
-      // this.x += -offsetX - 70;
+      this.x += -offsetX - 70;
     } else {
-      // this.x -= -offsetX - 70;
+      this.x += offsetX + 70;
     }
     this.y -= offsetY;
     this.w = Setting.BOSS_WIDTH + offsetX;
@@ -141,8 +159,7 @@ export class Boss extends Enemy {
   }
 
   changeState(state) {
-    if(this.state)
-    this.spriteIdx = 0;
+    if (this.state) this.spriteIdx = 0;
     switch (state) {
       case Boss.IDLE:
         this.sprite = GET_BOSS_IDLE_SPRITE();
@@ -152,7 +169,7 @@ export class Boss extends Enemy {
       case Boss.ATTACK_PREP:
         this.sprite = GET_BOSS_ATTACK_PREP_SPRITE();
         this.config = BOSS_CONF.attack_prep;
-        this.setDefaultSize();
+        this.improvePos(130);
         break;
       case Boss.ATTACK:
         this.sprite = GET_BOSS_ATTACK_SPRITE();
@@ -278,22 +295,26 @@ export class Boss extends Enemy {
   }
 
   randomState() {
-    console.log(this.state);
     if (this.state == Boss.IDLE) {
-      this.state = "";
-      console.log("randoming!");
-      setTimeout(() => {
-        const attack = Math.random() < 0.5;
-        if (attack) {
-          this.attack();
-        } else {
-          this.jump();
-        }
-      }, 1000);
+      // this.state = "";
+      // setTimeout(() => {
+      //   const attack = Math.random() < 0.5;
+      //   if (attack) {
+      //     this.attack();
+      //   } else {
+      //     this.jump();
+      //   }
+      // }, 1000);
     }
   }
 
   parentMethod() {
+    // this.game.debug(
+    //   this.x + this.offsetX,
+    //   this.y + this.offsetY,
+    //   this.w + this.offsetW,
+    //   this.h + this.offsetH
+    // );
     this.checkJumpState();
     this.checkOffset();
     this.checkIncrementInvert();
@@ -346,6 +367,7 @@ export class Boss extends Enemy {
     this.changeState(Boss.STUN);
     setTimeout(() => {
       if (!this.death) {
+        this.maxSpeed = Setting.BOX_MAX_SPEED;
         this.changeState(Boss.IDLE);
         this.armor = Setting.BOSS_ARMOR;
         const offsetX = 550;

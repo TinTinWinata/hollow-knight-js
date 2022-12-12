@@ -313,6 +313,7 @@ export class Player extends Character {
 
   dash() {
     if (this.canDash && this.canJump() && !this.jumping && !this.postJump) {
+      this.invicible = true;
       this.saveScale();
       this.vx = 1000;
       this.w = 150; // Sprite width of dash
