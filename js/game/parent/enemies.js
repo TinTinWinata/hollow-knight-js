@@ -8,7 +8,6 @@ export class Enemy extends Character {
   }
 
   checkBound() {
-    // 50 -> Player Offset X
     if (
       (this.backward && this.x + this.w + 1 > this.game.width) ||
       (!this.backward && this.x - 1 < 0)

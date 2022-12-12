@@ -109,5 +109,5 @@ const camera = new Camera(game.ctx, setting);
 game.camera = camera;
 
 // !Debugging Purpose
-// game.changeBossScene();
+game.changeBossScene();
 game.render();

@@ -9,7 +9,20 @@ export class Object {
     this.offsetH = h;
   }
 
-  constructor(x, y, w, h, sprite, maxSprite, ctx, color, canCollide = true) {
+  constructor(
+    x,
+    y,
+    w,
+    h,
+    sprite,
+    maxSprite,
+    ctx,
+    color,
+    canCollide = true,
+    speed = 0,
+    backward
+  ) {
+    this.backward = backward;
     this.color = color;
     this.ctx = ctx;
     this.x = x;
@@ -25,6 +38,14 @@ export class Object {
     this.offsetW = 0;
     this.offsetH = 0;
     this.canCollide = canCollide;
+    this.speed = speed;
+    if (speed != 0) {
+      setInterval(() => {
+        if (this.spriteIdx < this.maxSprite - 1) {
+          this.spriteIdx += 1;
+        }
+      }, speed);
+    }
   }
 
   isCollide(x, y) {
@@ -76,7 +97,7 @@ export class Object {
   }
 
   renderWithSprite() {
-    this.spriteIdx++;
+    if (!this.speed) this.spriteIdx++;
     const idx = this.spriteIdx % this.maxSprite;
     this.ctx.drawImage(this.sprite[idx], this.x, this.y, this.w, this.h);
   }
@@ -87,12 +108,15 @@ export class Object {
   }
   logic() {}
 
+  renderBackward(){}
   render() {
     this.logic();
     if (this.color) {
       this.renderWithColor();
     } else if (this.sprite) {
       this.renderWithSprite();
+    } else {
+
     }
   }
 }

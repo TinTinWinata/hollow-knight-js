@@ -61,7 +61,7 @@ export class Boofly extends Enemy {
     super(x, y, w, h, sprite, config, false);
     super.speed = Setting.BOOFLY_SPEED;
     super.backward = backward;
-    super.canCollide = false;
+    // super.canCollide = false;
     super.maxSpeed = Setting.BOOFLY_MAX_SPEED;
     this.chasing = false;
   }

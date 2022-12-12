@@ -57,8 +57,16 @@ export const BOSS_CONF = {
     speed: 5,
   },
   die: {
-    max: 9,
+    max: 1,
     speed: 5,
+  },
+  stun: {
+    max: 12,
+    speed: 5,
+  },
+  ghost_die: {
+    max: 4,
+    speed: 10,
   },
 };
 
@@ -304,6 +312,40 @@ export function GET_BOSS_IDLE_SPRITE() {
   CACHE.set(cacheName, imageList);
   return imageList;
 }
+export function GET_BOSS_GHOST_SPRITE() {
+  const cacheName = "ghost_die";
+  const cache = CACHE.get(cacheName);
+  if (cache != null) {
+    return cache;
+  }
+
+  const imageList = [];
+  for (let i = 1; i <= BOSS_CONF.ghost_die.max; i++) {
+    const idx = pad(i);
+    imageList.push(
+      LOAD_IMAGE(`/assets/game/boss/ghost_die/ghost_die_${idx}.png`)
+    );
+  }
+
+  CACHE.set(cacheName, imageList);
+  return imageList;
+}
+export function GET_BOSS_STUN_SPRITE() {
+  const cacheName = "boss_stun";
+  const cache = CACHE.get(cacheName);
+  if (cache != null) {
+    return cache;
+  }
+
+  const imageList = [];
+  for (let i = 1; i <= BOSS_CONF.stun.max; i++) {
+    const idx = pad(i);
+    imageList.push(LOAD_IMAGE(`/assets/game/boss/stun/stun_${idx}.png`));
+  }
+
+  CACHE.set(cacheName, imageList);
+  return imageList;
+}
 
 export function GET_HIT() {
   const cacheName = "hit";
@@ -467,6 +509,7 @@ export function GET_BOSS_BG() {
 }
 
 export function GenerateAllFirst() {
+  GET_BOSS_STUN_SPRITE();
   GET_BOSS_DIE_SPRITE();
   GET_BOSS_LAND_SPRITE();
   GET_REST_SPRITE();

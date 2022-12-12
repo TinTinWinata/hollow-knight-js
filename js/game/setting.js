@@ -56,9 +56,11 @@ export class Setting {
   static BOSS_ATTACK_TIMES = 3;
   static BOSS_INVERT_MULTIPLIES = 10;
   static BOSS_JUMP_FORCE = 1500;
-  static BOSS_HEALTH = 100;
+  static BOSS_HEALTH = 30;
+  static BOSS_ARMOR = 10;
   static BOSS_JUMP_SPEED = 1000;
   static BOSS_DEATH_SPEED = 100000;
+  static BOSS_STUN_TIME = 5000;
 
   static ENEMY_SPAWN_TIME = 10000; // 10 seconds
   static ENEMY_SPAWN_PER_TIME = 3;

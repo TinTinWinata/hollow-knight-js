@@ -33,10 +33,10 @@ export class UI {
   }
 
   showRest() {
-    $("#rest").fadeIn(1000);
+    $("#rest").fadeIn(100);
   }
   hideRest() {
-    $("#rest").fadeOut(300);
+    $("#rest").fadeOut(100);
   }
 
   changeHealth(n) {

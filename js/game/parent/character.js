@@ -12,7 +12,7 @@ export class Character {
     const game = GAME.getInstance();
     const totalFlies = Setting.GENERATED_FLIES;
     const w = Setting.FLIES_WIDTH;
-    const h = Setting.FLIES_HEIGHT;
+    const h = Setting.FLIES_HEIG333;
     for (let i = 0; i < totalFlies; i++) {
       const x = Math.random() * game.width;
       const y = Math.random() * game.height - 350;
@@ -22,16 +22,23 @@ export class Character {
     }
   }
 
-  constructor(x, y, w, h, sprite, config, gravity = true) {
+  constructor(
+    x,
+    y,
+    w,
+    h,
+    sprite,
+    config,
+    gravity = true,
+    oneTimeRender = false
+  ) {
+    this.oneTimeRender = oneTimeRender;
     this.canCollide = true;
-
     this.offsetX = 0;
     this.offsetY = 0;
     this.offsetW = 0;
     this.offsetH = 0;
-
     this.savedNode = null;
-
     this.gravity = gravity;
     this.x = x;
     this.y = y;
@@ -143,6 +150,10 @@ export class Character {
     if (this.spriteInterval > this.config.speed) {
       this.spriteIdx += 1;
       this.spriteInterval = 0;
+    }
+
+    if (this.oneTimeRender && this.spriteIdx >= this.config.max - 1) {
+      this.spriteIdx = this.config.max - 1;
     }
 
     // If death then sprite index will no go back
@@ -337,6 +348,7 @@ export class Character {
 
   render() {
     this.logic();
+
     const idx = this.spriteIdx % this.config.max;
 
     // !Debugging Purpose
