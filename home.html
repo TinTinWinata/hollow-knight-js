@@ -29,22 +29,16 @@
     ></script>
 
     <!-- AOS -->
-    <script src="js/landing.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <!-- Main Script -->
+    <script src="js/landing.js" defer></script>
+    <script src="js/nav.js" defer></script>
   </head>
 
   <body>
     <!-- Navigation bar -->
-    <nav class="absolute w-full">
-      <div class="flex w-full flex-between container">
-        <div class="left flex">
-          <div class="menu center">DESCRIPTION</div>
-          <div class="menu center">HEROES</div>
-          <div class="menu center">DEVICE</div>
-        </div>
-        <a href="game.html" class="play cursor-pointer center">PLAY FOR FREE</a>
-      </div>
-    </nav>
+    <div id="root-nav"></div>
     <!-- Main -->
     <main>
       <!-- Jumbotron -->
@@ -63,14 +57,17 @@
       <div class="w-full center content-container">
         <div class="w-full center content">
           <!-- Game Description -->
-          <div data-aos="fade-up" class="description-container text-center">
+          <div
+            id="description"
+            data-aos="fade-up"
+            class="description-container text-center"
+          >
             <h1>Descent Into The Dark</h1>
             <div class="jumbotron-card w-full center">
               <div id="jumbotron-card-1"></div>
               <div id="jumbotron-card-2"></div>
               <div id="jumbotron-card-3"></div>
             </div>
-
             <div class="description-text">
               <div class="header">Brave the Depths of a Forgotten Kingdom</div>
               <div class="center">
@@ -97,7 +94,7 @@
             allowfullscreen
           ></iframe>
           <!-- Hero -->
-          <div data-aos="fade-up" class="hero flex">
+          <div id="hero" data-aos="fade-up" class="hero flex">
             <img width="50%" src="assets/landing/hero.png" alt="" />
             <div class="center">
               <div class="flex flex-col">

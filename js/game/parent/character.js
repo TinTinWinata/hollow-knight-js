@@ -169,8 +169,11 @@ export class Character {
     // console.log("vx : ", this.vx);
     // If not grounded then gravity will turn down the player
 
-    if (!this.checkBound() && !this.isCollideObject()) {
-      // console.log("speed : ", this.vx * this.game.delta);
+    if (
+      !this.checkBound() &&
+      !this.isCollideObject() &&
+      !this.isHitUpperWall()
+    ) {
       this.x += this.vx * this.game.delta;
       this.diedStop();
     }
@@ -178,7 +181,9 @@ export class Character {
     this.y += this.vy * this.game.delta;
 
     if (this.canCollide) {
-      if (this.isGrounded() || this.isHitUpperWall()) {
+      if (this.vy < 0 && this.isHitUpperWall()) {
+        this.vy = 0;
+      } else if (this.isGrounded()) {
         this.vy = 0;
       } else {
         if (this.gravity) {
@@ -237,10 +242,17 @@ export class Character {
   }
 
   isHitUpperWall() {
+    // this.game.debug(
+    //   this.x - 10 + this.w / 2,
+    //   this.y + 50 + this.vy * this.game.delta,
+    //   20,
+    //   1
+    // );
+    // if (this.vy < 0) return;
     return this.game.isCollideObjectBlock(
-      this.x + 5 + this.w / 2,
+      this.x - 10 + this.w / 2,
       this.y + 50 + this.vy * this.game.delta,
-      5,
+      20,
       1
     );
   }

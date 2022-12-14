@@ -1,6 +1,9 @@
+import { MyAudio } from "./facade/audio.js";
 import { GET_BOSS_BG } from "./facade/file.js";
+import { Boofly } from "./model/boofly.js";
 import { Boss } from "./model/boss.js";
 import { BossDoor } from "./model/bossdoor.js";
+import { Crawlid } from "./model/crawlid.js";
 import { UI } from "./model/ui.js";
 import { Setting } from "./setting.js";
 
@@ -53,6 +56,14 @@ export class GAME {
     this.tempFrameCounter = 0;
 
     this.ui = UI.getInstance();
+    this.audio = MyAudio.getInstance();
+    this.audio.play(MyAudio.HOME);
+  }
+
+  spawnEnemy() {
+    Crawlid.GenerateCrawlid(this.width, true);
+    Boofly.Generate();
+    Crawlid.GenerateCrawlid(0, false);
   }
 
   checkCrawlidKilled() {
@@ -83,6 +94,10 @@ export class GAME {
   changeBossScene() {
     // Settup Background
     this.mainBackground.sprite = GET_BOSS_BG();
+    this.mainBackground.reset();
+    this.backgrounds.forEach((bg) => {
+      bg.reset();
+    });
 
     // Clear Enemy
     this.bossFight = true;
@@ -218,6 +233,8 @@ export class GAME {
 
   render() {
     if (!this.pause) {
+      /* A function that is used to start the camera. */
+      /* A function that is used to start the camera. */
       this.camera.begin();
       if (this.shake) {
         this.camera.shake();
@@ -226,9 +243,7 @@ export class GAME {
       this.calculateFps();
       this.getDelta();
       this.mainBackground.render();
-      this.backgrounds.forEach((obj) => {
-        obj.render();
-      });
+
       this.grounds.forEach((obj) => {
         obj.render();
       });
@@ -242,18 +257,32 @@ export class GAME {
       this.characters.forEach((character) => {
         character.render();
       });
+      this.backgrounds.forEach((obj) => {
+        obj.render();
+      });
       this.flies.forEach((fly) => {
         fly.render();
       });
       this.renderDebugs();
       this.renderParticle();
+      /* A function that is used to start the camera. */
       this.camera.end();
     }
     requestAnimationFrame(this.render.bind(this));
   }
 
-  // debug(render, color = "blue") {
-  //   this.ctx.fillStyle = color;
-  //   this.ctx.fillRect(render.x, render.y, render.w, render.h);
-  // }
+  moveBackground(backward) {
+    if (backward) {
+      this.mainBackground.x -= this.mainBackground.vx * this.delta;
+    } else {
+      this.mainBackground.x += this.mainBackground.vx * this.delta;
+    }
+    this.backgrounds.forEach((bg) => {
+      if (backward) {
+        bg.x -= bg.vx * this.delta;
+      } else {
+        bg.x += bg.vx * this.delta;
+      }
+    });
+  }
 }

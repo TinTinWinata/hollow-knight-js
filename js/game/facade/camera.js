@@ -78,16 +78,17 @@ export default class Camera {
     const maxLeft = game.maxLeftX;
     const maxRight = game.maxRightX;
     const maxTop = game.maxTop;
+
     if (y < maxTop) {
       y = maxTop;
     }
 
     if (x <= maxLeft) {
       x = maxLeft;
-    }
-    if (x >= maxRight) {
+    } else if (x >= maxRight) {
       x = maxRight;
     }
+
     this.lookAt[0] = x;
     this.lookAt[1] = y;
     this.updateViewport();

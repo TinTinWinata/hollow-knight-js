@@ -14,6 +14,7 @@ import { Character } from "../parent/character.js";
 import { Setting } from "../setting.js";
 import { Particle } from "./particle.js";
 import { UI } from "./ui.js";
+import { MyAudio } from "../facade/audio.js";
 
 export class Player extends Character {
   move() {}
@@ -142,11 +143,13 @@ export class Player extends Character {
         this.vx += Setting.CHARACTER_DASH_FORCE * this.game.delta;
       }
     } else if (this.game.keys[Setting.PLAYER_MOVEMENT_RIGHT]) {
+      // this.game.moveBackground(false);
       this.changeSprite("walk");
       this.backward = false;
       this.vx += this.speedX;
       this.vx += this.speedX;
     } else if (this.game.keys[Setting.PLAYER_MOVEMENT_LEFT]) {
+      // this.game.moveBackground(true);
       this.changeSprite("walk");
       this.vx -= this.speedX;
       this.backward = true;
@@ -216,12 +219,18 @@ export class Player extends Character {
         this.attackInterval = 0;
         this.canAttack = true;
       } else {
-        this.attackInterval += 1;
+        this.attackInterval += this.game.delta;
       }
     }
   }
 
   isGrounded() {
+    // this.game.debug(
+    //   this.x + 40,
+    //   this.y + this.h + this.vy * this.game.delta,
+    //   30,
+    //   1
+    // );
     return (
       this.game.isCollideObjectBlock(
         this.x + 40,
@@ -240,6 +249,7 @@ export class Player extends Character {
 
   isCollideObject() {
     let flag = false;
+
     this.game.objects.forEach((obj) => {
       const offsetX = 35 + this.vx * this.game.delta;
       const offsetBackwardX = -70 + this.vx * this.game.delta;
@@ -248,9 +258,9 @@ export class Player extends Character {
       // this.game.debug(obj.x, obj.y, obj.w, obj.h, "yellow");
 
       const x = this.x + inc;
-      const y = this.y + 50 + this.vy * this.game.delta;
+      const y = this.y + 80 + this.vy * this.game.delta;
       const w = this.w / 4 + 10;
-      const h = 50;
+      const h = 30;
 
       // this.game.debug(x, y, w, h, "blue");
       if (obj.isCollideBlock(x, y, w, h)) {
@@ -271,8 +281,32 @@ export class Player extends Character {
     }
   }
 
+  isBoundMaxCamera() {
+    const x = this.x;
+    const maxLeft = this.game.maxLeftX;
+    const maxRight = this.game.maxRightX - 100;
+    if (x < maxLeft || x > maxRight) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  isNotMovingX() {
+    return this.vx == 0;
+  }
+
+  checkBackground() {
+    // Change Background
+    const game = GAME.getInstance();
+    if (!this.isBoundMaxCamera() && !this.isNotMovingX()) {
+      game.moveBackground(game.player.backward);
+    }
+  }
+
   parentMethod() {
     // This method will be called every time (update methods)
+    this.checkBackground();
     this.checkJumping();
     this.checkAttack();
     this.checkCollideEnemy();
@@ -280,6 +314,7 @@ export class Player extends Character {
     this.checkMovement();
     this.checkDashState();
     this.renderLight();
+    this.checkLand();
   }
 
   jump() {
@@ -287,6 +322,8 @@ export class Player extends Character {
       this.jumping = true;
       this.vy -= this.jumpForce;
       this.changeSprite("jump");
+      const audio = MyAudio.getInstance();
+      audio.play(MyAudio.HOME);
     }
   }
 
@@ -330,6 +367,13 @@ export class Player extends Character {
     }
   }
 
+  checkLand() {
+    if (this.jumping && this.isGrounded()) {
+      this.jumping = false;
+      this.postJump = true;
+    }
+  }
+
   checkJumping() {
     if (this.postJump) {
       this.config = {
@@ -346,10 +390,6 @@ export class Player extends Character {
       if (this.spriteIdx >= lastIdx) {
         this.spriteIdx = lastIdx;
       }
-      if (this.isGrounded()) {
-        this.jumping = false;
-        this.postJump = true;
-      }
     }
   }
 
@@ -359,7 +399,7 @@ export class Player extends Character {
     this.initAllSprite();
     this.canDash = true;
     this.canAttack = true;
-    this.attackSpeed = 20;
+    this.attackSpeed = 0.4;
     this.attackInterval = 0;
     this.offsetX = 60;
     this.offsetY = 40;

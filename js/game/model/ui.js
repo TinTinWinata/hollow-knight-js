@@ -14,6 +14,7 @@ export class UI {
   constructor() {
     this.money = 0;
     this.totalHealth = 5;
+    $("#ui").show();
   }
 
   fps(n) {

@@ -18,96 +18,109 @@ import { Object } from "./parent/object.js";
 import { Boofly } from "./model/boofly.js";
 import { Rest } from "./model/rest.js";
 
-const game = GAME.getInstance();
+function start() {
+  const game = GAME.getInstance();
+  game.canvas.width = game.width;
+  game.canvas.height = game.height;
 
-game.canvas.width = game.width;
-game.canvas.height = game.height;
+  const player = new Player(
+    game.width / 2 - 250,
+    -300,
+    Setting.CHARACTER_WIDTH * game.scale,
+    Setting.CHARACTER_HEIGHT * game.scale,
+    GET_PLAYER_IDLE_SPRITE(),
+    PLAYER_CONF.idle
+  );
 
-const player = new Player(
-  game.width / 2,
-  game.height - 350,
-  Setting.CHARACTER_WIDTH * game.scale,
-  Setting.CHARACTER_HEIGHT * game.scale,
-  GET_PLAYER_IDLE_SPRITE(),
-  PLAYER_CONF.idle
-);
+  player.jumping = true;
+  player.changeSprite("jump");
 
-const bg = new Background(
-  0,
-  0,
-  game.width + 300,
-  game.height,
-  GET_BG_FIRST(),
-  game.ctx
-);
+  const bg = new Background(
+    0,
+    0,
+    game.width + 300,
+    game.height,
+    GET_BG_FIRST(),
+    game.ctx,
+    50
+  );
 
-// Creating Ground
-Ground.GenerateGround();
+  // Generate Foreground
+  Background.GenerateForeground();
 
-// Creating Platform
-Ground.GeneratePlatform();
-Character.GenerateFlies();
+  // Creating Ground
+  Ground.GenerateGround();
 
-// Generate Bosss Door
-const bossDoor = BossDoor.GetInstance();
-bossDoor.generateDoor();
-bossDoor.generateBackground();
-game.bossDoor = bossDoor;
+  // Creating Platform
+  Ground.GeneratePlatform();
+  Character.GenerateFlies();
 
-// Setting Game Object
-game.mainBackground = bg;
-// game.backgrounds.push(bg);s
-game.player = player;
-game.characters.push(player);
+  // Spawn Enemy
+  game.spawnEnemy();
+  setInterval(() => {
+    game.spawnEnemy();
+  }, 10000);
 
-// Generate Rest
-Rest.GenerateRest();
+  // Generate Bosss Door
+  const bossDoor = BossDoor.GetInstance();
+  bossDoor.generateDoor();
+  bossDoor.generateBackground();
+  game.bossDoor = bossDoor;
 
-// Generate Enemies
-// Boofly.Generate();
-// Crawlid.GenerateCrawlid(1);
-// Crawlid.GenerateCrawlid(game.width - 1);
+  // Setting Game Object
+  game.mainBackground = bg;
 
-// setInterval(() => {
-//   if (!game.bossFight && game.enemyAlive() <= 10) {
-//     Boofly.Generate();
-//     Crawlid.GenerateCrawlid(1);
-//     Crawlid.GenerateCrawlid(game.width - 1);
-//   }
-// }, Setting.ENEMY_SPAWN_TIME);
+  // game.backgrounds.push(bg);s
+  game.player = player;
+  game.characters.push(player);
 
-window.addEventListener("keydown", (e) => {
-  if (game.canMove) {
-    if (e.key == Setting.PLAYER_ATTACK) {
-      player.attack();
-    } else if (e.key == Setting.PLAYER_DASH) {
-      player.dash();
+  // Generate Rest
+  Rest.GenerateRest();
+
+  window.addEventListener("keydown", (e) => {
+    if (game.canMove) {
+      if (e.key == Setting.PLAYER_ATTACK) {
+        player.attack();
+      } else if (e.key == Setting.PLAYER_DASH) {
+        player.dash();
+      }
     }
-  }
-});
+  });
 
-window.addEventListener("keydown", (e) => {
-  if (game.canMove) {
-    if (e.key == Setting.PLAYER_JUMP) {
-      player.jump();
+  window.addEventListener("keydown", (e) => {
+    if (game.canMove) {
+      if (e.key == Setting.PLAYER_JUMP) {
+        player.jump();
+      }
+      game.keys[e.key] = true;
     }
-    game.keys[e.key] = true;
-  }
+  });
+
+  window.addEventListener("keyup", (e) => {
+    if (game.canMove) {
+      game.keys[e.key] = false;
+    }
+  });
+
+  // Camera Initialization
+  const setting = {
+    distance: game.width,
+  };
+  const camera = new Camera(game.ctx, setting);
+  game.camera = camera;
+
+  // !Debugging Purpose
+  // game.changeBossScene();
+  game.render();
+}
+
+function startGame() {
+  $("#start-menu").fadeOut();
+  start();
+}
+
+// startGame();
+
+$("#start").click(() => {
+  startGame();
 });
-
-window.addEventListener("keyup", (e) => {
-  if (game.canMove) {
-    game.keys[e.key] = false;
-  }
-});
-
-// Camera Initialization
-const setting = {
-  distance: game.width,
-};
-const camera = new Camera(game.ctx, setting);
-game.camera = camera;
-
-// !Debugging Purpose
-game.changeBossScene();
-game.render();

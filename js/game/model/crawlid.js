@@ -68,9 +68,9 @@ export class Crawlid extends Enemy {
 
     if (this.backward) {
       // Crawlid Movement
-      this.vx += this.speed;
+      this.vx += this.speed * this.game.delta;
     } else {
-      this.vx -= this.speed;
+      this.vx -= this.speed * this.game.delta;
     }
   }
 }

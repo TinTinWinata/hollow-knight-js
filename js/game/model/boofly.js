@@ -25,6 +25,7 @@ export class Boofly extends Enemy {
     let left = Math.random() < 0.5;
 
     let x;
+
     let y;
 
     if (left) {

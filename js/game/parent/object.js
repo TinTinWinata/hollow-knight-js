@@ -108,7 +108,7 @@ export class Object {
   }
   logic() {}
 
-  renderBackward(){}
+  renderBackward() {}
   render() {
     this.logic();
     if (this.color) {
@@ -116,7 +116,6 @@ export class Object {
     } else if (this.sprite) {
       this.renderWithSprite();
     } else {
-
     }
   }
 }

@@ -14,7 +14,10 @@
       referrerpolicy="no-referrer"
     ></script>
 
-    <!-- Script -->
+    <!-- Main Script -->
+    <script src="js/nav.js" defer></script>
+
+    <!-- Game Script -->
     <script type="module" src="/js/game/main.js" defer></script>
     <script type="module" src="/js/game/setting.js" defer></script>
 
@@ -31,8 +34,28 @@
     />
   </head>
   <body>
+    <!-- Audio -->
+    <audio id="homeAudio" src="/assets/game/audio/home.mp3"></audio>
+    <div id="root-nav"></div>
+    <!-- Main Content -->
     <div class="full center">
       <div class="canvas-container">
+        <div id="start-menu">
+          <video
+            src="/assets/landing/landing-page.mp4"
+            id="video"
+            autoplay
+            muted
+            loop
+          ></video>
+          <div class="content">
+            <div class="center" style="margin-bottom: 30px">
+              <img width="600px" src="/assets/landing/logo_main.png" alt="" />
+            </div>
+            <h1 id="start">Start Game</h1>
+            <h1 id="start">Setting</h1>
+          </div>
+        </div>
         <div id="white-screen"></div>
         <div id="rest">Rest</div>
         <div id="fps">0</div>

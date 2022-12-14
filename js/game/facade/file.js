@@ -143,8 +143,16 @@ export function GET_BOSS_DOOR(n) {
   // 1 -> Door Background
   // 2 -> Door
   // 3 -> White portal
+  const cacheName = "boss_door_" + n;
+  const cache = CACHE.get(cacheName);
+
+  if (cache != null) {
+    return cache;
+  }
   const image = new Image();
   image.src = `/assets/game/boss_door/boss_door_${n}.png`;
+  CACHE.set(cacheName, image);
+
   return image;
 }
 
@@ -504,6 +512,11 @@ export function GET_PLAYER_WALK_SPRITE() {
 export function GET_BG_FIRST() {
   return LOAD_IMAGE("/assets/game/object/background_2.png");
 }
+
+export function GET_FG_FIRST() {
+  return LOAD_IMAGE("/assets/game/foreground/foreground.png");
+}
+
 export function GET_BOSS_BG() {
   return LOAD_IMAGE("/assets/game/object/background_1.png");
 }
