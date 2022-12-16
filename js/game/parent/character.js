@@ -65,7 +65,15 @@ export class Character {
     this.dead = false;
     this.callbacks = [];
     this.jumping = false;
+    this.alpha = 1;
     this.postJump = false;
+  }
+  getAlpha() {
+    if (this.alpha <= 0) {
+      return 0;
+    } else {
+      return this.alpha;
+    }
   }
 
   checkInvicible() {
@@ -87,9 +95,7 @@ export class Character {
   }
 
   // this method will called in rendered (for child class)
-  parentMethod() {
-    
-  }
+  parentMethod() {}
 
   isGrounded() {
     let collideFlag = false;
@@ -340,6 +346,7 @@ export class Character {
 
   renderBackward(idx) {
     this.game.ctx.save();
+    this.game.ctx.globalAlpha = this.getAlpha();
     this.game.ctx.translate(this.x + this.w / 2, this.y + this.h / 2);
     this.game.ctx.scale(-1, 1);
     this.checkInvert();
@@ -355,6 +362,7 @@ export class Character {
 
   renderForward(idx) {
     this.game.ctx.save();
+    this.game.ctx.globalAlpha = this.getAlpha();
     this.checkInvert();
     this.game.ctx.scale(1, 1);
     this.game.ctx.drawImage(this.sprite[idx], this.x, this.y, this.w, this.h);

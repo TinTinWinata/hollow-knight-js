@@ -20,11 +20,21 @@
   --maxWidth: 1500px;
 }
 
+#black{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 0;
+  background-color: rgba(0, 0, 0, 0);
+
+}
+
 body{
-  background-color: black;
   color: white;
   font-family: 'Noto Sans', sans-serif;
   letter-spacing: 2px;
+  background-color: black;
+  /* background-image: url('/assets/landing/batik.png'); */
 }
 
 a{
@@ -158,7 +168,9 @@ footer .logos{
 .flex-between{
   justify-content: space-between;
 }
-
+.min-h-screen{
+  min-height: 100vh;
+}
 .relative{
   position: relative;
 }

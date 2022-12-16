@@ -21,6 +21,10 @@ export class UI {
     $("#fps").html(n);
   }
 
+  deadScreen() {
+    $("#black-screen").fadeIn(2000);
+  }
+
   whiteScreen(n) {
     $("#white-screen").fadeIn(n);
     setTimeout(() => {

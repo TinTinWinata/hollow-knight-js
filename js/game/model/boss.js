@@ -225,7 +225,9 @@ export class Boss extends Enemy {
     this.lookAtPlayer();
     this.changeState(Boss.ATTACK_PREP);
     setTimeout(() => {
-      this.changeState(Boss.ATTACK);
+      if (this.state == Boss.ATTACK_PREP) {
+        this.changeState(Boss.ATTACK);
+      }
     }, Setting.BOSS_ATTACK_PREP_TIME * 1000);
   }
 
@@ -296,15 +298,17 @@ export class Boss extends Enemy {
 
   randomState() {
     if (this.state == Boss.IDLE) {
-      // this.state = "";
-      // setTimeout(() => {
-      //   const attack = Math.random() < 0.5;
-      //   if (attack) {
-      //     this.attack();
-      //   } else {
-      //     this.jump();
-      //   }
-      // }, 1000);
+      this.state = "";
+      setTimeout(() => {
+        if (this.state == "") {
+          const attack = Math.random() < 0.5;
+          if (attack) {
+            this.attack();
+          } else {
+            this.jump();
+          }
+        }
+      }, 1000);
     }
   }
 

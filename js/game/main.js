@@ -104,7 +104,6 @@ function start() {
       if (e.key == Setting.PLAYER_JUMP) {
         player.jump();
       }
-      console.log(e.key);
       game.keys[e.key] = true;
     }
   });
@@ -123,7 +122,7 @@ function start() {
   game.camera = camera;
 
   // !Debugging Purpose
-  // game.changeBossScene();
+  game.changeBossScene();
   game.render();
 }
 

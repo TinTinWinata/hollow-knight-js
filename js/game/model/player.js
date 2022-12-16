@@ -27,8 +27,8 @@ export class Player extends Character {
     game.ctx.beginPath();
     // game.ctx.globalAlpha = 0.1;
     game.ctx.fillStyle = "white";
-    const midX = this.middleXPos();
-    const midY = this.middleYPos();
+    const midX = Math.round(this.middleXPos());
+    const midY = Math.round(this.middleYPos());
     var radgrad = game.ctx.createRadialGradient(
       midX,
       midY,
@@ -104,7 +104,7 @@ export class Player extends Character {
   }
 
   attack() {
-    if (!this.canAttack) return;
+    if (!this.canAttack || !this.canMove) return;
 
     // Get Node (x, y) in front of player position
     const node = this.inFrontNode(-10);
@@ -221,15 +221,39 @@ export class Player extends Character {
     this.gravity = false;
     this.vx = 0;
     this.vy = 0;
+    setTimeout(() => {
+      this.fade = true;
+    }, Setting.CHARACTER_FADE_TIMEOUT);
+    setTimeout(() => {
+      this.game.ui.deadScreen();
+    }, Setting.CHARACTER_DEATH_BLACK_SCREEN_TIMEOUT);
+  }
+
+  checkFade() {
+    if (this.fade) {
+      this.alpha -= Setting.CHARACTER_FADE_VELOCITY * this.game.delta;
+    }
   }
 
   checkDeadState() {
     if (this.state == "dead") {
-      const xR = Math.round(Math.random() * 30);
-      const yR = Math.round(Math.random() * 30);
+      const r = Setting.CHARACTER_RANDOM_DEATH;
+      const max = r;
+      const min = -r;
+      const xR = Math.round(Math.random() * (max - min) + min);
+      const yR = Math.round(Math.random() * (max - min) + min);
       this.x += xR * this.game.delta;
       this.y += yR * this.game.delta;
-      this.vy -= 100 * this.game.delta;
+
+      const multiplier = Setting.CHARACTER_SPEED_UP_DEATH * this.game.delta;
+
+      this.deadMaxY -= multiplier;
+      if (this.deadMaxY <= 0) {
+        this.vy = 0;
+      } else {
+        this.vy -= multiplier;
+      }
+
       if (this.config.max - 1 == this.spriteIdx) {
         this.spriteIdx = this.config.max - 1;
       }
@@ -237,7 +261,6 @@ export class Player extends Character {
   }
 
   hit() {
-    this.die();
     this.health -= 1;
     // Change UI
     const ui = UI.getInstance();
@@ -351,6 +374,7 @@ export class Player extends Character {
     this.renderLight();
     this.checkLand();
     this.checkDeadState();
+    this.checkFade();
   }
 
   jump() {
@@ -385,9 +409,11 @@ export class Player extends Character {
   }
 
   dash() {
+    console.log(this.canDash, this.canJump(), !this.jumping, !this.postJump);
     if (this.canDash && this.canJump() && !this.jumping && !this.postJump) {
       this.invicible = true;
       this.saveScale();
+      console.log("Dashing!");
       this.vx = 1000;
       this.w = 150; // Sprite width of dash
       this.changeSprite("dash");
@@ -431,6 +457,8 @@ export class Player extends Character {
 
   constructor(x, y, w, h, sprite, maxSprite) {
     super(x, y, w, h, sprite, maxSprite);
+    this.fade = false;
+    this.deadMaxY = Setting.CHARACTER_MAX_DEAD_HEIGHT;
     this.canMove = true;
     this.initPlayer();
     this.initAllSprite();

@@ -22,6 +22,7 @@ export class BossDoor {
 
   generateBackground() {
     const img = GET_BOSS_DOOR(BossDoor.BOSS_BACKGROUND);
+    console.log(img);
     const game = GAME.getInstance();
     const scale = 1.3;
     const w = img.width * scale;
@@ -149,7 +150,6 @@ export class BossDoor {
     const scale = 1.3;
     const w = 574 * scale;
     const h = 497 * scale;
-    console.log("w : ", w, "h : ", h);
     const offsetY = 140;
     const offsetX = 0;
     const x = Setting.WIDTH - w - offsetX;

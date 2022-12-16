@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hollow Knight</title>
 
+    <link rel="favicon" href="/assets/landing/logo_main.png" />
+
     <!-- CSS -->
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="stylesheet" href="/css/landing.css" />
@@ -37,13 +39,16 @@
   </head>
 
   <body>
+    <!-- Black -->
+    <div id="black"></div>
     <!-- Navigation bar -->
     <div id="root-nav"></div>
     <!-- Main -->
     <main>
       <!-- Jumbotron -->
       <div class="w-full jumbotron">
-        <div class="jumbotron-video-container center">
+        <div class="relative jumbotron-video-container center">
+          <div class="black-shade"></div>
           <video
             width="100%"
             src="assets/landing/landing-page.mp4"
@@ -63,15 +68,22 @@
             class="description-container text-center"
           >
             <h1>Descent Into The Dark</h1>
-            <div class="jumbotron-card w-full center">
-              <div id="jumbotron-card-1"></div>
-              <div id="jumbotron-card-2"></div>
-              <div id="jumbotron-card-3"></div>
+            <div class="jumbotron-card-container w-full center">
+              <div class="jumbotron-card" id="jumbotron-card-1"></div>
+              <div class="jumbotron-card" id="jumbotron-card-2"></div>
+              <div class="jumbotron-card" id="jumbotron-card-3"></div>
+            </div>
+            <div class="center circle-container">
+              <div class="circle active"></div>
+              <div class="circle"></div>
+              <div class="circle"></div>
             </div>
             <div class="description-text">
-              <div class="header">Brave the Depths of a Forgotten Kingdom</div>
+              <div id="description-header" class="header">
+                Brave the Depths of a Forgotten Kingdom
+              </div>
               <div class="center">
-                <div class="content">
+                <div id="description-content" class="content">
                   Beneath the fading town of Dirtmouth sleeps a vast, ancient
                   kingdom. Many are drawn beneath the surface, searching for
                   riches, or glory, or answers to old secrets. As the enigmatic
@@ -85,8 +97,8 @@
           <!-- Yotuube Video -->
           <iframe
             data-aos="fade-up"
-            width="100%"
-            height="700"
+            width="1200px"
+            height="700px"
             src="https://www.youtube.com/embed/JuP47fRBsWg"
             title="YouTube video player"
             frameborder="0"
@@ -95,18 +107,26 @@
           ></iframe>
           <!-- Hero -->
           <div id="hero" data-aos="fade-up" class="hero flex">
-            <img width="50%" src="assets/landing/hero.png" alt="" />
-            <div class="center">
+            <div class="">
+              <img
+                id="character-image"
+                width="700px"
+                height="500px"
+                src="assets/landing/hero.png"
+                alt=""
+              />
+            </div>
+            <div class="center character-text-container">
               <div class="flex flex-col">
-                <h1>Main Character</h1>
-                <div class="text">
+                <h1 id="character-header">Main Character</h1>
+                <div id="character-content-1" class="text">
                   The Knight is a discarded Vessel. They are the child of the
                   Pale King and the White Lady,born in the Abyss with Void
                   inside their shell.Hornet is the Knight's sister through their
                   shared father. Like the rest of their Vessel siblings, the
                   Knight is genderless.
                 </div>
-                <div class="text">
+                <div id="character-content-2" class="text">
                   Pale King Abyss.png After climbing out of their birthplace in
                   the Abyss, the Knight witnessed their sibling, the Hollow
                   Knight, being taken out of the Abyss by the Pale King. The
@@ -115,12 +135,23 @@
                   sealed, the Knight and some of their siblings managed to
                   escape the Abyss.
                 </div>
+                <ul class="character-circle-container flex circle-container">
+                  <div
+                    id="circle-1"
+                    class="character-circle circle active"
+                  ></div>
+                  <div id="circle-2" class="character-circle circle"></div>
+                  <div id="circle-3" class="character-circle circle"></div>
+                </ul>
               </div>
             </div>
           </div>
 
           <!-- Description Image -->
           <!-- Content -->
+          <h1 style="margin-bottom: 50px">
+            Hollow Knight Expands with 4 Giant Free Content Packs
+          </h1>
           <div class="flex content-card" data-aos="fade-up">
             <div class="card text-center">
               <h1>Hidden Dreams</h1>

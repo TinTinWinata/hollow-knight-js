@@ -241,6 +241,7 @@ export class GAME {
       if (this.shake) {
         this.camera.shake();
       }
+
       this.camera.moveTo(this.player.x + 100, this.player.y - 50);
       this.mainBackground.render();
 
@@ -250,7 +251,9 @@ export class GAME {
       this.objects.forEach((object) => {
         object.render();
       });
+
       if (!this.bossFight) this.bossDoor.render();
+
       this.enemies.forEach((enemy) => {
         enemy.render();
       });
