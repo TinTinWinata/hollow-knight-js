@@ -8,6 +8,7 @@ import { UI } from "./model/ui.js";
 import { Setting } from "./setting.js";
 
 export class GAME {
+  static START = false;
   static gameInstance;
 
   static getInstance = () => {

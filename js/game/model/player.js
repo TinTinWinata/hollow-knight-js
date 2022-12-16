@@ -107,7 +107,6 @@ export class Player extends Character {
     this.changeSprite("attack");
     const offsetX = 20;
     const offsetTopY = -20;
-    /* Getting the position of the attack splash. */
 
     const x = this.backward
       ? node.x - this.splashWidth - offsetX

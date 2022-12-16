@@ -19,6 +19,10 @@ import { Boofly } from "./model/boofly.js";
 import { Rest } from "./model/rest.js";
 
 function start() {
+  if (GAME.START) {
+    return;
+  }
+  GAME.START = true;
   const game = GAME.getInstance();
   game.canvas.width = game.width;
   game.canvas.height = game.height;
@@ -74,6 +78,7 @@ function start() {
 
   // game.backgrounds.push(bg);
   game.player = player;
+  console.log("pushing player");
   game.characters.push(player);
 
   // Generate Rest
