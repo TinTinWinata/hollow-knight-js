@@ -1,9 +1,14 @@
 import { GAME } from "../game.js";
-import { GET_HIT, HIT_CONF } from "../facade/file.js";
+import {
+  GET_HIT,
+  GET_PLAYER_HITTED,
+  HIT_CONF,
+  PLAYER_CONF,
+} from "../facade/file.js";
 import { getRandomFromArray } from "../facade/helper.js";
 
 export class Particle {
-  static ParticleHit(x, y) {
+  static PlayerHit(x, y) {
     const w = 500;
     const h = 500;
     const offsetX = 100;
