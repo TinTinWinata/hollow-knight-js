@@ -8,11 +8,15 @@ import {
 import { getRandomFromArray } from "../facade/helper.js";
 
 export class Particle {
+  static EmitAllParticle(x, y) {
+    Particle.PlayerHit(x, y);
+    Particle.HitParticle(x, y);
+  }
   static PlayerHit(x, y) {
     const w = 500;
     const h = 500;
-    const offsetX = 100;
-    const offsetY = 400;
+    const offsetX = w / 2 - 40;
+    const offsetY = h / 2 - 40;
     Particle.Emit(
       x - offsetX,
       y - offsetY,
@@ -62,8 +66,9 @@ export class Particle {
     }
   }
 
-  constructor(x, y, w, h, sprite, config, backward, degree = 0) {
+  constructor(x, y, w, h, sprite, config, backward, degree = 0, callback) {
     this.degree = degree;
+    this.callback = callback;
     this.x = x;
     this.y = y;
     this.w = w;
@@ -98,8 +103,35 @@ export class Particle {
     game.ctx.restore();
   }
 
+  renderDefault() {
+    const game = GAME.getInstance();
+    game.ctx.drawImage(
+      this.sprite[this.spriteIdx],
+      this.x,
+      this.y,
+      this.w,
+      this.h
+    );
+  }
+
+  renderBackward() {
+    const game = GAME.getInstance();
+    game.ctx.save();
+    game.ctx.translate(this.x + this.w / 2, this.y + this.h / 2);
+
+    game.ctx.scale(-1, 1);
+    game.ctx.drawImage(
+      this.sprite[this.spriteIdx],
+      -this.w / 2,
+      -this.h / 2,
+      this.w,
+      this.h
+    );
+    game.ctx.restore();
+  }
   render() {
     if (!this.dead) {
+      const img = this.sprite[this.spriteIdx];
       const game = GAME.getInstance();
       // Render If there's any degree then rotate correspond with the degree
       if (this.degree > 0) {
@@ -107,28 +139,14 @@ export class Particle {
       } else {
         // Render if backward ( rotate 180 )
         if (this.backward) {
-          game.ctx.save();
-          game.ctx.translate(this.x + this.w / 2, this.y + this.h / 2);
-
-          game.ctx.scale(-1, 1);
-          game.ctx.drawImage(
-            this.sprite[this.spriteIdx],
-            -this.w / 2,
-            -this.h / 2,
-            this.w,
-            this.h
-          );
-          game.ctx.restore();
+          this.renderBackward();
         } else {
           // Normal Rendering
-          game.ctx.drawImage(
-            this.sprite[this.spriteIdx],
-            this.x,
-            this.y,
-            this.w,
-            this.h
-          );
+          this.renderDefault();
         }
+      }
+      if (this.callback) {
+        this.callback();
       }
       this.checkDeath();
       this.incrementIdx();

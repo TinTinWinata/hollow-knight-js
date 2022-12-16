@@ -37,6 +37,10 @@ export const PLAYER_CONF = {
     max: 3,
     speed: 13,
   },
+  dead: {
+    max: 4,
+    speed: 30,
+  },
 };
 
 export const BOSS_CONF = {
@@ -376,6 +380,23 @@ export function GET_HIT() {
   return imageList;
 }
 
+export function GET_PLAYER_DEAD() {
+  const cacheName = "player_dead";
+  const cache = CACHE.get(cacheName);
+  if (cache != null) {
+    return cache;
+  }
+
+  const imageList = [];
+  for (let i = 1; i <= PLAYER_CONF.dead.max; i++) {
+    const idx = pad(i);
+    imageList.push(LOAD_IMAGE(`/assets/game/hero/dead/dead_${idx}.png`));
+  }
+
+  CACHE.set(cacheName, imageList);
+  return imageList;
+}
+
 export function GET_PLAYER_HITTED() {
   const cacheName = "player_hit";
   const cache = CACHE.get(cacheName);
@@ -487,6 +508,7 @@ export function GET_PLAYER_ATTACK_SPLASH_SPRITE(i) {
 
 function LOAD_IMAGE(str) {
   const image = new Image();
+
   image.src = str;
   return image;
 }

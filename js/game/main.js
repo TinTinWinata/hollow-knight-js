@@ -1,5 +1,6 @@
 import {
   GET_BG_FIRST,
+  GET_PLAYER_DEAD,
   GET_PLAYER_IDLE_SPRITE,
   GET_PLAYER_JUMP_SPRITE,
   PLAYER_CONF,
@@ -17,6 +18,7 @@ import { Setting } from "./setting.js";
 import { Object } from "./parent/object.js";
 import { Boofly } from "./model/boofly.js";
 import { Rest } from "./model/rest.js";
+import { Particle } from "./model/particle.js";
 
 function start() {
   if (GAME.START) {
@@ -32,7 +34,7 @@ function start() {
     -300,
     Setting.CHARACTER_WIDTH * game.scale,
     Setting.CHARACTER_HEIGHT * game.scale,
-    GET_PLAYER_IDLE_SPRITE(),
+    GET_PLAYER_DEAD(),
     PLAYER_CONF.idle
   );
 
@@ -76,9 +78,11 @@ function start() {
   // Setting Game Object
   game.mainBackground = bg;
 
+  // Emit Particle At First (because we use cache so we need to wait for the image object created)
+  Particle.EmitAllParticle(0, 0);
+
   // game.backgrounds.push(bg);
   game.player = player;
-  console.log("pushing player");
   game.characters.push(player);
 
   // Generate Rest
@@ -95,10 +99,12 @@ function start() {
   });
 
   window.addEventListener("keydown", (e) => {
+    console.log(game.canMove);
     if (game.canMove) {
       if (e.key == Setting.PLAYER_JUMP) {
         player.jump();
       }
+      console.log(e.key);
       game.keys[e.key] = true;
     }
   });

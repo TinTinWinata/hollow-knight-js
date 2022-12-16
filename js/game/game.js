@@ -4,6 +4,7 @@ import { Boofly } from "./model/boofly.js";
 import { Boss } from "./model/boss.js";
 import { BossDoor } from "./model/bossdoor.js";
 import { Crawlid } from "./model/crawlid.js";
+import { Particle } from "./model/particle.js";
 import { UI } from "./model/ui.js";
 import { Setting } from "./setting.js";
 
@@ -262,9 +263,9 @@ export class GAME {
       this.flies.forEach((fly) => {
         fly.render();
       });
+      this.renderParticle();
       this.camera.end();
     }
-    this.renderParticle();
     /* Rendering the particles. */
     // this.renderDebugs();
     requestAnimationFrame(this.render.bind(this));

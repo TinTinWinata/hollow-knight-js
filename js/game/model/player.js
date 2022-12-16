@@ -4,6 +4,7 @@ import {
   GET_PLAYER_ATTACK_SPLASH_SPRITE,
   GET_PLAYER_ATTACK_SPRITE,
   GET_PLAYER_DASH_SPRITE,
+  GET_PLAYER_DEAD,
   GET_PLAYER_IDLE_SPRITE,
   GET_PLAYER_JUMP_SPRITE,
   GET_PLAYER_WALK_SPRITE,
@@ -56,7 +57,9 @@ export class Player extends Character {
   }
 
   changeSprite(state) {
-    if (
+    if (state == "dead") {
+    } else if (
+      this.state == "dead" ||
       this.state == "attack" ||
       (this.state == "jump" && state != "attack" && state != "jump") ||
       this.state == "dash"
@@ -90,6 +93,11 @@ export class Player extends Character {
         this.spriteIdx = 0;
         this.config = PLAYER_CONF.jump;
         this.sprite = GET_PLAYER_JUMP_SPRITE();
+        break;
+      case "dead":
+        this.spriteIdx = 0;
+        this.config = PLAYER_CONF.dead;
+        this.sprite = GET_PLAYER_DEAD();
         break;
     }
     this.state = state;
@@ -136,19 +144,18 @@ export class Player extends Character {
 
   checkMovement() {
     if (this.state == "dash" && this.spriteIdx == this.config.max - 1) {
-      // this.clearKey();
       if (this.backward) {
         this.vx += -Setting.CHARACTER_DASH_FORCE * this.game.delta;
       } else {
         this.vx += Setting.CHARACTER_DASH_FORCE * this.game.delta;
       }
-    } else if (this.game.keys[Setting.PLAYER_MOVEMENT_RIGHT]) {
+    } else if (this.canMove && this.game.keys[Setting.PLAYER_MOVEMENT_RIGHT]) {
       // this.game.moveBackground(false);
       this.changeSprite("walk");
       this.backward = false;
       this.vx += this.speedX;
       this.vx += this.speedX;
-    } else if (this.game.keys[Setting.PLAYER_MOVEMENT_LEFT]) {
+    } else if (this.canMove && this.game.keys[Setting.PLAYER_MOVEMENT_LEFT]) {
       // this.game.moveBackground(true);
       this.changeSprite("walk");
       this.vx -= this.speedX;
@@ -189,29 +196,56 @@ export class Player extends Character {
     const w = this.w - this.offsetX;
     const h = this.h - this.offsetY;
 
-    if (this.invicible) return;
+    if (this.invicible || this.dead) return;
     this.game.enemies.forEach((enemy) => {
       if (enemy.isCollideBlock(x, y, w, h) && !enemy.dead) {
         // Collide With Enemy!
-        Particle.PlayerHit(x, y, this.backward);
+        Particle.PlayerHit(this.x, this.y, this.backward);
         this.game.pauseGame();
         this.clearKey();
-        this.game.canMove = true;
         this.hit();
         setTimeout(() => {
           this.invicible = true;
-          this.game.canMove = true;
           this.game.resumeGame();
         }, 500);
       }
     });
   }
 
+  die() {
+    this.dead = true;
+    this.canCollide = false;
+    this.changeSprite("dead");
+    this.clearKey();
+    this.canMove = false;
+    this.gravity = false;
+    this.vx = 0;
+    this.vy = 0;
+  }
+
+  checkDeadState() {
+    if (this.state == "dead") {
+      const xR = Math.round(Math.random() * 30);
+      const yR = Math.round(Math.random() * 30);
+      this.x += xR * this.game.delta;
+      this.y += yR * this.game.delta;
+      this.vy -= 100 * this.game.delta;
+      if (this.config.max - 1 == this.spriteIdx) {
+        this.spriteIdx = this.config.max - 1;
+      }
+    }
+  }
+
   hit() {
+    this.die();
     this.health -= 1;
     // Change UI
     const ui = UI.getInstance();
     ui.changeHealth(this.health);
+
+    if (this.health <= 0) {
+      this.die();
+    }
   }
 
   checkAttack() {
@@ -316,10 +350,11 @@ export class Player extends Character {
     this.checkDashState();
     this.renderLight();
     this.checkLand();
+    this.checkDeadState();
   }
 
   jump() {
-    if (this.canJump() && this.state != "dash") {
+    if (this.canMove && this.canJump() && this.state != "dash") {
       this.jumping = true;
       this.vy -= this.jumpForce;
       this.changeSprite("jump");
@@ -396,6 +431,7 @@ export class Player extends Character {
 
   constructor(x, y, w, h, sprite, maxSprite) {
     super(x, y, w, h, sprite, maxSprite);
+    this.canMove = true;
     this.initPlayer();
     this.initAllSprite();
     this.canDash = true;

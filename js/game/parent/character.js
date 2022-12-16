@@ -87,7 +87,9 @@ export class Character {
   }
 
   // this method will called in rendered (for child class)
-  parentMethod() {}
+  parentMethod() {
+    
+  }
 
   isGrounded() {
     let collideFlag = false;
