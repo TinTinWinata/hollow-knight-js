@@ -26,6 +26,7 @@ export class Rest extends Object {
       /* Getting the instance of the UI class. */
       ui.whiteScreen(300);
       game.player.maxHealth();
+      console.log(game.player.health);
       ui.changeHealth(game.player.health);
     }
   }

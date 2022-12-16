@@ -107,6 +107,7 @@ export class Player extends Character {
     this.changeSprite("attack");
     const offsetX = 20;
     const offsetTopY = -20;
+    /* Getting the position of the attack splash. */
 
     const x = this.backward
       ? node.x - this.splashWidth - offsetX
@@ -193,6 +194,7 @@ export class Player extends Character {
     this.game.enemies.forEach((enemy) => {
       if (enemy.isCollideBlock(x, y, w, h) && !enemy.dead) {
         // Collide With Enemy!
+        Particle.PlayerHit(x, y, this.backward);
         this.game.pauseGame();
         this.clearKey();
         this.game.canMove = true;

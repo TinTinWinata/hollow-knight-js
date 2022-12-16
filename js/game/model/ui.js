@@ -41,6 +41,7 @@ export class UI {
   }
 
   changeHealth(n) {
+    $(".health").show();
     const nToHide = this.totalHealth - n;
     for (let i = nToHide - 1; i >= 0; i--) {
       $(".health").eq(i).hide();

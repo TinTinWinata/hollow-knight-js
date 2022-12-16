@@ -232,16 +232,14 @@ export class GAME {
   }
 
   render() {
+    this.calculateFps();
+    this.getDelta();
     if (!this.pause) {
-      /* A function that is used to start the camera. */
-      /* A function that is used to start the camera. */
       this.camera.begin();
       if (this.shake) {
         this.camera.shake();
       }
       this.camera.moveTo(this.player.x + 100, this.player.y - 50);
-      this.calculateFps();
-      this.getDelta();
       this.mainBackground.render();
 
       this.grounds.forEach((obj) => {
@@ -263,11 +261,11 @@ export class GAME {
       this.flies.forEach((fly) => {
         fly.render();
       });
-      this.renderDebugs();
-      this.renderParticle();
-      /* A function that is used to start the camera. */
       this.camera.end();
     }
+    this.renderParticle();
+    /* Rendering the particles. */
+    // this.renderDebugs();
     requestAnimationFrame(this.render.bind(this));
   }
 

@@ -3,6 +3,22 @@ import { GET_HIT, HIT_CONF } from "../facade/file.js";
 import { getRandomFromArray } from "../facade/helper.js";
 
 export class Particle {
+  static ParticleHit(x, y) {
+    const w = 500;
+    const h = 500;
+    const offsetX = 100;
+    const offsetY = 400;
+    Particle.Emit(
+      x - offsetX,
+      y - offsetY,
+      w,
+      h,
+      GET_PLAYER_HITTED(),
+      PLAYER_CONF.hitted,
+      false,
+      0
+    );
+  }
   static HitParticle(x, y, backward = false) {
     const w = 500;
     const h = 100;

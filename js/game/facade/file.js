@@ -33,6 +33,10 @@ export const PLAYER_CONF = {
     max: 2,
     speed: 6,
   },
+  hitted: {
+    max: 3,
+    speed: 13,
+  },
 };
 
 export const BOSS_CONF = {
@@ -372,6 +376,23 @@ export function GET_HIT() {
   return imageList;
 }
 
+export function GET_PLAYER_HITTED() {
+  const cacheName = "player_hit";
+  const cache = CACHE.get(cacheName);
+  if (cache != null) {
+    return cache;
+  }
+
+  const imageList = [];
+  for (let i = 1; i <= PLAYER_CONF.hitted.max; i++) {
+    const idx = pad(i);
+    imageList.push(LOAD_IMAGE(`/assets/game/hero/hit/hit_${idx}.png`));
+  }
+
+  CACHE.set(cacheName, imageList);
+  return imageList;
+}
+
 export function GET_PLAYER_JUMP_SPRITE() {
   const cacheName = "player_jump";
   const cache = CACHE.get(cacheName);
@@ -522,6 +543,7 @@ export function GET_BOSS_BG() {
 }
 
 export function GenerateAllFirst() {
+  GET_PLAYER_HITTED();
   GET_BOSS_STUN_SPRITE();
   GET_BOSS_DIE_SPRITE();
   GET_BOSS_LAND_SPRITE();

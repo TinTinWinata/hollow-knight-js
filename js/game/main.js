@@ -58,7 +58,9 @@ function start() {
   // Spawn Enemy
   game.spawnEnemy();
   setInterval(() => {
-    game.spawnEnemy();
+    if (!game.bossFight) {
+      game.spawnEnemy();
+    }
   }, 10000);
 
   // Generate Bosss Door
@@ -70,7 +72,7 @@ function start() {
   // Setting Game Object
   game.mainBackground = bg;
 
-  // game.backgrounds.push(bg);s
+  // game.backgrounds.push(bg);
   game.player = player;
   game.characters.push(player);
 
