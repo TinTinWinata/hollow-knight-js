@@ -122,7 +122,7 @@ function start() {
   game.camera = camera;
 
   // !Debugging Purpose
-  game.changeBossScene();
+  // game.changeBossScene();
   game.render();
 }
 

@@ -46,17 +46,49 @@
     <!-- Main -->
     <main>
       <!-- Jumbotron -->
-      <div class="w-full jumbotron">
+      <div class="w-full jumbotron relative">
         <div class="relative jumbotron-video-container center">
           <div class="black-shade"></div>
           <video
             width="100%"
-            src="assets/landing/landing-page.mp4"
+            src="assets/landing/header.mp4"
             autoplay
             muted
             loop
           ></video>
           <image class="absolute" src="assets/landing/logo_main.png"></image>
+        </div>
+        <!-- Latest New -->
+        <div class="latest-container center">
+          <div class="">
+            <div class="flex relative header">
+              <p class="text-active">Latest News</p>
+              <p>View All</p>
+            </div>
+            <div class="flex relative">
+              <div id="box-1" class="box">
+                <div class="text">
+                  <p>December 16, 2022</p>
+                  <h1>The Knight 2022 Level Bundle</h1>
+                </div>
+                <div class="box-shade"></div>
+              </div>
+              <div id="box-2" class="box">
+                <div class="text">
+                  <p>December 2 , 2022</p>
+                  <h1>Hollow Knight Plus Update - Winter 2022</h1>
+                </div>
+                <div class="box-shade"></div>
+              </div>
+              <div id="box-3" class="box">
+                <div class="text">
+                  <p>November 23, 2022</p>
+                  <h1>The Knight 2022 Collector Cache</h1>
+                </div>
+                <div class="box-shade"></div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="w-full center content-container">
@@ -105,53 +137,10 @@
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen
           ></iframe>
-          <!-- Hero -->
-          <div id="hero" data-aos="fade-up" class="hero flex">
-            <div class="">
-              <img
-                id="character-image"
-                width="700px"
-                height="500px"
-                src="assets/landing/hero.png"
-                alt=""
-              />
-            </div>
-            <div class="center character-text-container">
-              <div class="flex flex-col">
-                <h1 id="character-header">Main Character</h1>
-                <div id="character-content-1" class="text">
-                  The Knight is a discarded Vessel. They are the child of the
-                  Pale King and the White Lady,born in the Abyss with Void
-                  inside their shell.Hornet is the Knight's sister through their
-                  shared father. Like the rest of their Vessel siblings, the
-                  Knight is genderless.
-                </div>
-                <div id="character-content-2" class="text">
-                  Pale King Abyss.png After climbing out of their birthplace in
-                  the Abyss, the Knight witnessed their sibling, the Hollow
-                  Knight, being taken out of the Abyss by the Pale King. The
-                  entrance to the Abyss was sealed, causing the Knight to fall
-                  back down. Sometime after this, despite the entrance being
-                  sealed, the Knight and some of their siblings managed to
-                  escape the Abyss.
-                </div>
-                <ul class="character-circle-container flex circle-container">
-                  <div
-                    id="circle-1"
-                    class="character-circle circle active"
-                  ></div>
-                  <div id="circle-2" class="character-circle circle"></div>
-                  <div id="circle-3" class="character-circle circle"></div>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <!-- Description Image -->
           <!-- Content -->
-          <h1 style="margin-bottom: 50px">
+          <!-- <h1 style="margin-bottom: 50px">
             Hollow Knight Expands with 4 Giant Free Content Packs
-          </h1>
+          </h1> -->
           <div class="flex content-card" data-aos="fade-up">
             <div class="card text-center">
               <h1>Hidden Dreams</h1>
@@ -194,6 +183,48 @@
               </div>
             </div>
           </div>
+
+          <div id="hero" data-aos="fade-up" class="hero flex">
+            <div class="">
+              <img
+                id="character-image"
+                width="700px"
+                height="500px"
+                src="assets/landing/hero.png"
+                alt=""
+              />
+            </div>
+            <div class="center character-text-container">
+              <div class="flex flex-col">
+                <h1 id="character-header">Main Character</h1>
+                <div id="character-content-1" class="text">
+                  The Knight is a discarded Vessel. They are the child of the
+                  Pale King and the White Lady,born in the Abyss with Void
+                  inside their shell.Hornet is the Knight's sister through their
+                  shared father. Like the rest of their Vessel siblings, the
+                  Knight is genderless.
+                </div>
+                <div id="character-content-2" class="text">
+                  Pale King Abyss.png After climbing out of their birthplace in
+                  the Abyss, the Knight witnessed their sibling, the Hollow
+                  Knight, being taken out of the Abyss by the Pale King. The
+                  entrance to the Abyss was sealed, causing the Knight to fall
+                  back down. Sometime after this, despite the entrance being
+                  sealed, the Knight and some of their siblings managed to
+                  escape the Abyss.
+                </div>
+                <ul class="character-circle-container flex circle-container">
+                  <div
+                    id="circle-1"
+                    class="character-circle circle active"
+                  ></div>
+                  <div id="circle-2" class="character-circle circle"></div>
+                  <div id="circle-3" class="character-circle circle"></div>
+                </ul>
+              </div>
+            </div>
+          </div>
+
           <!-- Store -->
           <div class="store flex" data-aos="fade-up">
             <div class="center">
