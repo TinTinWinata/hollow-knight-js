@@ -22,7 +22,7 @@ export class BossDoor {
 
   generateBackground() {
     const img = GET_BOSS_DOOR(BossDoor.BOSS_BACKGROUND);
-    console.log(img);
+    // console.log(img);
     const game = GAME.getInstance();
     const scale = 1.3;
     const w = img.width * scale;

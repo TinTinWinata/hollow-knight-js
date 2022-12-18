@@ -25,26 +25,28 @@ export class Player extends Character {
     const lightRadius = 200;
     const game = GAME.getInstance();
     game.ctx.beginPath();
-    // game.ctx.globalAlpha = 0.1;
     game.ctx.fillStyle = "white";
     const midX = Math.round(this.middleXPos());
     const midY = Math.round(this.middleYPos());
-    var radgrad = game.ctx.createRadialGradient(
-      midX,
-      midY,
-      0,
-      midX,
-      midY,
-      lightRadius
-    );
-    radgrad.addColorStop(0, "rgba(255,255,255,0.45)");
-    radgrad.addColorStop(0.2, "rgba(255,255,255,0.25)");
-    radgrad.addColorStop(0.5, "rgba(255,255,255,0.15)");
-    radgrad.addColorStop(1, "rgba(160,230,255,0)");
 
-    game.ctx.fillStyle = radgrad;
-    game.ctx.fillRect(0, 0, game.width, game.height);
-    game.ctx.globalAlpha = 1;
+    if (midX && midY) {
+      var radgrad = game.ctx.createRadialGradient(
+        midX,
+        midY,
+        0,
+        midX,
+        midY,
+        lightRadius
+      );
+      radgrad.addColorStop(0, "rgba(255,255,255,0.45)");
+      radgrad.addColorStop(0.2, "rgba(255,255,255,0.25)");
+      radgrad.addColorStop(0.5, "rgba(255,255,255,0.15)");
+      radgrad.addColorStop(1, "rgba(160,230,255,0)");
+
+      game.ctx.fillStyle = radgrad;
+      game.ctx.fillRect(0, 0, game.width, game.height);
+      game.ctx.globalAlpha = 1;
+    }
   }
 
   importantState(state) {
@@ -200,7 +202,8 @@ export class Player extends Character {
     const w = this.w - this.offsetX;
     const h = this.h - this.offsetY;
 
-    if (this.invicible || this.dead) return;
+    if (this.invicible || this.dead || this.state == "dash") return;
+
     this.game.enemies.forEach((enemy) => {
       if (enemy.isCollideBlock(x, y, w, h) && !enemy.dead) {
         // Collide With Enemy!
@@ -367,8 +370,16 @@ export class Player extends Character {
     }
   }
 
+  checkIdleState() {
+    if (this.state == "idle") {
+      this.restoreDefaultScale();
+    }
+  }
+
   parentMethod() {
     // This method will be called every time (update methods)
+
+    this.checkIdleState();
     this.checkBackground();
     this.checkJumping();
     this.checkAttack();
@@ -415,7 +426,6 @@ export class Player extends Character {
 
   dash() {
     if (this.canDash && this.canJump() && !this.jumping && !this.postJump) {
-      this.invicible = true;
       this.saveScale();
       console.log("Dashing!");
       this.vx = 1000;

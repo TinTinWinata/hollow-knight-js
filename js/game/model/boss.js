@@ -1,3 +1,4 @@
+import { MyAudio } from "../facade/audio.js";
 import {
   BOSS_CONF,
   GET_BOSS_ATTACK_PREP_SPRITE,
@@ -37,18 +38,6 @@ export class Boss extends Enemy {
     this.state = Boss.IDLE;
     this.health = Setting.BOSS_HEALTH;
 
-    // Debugging Purpose
-    window.addEventListener("keypress", (e) => {
-      if (e.key == "r") {
-        this.attack();
-      }
-      if (e.key == "t") {
-        this.jump();
-      }
-      if (e.key == "y") {
-        this.die();
-      }
-    });
     this.jumping = false;
   }
 
@@ -147,11 +136,10 @@ export class Boss extends Enemy {
   improveSize(offsetX, offsetY) {
     this.setCurrentTemp();
     this.offset = offsetX;
-    console.log("backward : ", this.backward);
     if (this.backward) {
-      this.x += -offsetX - 70;
+      this.x += -offsetX - 50;
     } else {
-      this.x += offsetX + 70;
+      this.x += offsetX + 50;
     }
     this.y -= offsetY;
     this.w = Setting.BOSS_WIDTH + offsetX;
@@ -167,6 +155,7 @@ export class Boss extends Enemy {
         this.setDefaultSize();
         break;
       case Boss.ATTACK_PREP:
+        this.game.audio.play(MyAudio.FALSE_ATTACK, false);
         this.sprite = GET_BOSS_ATTACK_PREP_SPRITE();
         this.config = BOSS_CONF.attack_prep;
         this.improvePos(130);
@@ -174,14 +163,16 @@ export class Boss extends Enemy {
       case Boss.ATTACK:
         this.sprite = GET_BOSS_ATTACK_SPRITE();
         this.config = BOSS_CONF.attack;
-        this.improveSize(50, 100);
+        this.improveSize(50, 150);
         break;
       case Boss.JUMP:
+        this.game.audio.play(MyAudio.FALSE_JUMP, false);
         this.sprite = GET_BOSS_JUMP_SPRITE();
         this.config = BOSS_CONF.jump;
         this.setDefaultSize();
         break;
       case Boss.LAND:
+        this.game.audio.play(MyAudio.FALSE_LAND, false);
         this.sprite = GET_BOSS_LAND_SPRITE();
         this.config = BOSS_CONF.land;
         this.setDefaultSize();
@@ -189,7 +180,6 @@ export class Boss extends Enemy {
       case Boss.DEATH:
         this.sprite = GET_BOSS_DIE_SPRITE();
         this.config = BOSS_CONF.die;
-        // this.improveSize(50, 100);
         break;
       case Boss.STUN:
         this.sprite = GET_BOSS_STUN_SPRITE();
@@ -202,6 +192,8 @@ export class Boss extends Enemy {
 
   checkAttack() {
     if (this.state == Boss.ATTACK && this.spriteIdx == 2) {
+      // Strike
+      this.game.audio.play(MyAudio.FALSE_STRIKE, false);
       this.game.shakeScene(2);
     }
     if (this.state == Boss.ATTACK && this.spriteIdx >= this.config.max - 1) {
@@ -215,7 +207,17 @@ export class Boss extends Enemy {
   }
 
   jump() {
-    this.lookAtPlayer();
+    if (!this.lookAtPlayer()) {
+      const offsetX = 150;
+      if (this.backward) {
+        console.log(" x [backward]: ", this.x);
+        this.x += offsetX;
+      } else {
+        console.log(" x [not]: ", this.x);
+        this.x -= offsetX;
+      }
+    }
+
     this.changeState(Boss.JUMP);
     this.vy -= Setting.BOSS_JUMP_FORCE;
     this.jumping = true;
@@ -312,6 +314,10 @@ export class Boss extends Enemy {
     }
   }
 
+  checkIdleState() {
+    if (this.state == Boss.IDLE) this.setDefaultSize();
+  }
+
   parentMethod() {
     // this.game.debug(
     //   this.x + this.offsetX,
@@ -319,6 +325,7 @@ export class Boss extends Enemy {
     //   this.w + this.offsetW,
     //   this.h + this.offsetH
     // );
+    this.checkIdleState();
     this.checkJumpState();
     this.checkOffset();
     this.checkIncrementInvert();
@@ -346,13 +353,14 @@ export class Boss extends Enemy {
   }
 
   decrementHealth() {
+    const dmg = 1;
     if (this.state == Boss.STUN) {
-      this.health -= 1;
+      this.health -= dmg;
       if (this.health <= 0) {
         this.die();
       }
     } else {
-      this.armor -= 1;
+      this.armor -= dmg;
       if (this.armor <= 0) {
         this.stun();
       }

@@ -93,6 +93,9 @@ function start() {
   Rest.GenerateRest();
 
   window.addEventListener("keydown", (e) => {
+    if (e.key == "Escape") {
+      game.pauseGame(true);
+    }
     if (game.canMove) {
       if (e.key == Setting.PLAYER_ATTACK) {
         player.attack();
@@ -103,7 +106,6 @@ function start() {
   });
 
   window.addEventListener("keydown", (e) => {
-    console.log(game.canMove);
     if (game.canMove) {
       if (e.key == Setting.PLAYER_JUMP) {
         player.jump();
@@ -126,7 +128,7 @@ function start() {
   game.camera = camera;
 
   // !Debugging Purpose
-  // game.changeBossScene();
+  game.changeBossScene();
   game.render();
 }
 

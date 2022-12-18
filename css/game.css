@@ -38,6 +38,10 @@
   background-color: white;
 }
 
+.canvas-container{
+  font-family: 'hollowKnight';
+}
+
 #rest{
   display: none;
   font-family: 'hollowKnight';
@@ -151,3 +155,38 @@
   width: 70%;
 }
 
+#pause-game{
+  text-align: center;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  z-index: 30;
+  display: none;  
+}
+
+#pause-game .center{
+  height: 100%;
+}
+
+#pause-game .container{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+#pause-game .content h3 {
+  font-weight: 500;
+  margin-top: 30px;
+  cursor: pointer;
+}
+
+.black-pause{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+}

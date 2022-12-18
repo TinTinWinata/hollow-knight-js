@@ -15,6 +15,18 @@ export class UI {
     this.money = 0;
     this.totalHealth = 5;
     $("#ui").show();
+    this.addPauseListener();
+  }
+
+  addPauseListener() {
+    $("#start-game").click(() => {
+      const game = GAME.getInstance();
+      game.resumeGame();
+    });
+
+    $("#option-fps").click(() => {
+      $("#fps").toggle();
+    });
   }
 
   fps(n) {
@@ -50,6 +62,14 @@ export class UI {
     for (let i = nToHide - 1; i >= 0; i--) {
       $(".health").eq(i).hide();
     }
+  }
+
+  showPause() {
+    $("#pause-game").show();
+  }
+
+  hidePause() {
+    $("#pause-game").hide();
   }
 
   incrementMoney() {

@@ -59,7 +59,6 @@ export class Character {
     this.backward = false;
     this.state = "";
     this.invicible = false;
-    this.invicibleTime = 1;
     this.tempInvicible = false;
     this.health = 5;
     this.dead = false;
@@ -77,13 +76,21 @@ export class Character {
   }
 
   checkInvicible() {
+    // Get the alpha
+    if (this.invicible) {
+      this.alpha += 2 * this.game.delta;
+      this.alpha %= 1;
+    } else {
+      this.alpha = 1;
+    }
+
     // Check if is invicible set 100 / 60 second to set to uninvicible
     if (this.invicible && !this.tempInvicible) {
       this.tempInvicible = true;
       setTimeout(() => {
         this.tempInvicible = false;
         this.invicible = false;
-      }, this.invicibleTime * 1000);
+      }, Setting.CHARACTER_INVICIBLE_TIME);
     }
   }
 
@@ -276,14 +283,14 @@ export class Character {
   }
 
   lookAtPlayer() {
+    let lastBackward = this.backward;
     const game = GAME.getInstance();
     if (isInTheLeft(game.player, this)) {
-      console.log("backward");
       this.backward = true;
     } else {
-      console.log("forward");
       this.backward = false;
     }
+    return lastBackward == this.backward;
   }
   /* Moving the canvas by dx and dy. */
 

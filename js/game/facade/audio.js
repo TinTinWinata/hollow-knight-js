@@ -9,6 +9,11 @@ export class MyAudio {
   static PLAYER_DASH = 6;
   static PLAYER_JUMP = 7;
   static PLAYER_HIT = 8;
+  static PLAYER_LAND = 9;
+  static FALSE_ATTACK = 10;
+  static FALSE_JUMP = 11;
+  static FALSE_LAND = 12;
+  static FALSE_STRIKE = 13;
 
   constructor() {
     this.audios = [];
@@ -37,6 +42,23 @@ export class MyAudio {
     this.addAudio(MyAudio.PLAYER_DASH, "/assets/game/audio/hero_dash.wav");
     this.addAudio(MyAudio.PLAYER_JUMP, "/assets/game/audio/hero_jump.mp3");
     this.addAudio(MyAudio.PLAYER_HIT, "/assets/game/audio/hero_hit.wav");
+    this.addAudio(MyAudio.PLAYER_LAND, "/assets/game/audio/hero_land_hard.wav");
+    this.addAudio(
+      MyAudio.FALSE_ATTACK,
+      "/assets/game/audio/false_knight_attack.wav"
+    );
+    this.addAudio(
+      MyAudio.FALSE_JUMP,
+      "/assets/game/audio/false_knight_jump.wav"
+    );
+    this.addAudio(
+      MyAudio.FALSE_LAND,
+      "/assets/game/audio/false_knight_land.wav"
+    );
+    this.addAudio(
+      MyAudio.FALSE_STRIKE,
+      "/assets/game/audio/false_knight_strike.wav"
+    );
   }
 
   addAudio(index, asset) {

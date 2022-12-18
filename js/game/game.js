@@ -198,14 +198,21 @@ export class GAME {
     }
   }
 
-  pauseGame() {
-    this.save();
-    this.pause = true;
+  pauseGame(openUi = false) {
+    if (!this.pause) {
+      if (openUi) {
+        this.ui.showPause();
+      }
+      this.save();
+      this.pause = true;
+    } else {
+      this.resumeGame();
+    }
   }
   resumeGame() {
+    this.ui.hidePause();
     this.restore();
     this.pause = false;
-    // this.render();
   }
 
   save() {
