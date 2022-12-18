@@ -52,9 +52,6 @@ export class BossDoor {
     this.open = false;
     this.bossDoors = [];
     this.showLight = false;
-
-    // !Debugging Purposes
-    this.openDoor();
   }
 
   openDoor() {
@@ -96,8 +93,6 @@ export class BossDoor {
   }
 
   checkInside() {
-    // 1720 - 1800
-
     const game = GAME.getInstance();
     // Check if player inside the
     if (
@@ -122,6 +117,7 @@ export class BossDoor {
   render() {
     this.logic();
     if (!this.open) {
+      console.log("rendering ", this.bossDoors[BossDoor.BOSS_BACKGROUND]);
       this.bossDoors[BossDoor.BOSS_DOOR].render();
       this.bossDoors[BossDoor.BOSS_BACKGROUND].render();
     }

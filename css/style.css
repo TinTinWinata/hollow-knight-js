@@ -178,3 +178,7 @@ footer .logos{
 .text-center{
   text-align: center;
 }
+
+.cursor-pointer{
+  cursor: pointer;
+}

@@ -112,6 +112,10 @@ export class GAME {
     const offsetX = 30;
     this.player.x = offsetX + 0 + this.player.w;
 
+    // Playing Audio
+    this.audio.stopAllAudio();
+    this.audio.play(MyAudio.BOSS);
+
     // Create Boss
     const boss = new Boss(
       Setting.BOSS_INITIAL_X,

@@ -1,7 +1,9 @@
 function characterTemplate(name, img) {
   return `
 <li class="img-container center">
-  <div class="container">
+  <div class="container" 
+  data-anijs="if: click, do: bounceIn animated"
+  >
     <div class="center">
       <img
         src="${img}"

@@ -60,7 +60,7 @@ export class Player extends Character {
     if (state == "dead") {
     } else if (
       this.state == "dead" ||
-      this.state == "attack" ||
+      (this.state == "attack" && state != "dash") ||
       (this.state == "jump" && state != "attack" && state != "jump") ||
       this.state == "dash"
     )
@@ -69,6 +69,8 @@ export class Player extends Character {
     if (this.state == state) return;
     switch (state) {
       case "dash":
+        console.log("Changing sprite to dash");
+        this.game.audio.play(MyAudio.PLAYER_DASH, false);
         this.spriteIdx = 0;
         this.config = PLAYER_CONF.dash;
         this.sprite = GET_PLAYER_DASH_SPRITE();
@@ -85,6 +87,7 @@ export class Player extends Character {
         this.sprite = GET_PLAYER_WALK_SPRITE();
         break;
       case "attack":
+        this.game.audio.play(MyAudio.PLAYER_ATTACK, false);
         this.spriteIdx = 0;
         this.config = PLAYER_CONF.attack;
         this.sprite = GET_PLAYER_ATTACK_SPRITE();
@@ -183,6 +186,7 @@ export class Player extends Character {
     game.enemies.forEach((enemy) => {
       if (enemy.isCollideBlock(x, y, w, h)) {
         if (!enemy.isDead()) {
+          this.game.audio.play(MyAudio.HIT, false);
           Particle.HitParticle(x + w, y + w / 2);
         }
         enemy.hit();
@@ -202,6 +206,7 @@ export class Player extends Character {
         // Collide With Enemy!
         Particle.PlayerHit(this.x, this.y, this.backward);
         this.game.pauseGame();
+        this.game.audio.play(MyAudio.PLAYER_HIT, false);
         this.clearKey();
         this.hit();
         setTimeout(() => {
@@ -379,11 +384,11 @@ export class Player extends Character {
 
   jump() {
     if (this.canMove && this.canJump() && this.state != "dash") {
+      this.game.audio.play(MyAudio.PLAYER_JUMP, false);
+
       this.jumping = true;
       this.vy -= this.jumpForce;
       this.changeSprite("jump");
-      const audio = MyAudio.getInstance();
-      audio.play(MyAudio.HOME);
     }
   }
 
@@ -409,7 +414,6 @@ export class Player extends Character {
   }
 
   dash() {
-    console.log(this.canDash, this.canJump(), !this.jumping, !this.postJump);
     if (this.canDash && this.canJump() && !this.jumping && !this.postJump) {
       this.invicible = true;
       this.saveScale();

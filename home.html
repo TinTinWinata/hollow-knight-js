@@ -23,6 +23,12 @@
 
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
 
+    <!-- AniJS CSS-->
+    <link
+      rel="stylesheet"
+      href="http://anijs.github.io/lib/anicollection/anicollection.css"
+    />
+
     <!-- Jquery -->
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
@@ -193,7 +199,9 @@
           <div id="hero" data-aos="fade-up" class="hero flex">
             <div class="">
               <img
+                data-anijs="if: click, do: tada animated"
                 id="character-image"
+                class="cursor-pointer"
                 width="700px"
                 height="500px"
                 src="assets/landing/hero.png"
@@ -219,14 +227,6 @@
                   sealed, the Knight and some of their siblings managed to
                   escape the Abyss.
                 </div>
-                <ul class="character-circle-container flex circle-container">
-                  <div
-                    id="circle-1"
-                    class="character-circle circle active"
-                  ></div>
-                  <div id="circle-2" class="character-circle circle"></div>
-                  <div id="circle-3" class="character-circle circle"></div>
-                </ul>
               </div>
             </div>
           </div>
@@ -293,6 +293,9 @@
       </footer>
     </main>
   </body>
+  <!-- AniJS core library -->
+  <script src="https://anijs.github.io/lib/anijs/anijs-min.js" defer></script>
+
   <!-- AOS Initialization -->
   <script defer>
     AOS.init();

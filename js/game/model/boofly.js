@@ -15,6 +15,7 @@ import {
 import { Enemy } from "../parent/enemies.js";
 import { Setting } from "../setting.js";
 import { UI } from "./ui.js";
+import { MyAudio } from "../facade/audio.js";
 
 export class Boofly extends Enemy {
   static Generate(backward = false) {
@@ -77,6 +78,8 @@ export class Boofly extends Enemy {
   }
 
   die() {
+    this.game.audio.play(MyAudio.VENGE_DIED, false);
+
     this.checkBackward();
     const knockback = this.backward
       ? -Setting.KNOCKBACK_POWER

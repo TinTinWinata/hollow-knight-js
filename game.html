@@ -34,47 +34,54 @@
     />
   </head>
   <body>
-    <!-- Audio -->
-    <audio id="homeAudio" src="/assets/game/audio/home.mp3"></audio>
+    <!-- Navigation Bar -->
     <div id="root-nav"></div>
+
+    <!-- Audio -->
+    <div id="root-audio"></div>
+    <!-- <audio id="homeAudio" src="/assets/game/audio/home.mp3"></audio> -->
+
     <!-- Main Content -->
     <div class="full center">
-      <div class="canvas-container">
-        <div id="start-menu">
-          <video
-            src="/assets/landing/landing-page.mp4"
-            id="video"
-            autoplay
-            muted
-            loop
-          ></video>
-          <div class="content">
-            <div class="center" style="margin-bottom: 30px">
-              <img width="600px" src="/assets/landing/logo_main.png" alt="" />
+      <div class="">
+        <div class="canvas-container">
+          <div id="start-menu">
+            <video
+              src="/assets/landing/landing-page.mp4"
+              id="video"
+              autoplay
+              muted
+              loop
+            ></video>
+            <div class="content">
+              <div class="center" style="margin-bottom: 30px">
+                <img width="600px" src="/assets/landing/logo_main.png" alt="" />
+              </div>
+              <h1 id="start">Start Game</h1>
+              <h1 id="start">Setting</h1>
             </div>
-            <h1 id="start">Start Game</h1>
-            <h1 id="start">Setting</h1>
           </div>
-        </div>
 
-        <div id="black-screen"></div>
-        <div id="white-screen"></div>
-        <div id="rest">Rest</div>
-        <div id="fps">0</div>
-        <div id="title">False Knight</div>
-        <div id="ui">
-          <img id="left" src="/assets/game/ui/left.png" alt="" />
-          <img id="money" src="/assets/game/ui/money.png" alt="" />
-          <div class="health-container">
-            <img class="health" src="/assets/game/ui/health.png" alt="" />
-            <img class="health" src="/assets/game/ui/health.png" alt="" />
-            <img class="health" src="/assets/game/ui/health.png" alt="" />
-            <img class="health" src="/assets/game/ui/health.png" alt="" />
-            <img class="health" src="/assets/game/ui/health.png" alt="" />
+          <div id="black-screen"></div>
+          <div id="white-screen"></div>
+          <div id="rest">Rest</div>
+          <div id="fps">0</div>
+          <div id="title">False Knight</div>
+          <div id="ui">
+            <img id="left" src="/assets/game/ui/left.png" alt="" />
+            <img id="money" src="/assets/game/ui/money.png" alt="" />
+            <div class="health-container">
+              <img class="health" src="/assets/game/ui/health.png" alt="" />
+              <img class="health" src="/assets/game/ui/health.png" alt="" />
+              <img class="health" src="/assets/game/ui/health.png" alt="" />
+              <img class="health" src="/assets/game/ui/health.png" alt="" />
+              <img class="health" src="/assets/game/ui/health.png" alt="" />
+            </div>
+            <div id="money-text">0</div>
           </div>
-          <div id="money-text">0</div>
+          <canvas id="myCanvas"> </canvas>
         </div>
-        <canvas id="myCanvas"> </canvas>
+        <input type="range" min="1" max="100" value="100" id="volumeRange" />
       </div>
     </div>
   </body>

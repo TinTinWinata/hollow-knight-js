@@ -24,6 +24,7 @@ function start() {
   if (GAME.START) {
     return;
   }
+
   GAME.START = true;
   const game = GAME.getInstance();
   game.canvas.width = game.width;
@@ -71,8 +72,11 @@ function start() {
 
   // Generate Bosss Door
   const bossDoor = BossDoor.GetInstance();
+  /* Generating the background for the boss door. */
   bossDoor.generateDoor();
   bossDoor.generateBackground();
+  // bossDoor.generateDoor();
+  // bossDoor.generateBackground();
   game.bossDoor = bossDoor;
 
   // Setting Game Object

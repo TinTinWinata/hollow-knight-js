@@ -282,12 +282,19 @@
 }
 
 .store .left .button{
+  cursor: pointer;
   width: fit-content;
   padding: 15px;
   margin-top: 20px;
   background-color: white;
   color: black;
+  transition: all 0.5s ease;
 }
+
+.store .left .button:hover{
+  background-color: rgb(235, 235, 235);
+}
+
 
 .content-card{
     /* ------------- */
