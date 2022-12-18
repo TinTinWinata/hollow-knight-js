@@ -49,7 +49,7 @@ nav{
   position: absolute;
   left: 50%; 
   transform: translate(-50%);
-  max-width: 1500px;
+  max-width: var(--maxWidth);
   z-index: 50;
 }
 

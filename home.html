@@ -11,6 +11,7 @@
     <!-- CSS -->
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="stylesheet" href="/css/landing.css" />
+    <link rel="stylesheet" href="/css/marquee.css" />
 
     <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -35,6 +36,7 @@
 
     <!-- Main Script -->
     <script src="js/landing.js" defer></script>
+    <script src="js/marquee.js" defer></script>
     <script src="js/nav.js" defer></script>
   </head>
 
@@ -187,6 +189,7 @@
             </div>
           </div>
 
+          <!-- Hero -->
           <div id="hero" data-aos="fade-up" class="hero flex">
             <div class="">
               <img
@@ -226,6 +229,32 @@
                 </ul>
               </div>
             </div>
+          </div>
+
+          <!-- Marquee -->
+          <div class="" data-aos="fade-up">
+            <!-- <h1 class="marquee-header">Hero List</h1> -->
+            <article class="marquee-wrapper">
+              <div class="marquee">
+                <ul class="marquee-root"></ul>
+                <ul aria-hidden="true" class="marquee-root"></ul>
+              </div>
+
+              <div class="marquee marquee--reverse">
+                <ul class="marquee-root"></ul>
+                <ul aria-hidden="true" class="marquee-root"></ul>
+              </div>
+
+              <div class="marquee">
+                <ul class="marquee-root"></ul>
+                <ul aria-hidden="true" class="marquee-root"></ul>
+              </div>
+
+              <div class="marquee marquee--reverse">
+                <ul class="marquee-root"></ul>
+                <ul aria-hidden="true" class="marquee-root"></ul>
+              </div>
+            </article>
           </div>
 
           <!-- Store -->

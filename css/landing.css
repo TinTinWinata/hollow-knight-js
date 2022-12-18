@@ -29,8 +29,8 @@
   cursor: pointer;
 }
 .jumbotron-card:hover{
-  width: 1000px;
-  height: 700px;
+  /* width: 1000px; */
+  /* height: 700px; */
 }
 
 .jumbotron-card-container{
@@ -41,8 +41,8 @@
 .jumbotron-card-container .relative{
   position: relative;
   margin-top: 30px;
-  width: 1000px;
-  height: 700px;
+  width: 700px;
+  height: 400px;
 }
 
 .jumbotron-card-container .relative .cursor{
