@@ -101,6 +101,7 @@ export class BossDoor {
       game.player.x >= 1720 &&
       game.player.x <= 1800
     ) {
+      this.changeTitle();
       $("#title").fadeIn(2000);
       window.addEventListener("keypress", this.addListener);
     } else {
@@ -109,15 +110,21 @@ export class BossDoor {
     }
   }
 
+  changeTitle() {
+    $("#title").html("'Space' to interact");
+  }
+
   logic() {
     this.checkInside();
     this.checkOpen();
   }
 
   render() {
+    // console.log("Boss Door : ", this.bossDoors);
     this.logic();
     if (!this.open) {
-      console.log("rendering ", this.bossDoors[BossDoor.BOSS_BACKGROUND]);
+      // this.bossDoors[BossDoor.BOSS_DOOR].debug();
+      // this.bossDoors[BossDoor.BOSS_BACKGROUND].debug();
       this.bossDoors[BossDoor.BOSS_DOOR].render();
       this.bossDoors[BossDoor.BOSS_BACKGROUND].render();
     }

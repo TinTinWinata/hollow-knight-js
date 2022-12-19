@@ -67,7 +67,7 @@ export class Setting {
   static BOSS_HEALTH = 30;
   static BOSS_ARMOR = 10;
   static BOSS_JUMP_SPEED = 1000;
-  static BOSS_DEATH_SPEED = 100000;
+  static BOSS_DEATH_SPEED = 800;
   static BOSS_STUN_TIME = 5000;
   static BOSS_MAX_SPEED = 300;
 
@@ -78,4 +78,7 @@ export class Setting {
 
   static TOTAL_PLATFORM = 10;
   static PLATFORM_HEIGHT = 30;
+
+  static DEATH_SCREEN_TIME = 3000;
+  static CREDIT_SCENE_SPEED = 10;
 }

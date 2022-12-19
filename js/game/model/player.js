@@ -398,7 +398,7 @@ export class Player extends Character {
       this.game.audio.play(MyAudio.PLAYER_JUMP, false);
 
       this.jumping = true;
-      this.vy -= this.jumpForce;
+      this.vy -= Setting.CHARACTER_JUMP_FORCE;
       this.changeSprite("jump");
     }
   }
@@ -427,7 +427,6 @@ export class Player extends Character {
   dash() {
     if (this.canDash && this.canJump() && !this.jumping && !this.postJump) {
       this.saveScale();
-      console.log("Dashing!");
       this.vx = 1000;
       this.w = 150; // Sprite width of dash
       this.changeSprite("dash");
@@ -479,6 +478,7 @@ export class Player extends Character {
     this.canDash = true;
     this.canAttack = true;
     this.attackSpeed = 0.4;
+    this.damage = 1;
     this.attackInterval = 0;
     this.offsetX = 60;
     this.offsetY = 40;

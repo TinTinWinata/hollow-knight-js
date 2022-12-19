@@ -1,5 +1,6 @@
 import { GAME } from "../game.js";
 import { GET_UI_HEALTH, GET_UI_LEFT, GET_UI_MONEY } from "../facade/file.js";
+import { Setting } from "../setting.js";
 
 export class UI {
   static instance;
@@ -27,6 +28,11 @@ export class UI {
     $("#option-fps").click(() => {
       $("#fps").toggle();
     });
+
+    $("#exit-game").click(() => {
+      const game = GAME.getInstance();
+      game.backToMenu();
+    });
   }
 
   fps(n) {
@@ -34,7 +40,12 @@ export class UI {
   }
 
   deadScreen() {
-    $("#black-screen").fadeIn(2000);
+    const game = GAME.getInstance();
+    $("#black-screen").fadeIn(Setting.DEATH_SCREEN_TIME);
+    $("#death-menu").fadeIn(Setting.DEATH_SCREEN_TIME);
+    setTimeout(() => {
+      game.backToMenu();
+    }, 5000);
   }
 
   whiteScreen(n) {
@@ -79,5 +90,19 @@ export class UI {
 
   changeMoney(n) {
     $("#money-text").text(n);
+  }
+
+  changeTitle(str) {
+    console.log("changing title to : ", str);
+    $("#title").html(str);
+  }
+  showTitle(n, str = "") {
+    if (str != "") {
+      this.changeTitle(str);
+    }
+    $("#title").fadeIn(1000);
+    setTimeout(() => {
+      $("#title").fadeOut(1000);
+    }, n);
   }
 }

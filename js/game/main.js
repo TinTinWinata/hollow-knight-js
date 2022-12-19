@@ -70,14 +70,16 @@ function start() {
     }
   }, 10000);
 
-  // Generate Bosss Door
-  const bossDoor = BossDoor.GetInstance();
-  /* Generating the background for the boss door. */
-  bossDoor.generateDoor();
-  bossDoor.generateBackground();
   // bossDoor.generateDoor();
   // bossDoor.generateBackground();
+  const bossDoor = BossDoor.GetInstance();
   game.bossDoor = bossDoor;
+
+  game.bossDoor.generateDoor();
+  game.bossDoor.generateBackground();
+
+  // Generate Cheat
+  game.cheat.generateCheat();
 
   // Setting Game Object
   game.mainBackground = bg;
@@ -91,6 +93,10 @@ function start() {
 
   // Generate Rest
   Rest.GenerateRest();
+
+  window.addEventListener("keypress", (e) => {
+    if (!game.pause) game.cheat.addKeys(e.key);
+  });
 
   window.addEventListener("keydown", (e) => {
     if (e.key == "Escape") {

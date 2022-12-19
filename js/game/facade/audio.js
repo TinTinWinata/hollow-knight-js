@@ -20,7 +20,10 @@ export class MyAudio {
     this.setListener();
     this.volume = 0;
     this.addAllAudio();
+    this.volumeRange = $("#volumeRange");
+    this.setVolume(this.getValueFromRange());
   }
+
   getElement(id, asset) {
     return `<audio id="${id}" src="${asset}"></audio>`;
   }
@@ -72,6 +75,12 @@ export class MyAudio {
       const vol = e.target.value;
       this.setVolume(vol / 100);
     });
+  }
+
+  getValueFromRange() {
+    const val = $("#volumeRange").val() / 100;
+
+    return val;
   }
 
   stopAllAudio() {

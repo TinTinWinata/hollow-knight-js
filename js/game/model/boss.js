@@ -1,4 +1,5 @@
 import { MyAudio } from "../facade/audio.js";
+import { Credit } from "../facade/credit.js";
 import {
   BOSS_CONF,
   GET_BOSS_ATTACK_PREP_SPRITE,
@@ -134,6 +135,10 @@ export class Boss extends Enemy {
   }
 
   improveSize(offsetX, offsetY) {
+    const node = this.getTempNode();
+    if (node) {
+      this.setPosToNode(node);
+    }
     this.setCurrentTemp();
     this.offset = offsetX;
     if (this.backward) {
@@ -210,16 +215,14 @@ export class Boss extends Enemy {
     if (!this.lookAtPlayer()) {
       const offsetX = 150;
       if (this.backward) {
-        console.log(" x [backward]: ", this.x);
         this.x += offsetX;
       } else {
-        console.log(" x [not]: ", this.x);
         this.x -= offsetX;
       }
     }
 
     this.changeState(Boss.JUMP);
-    this.vy -= Setting.BOSS_JUMP_FORCE;
+    this.vy = -Setting.BOSS_JUMP_FORCE;
     this.jumping = true;
   }
 
@@ -289,7 +292,6 @@ export class Boss extends Enemy {
   }
   checkStunState() {
     if (this.state == Boss.STUN) {
-      // console.log(this.backward);
       if (this.spriteIdx >= this.config.max - 1) {
         this.vx = 0;
         this.spriteIdx = this.config.max - 1;
@@ -318,13 +320,30 @@ export class Boss extends Enemy {
     if (this.state == Boss.IDLE) this.setDefaultSize();
   }
 
+  checkCredit() {
+    // Credit
+    if (this.death) {
+      const credit = Credit.getInstance();
+      credit.showCredit();
+    }
+  }
+
   parentMethod() {
+    // console.log("----------------");
+    // console.log("|    BEFORE    |");
+    // console.log("----------------");
+    // console.log("x : ", this.x);
+    // console.log("y : ", this.y);
+    // console.log("vx : ", this.vx);
+    // console.log("vy : ", this.vy);
+    // console.log("----------------");
     // this.game.debug(
     //   this.x + this.offsetX,
     //   this.y + this.offsetY,
     //   this.w + this.offsetW,
     //   this.h + this.offsetH
     // );
+    this.checkCredit();
     this.checkIdleState();
     this.checkJumpState();
     this.checkOffset();
@@ -332,6 +351,15 @@ export class Boss extends Enemy {
     this.checkAttack();
     this.checkLanding();
     this.checkLandState();
+    // console.log("----------------");
+    // console.log("|     AFTER    |");
+    // console.log("----------------");
+    // console.log("x : ", this.x);
+    // console.log("y : ", this.y);
+    // console.log("vx : ", this.vx);
+    // console.log("vy : ", this.vy);
+    // console.log("----------------");
+
     this.checkDeathState();
     this.checkStunState();
     this.checkBound();
@@ -344,16 +372,17 @@ export class Boss extends Enemy {
     this.canCollide = false;
     this.lookAtPlayer();
     if (this.backward) {
-      this.vx += Setting.BOSS_DEATH_SPEED * this.game.delta;
+      this.vx = Setting.BOSS_DEATH_SPEED;
     } else {
-      this.vx += -Setting.BOSS_DEATH_SPEED * this.game.delta;
+      this.vx = -Setting.BOSS_DEATH_SPEED;
     }
     this.maxSpeed = Setting.BOSS_DEATH_SPEED;
     this.changeState(Boss.DEATH);
   }
 
   decrementHealth() {
-    const dmg = 1;
+    const game = GAME.getInstance();
+    const dmg = game.player.damage;
     if (this.state == Boss.STUN) {
       this.health -= dmg;
       if (this.health <= 0) {
@@ -371,9 +400,9 @@ export class Boss extends Enemy {
     this.canCollide = false;
     this.lookAtPlayer();
     if (this.backward) {
-      this.vx += Setting.BOSS_DEATH_SPEED * this.game.delta;
+      this.vx = Setting.BOSS_DEATH_SPEED;
     } else {
-      this.vx += -Setting.BOSS_DEATH_SPEED * this.game.delta;
+      this.vx = -Setting.BOSS_DEATH_SPEED;
     }
     this.maxSpeed = Setting.BOSS_DEATH_SPEED;
     this.changeState(Boss.STUN);

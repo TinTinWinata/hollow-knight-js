@@ -1,4 +1,5 @@
 import { MyAudio } from "./facade/audio.js";
+import { Cheat } from "./facade/cheat.js";
 import { GET_BOSS_BG } from "./facade/file.js";
 import { Boofly } from "./model/boofly.js";
 import { Boss } from "./model/boss.js";
@@ -52,6 +53,8 @@ export class GAME {
     this.canMove = true;
     this.bossDoor = null;
 
+    this.cheat = Cheat.GetInstance();
+
     this.lastTime = new Date();
     this.timeEllapsed = 0;
     this.tempTimeInterval = 0;
@@ -60,6 +63,10 @@ export class GAME {
     this.ui = UI.getInstance();
     this.audio = MyAudio.getInstance();
     this.audio.play(MyAudio.HOME);
+  }
+
+  backToMenu() {
+    window.location.replace("/game.html");
   }
 
   spawnEnemy() {
@@ -210,28 +217,25 @@ export class GAME {
     }
   }
   resumeGame() {
-    this.ui.hidePause();
     this.restore();
+    this.ui.hidePause();
     this.pause = false;
   }
 
+  // Save & Restore Make Bug
   save() {
-    this.player.save();
-    this.enemies.forEach((enemy) => {
-      enemy.save();
-    });
+    // this.player.save();
+    // this.enemies.forEach((enemy) => {
+    //   enemy.save();
+    // });
   }
   restore() {
-    setTimeout(() => {
-      this.player.restore();
-      this.player.vx = 0;
-      this.player.vx = 0;
-      this.enemies.forEach((enemy) => {
-        enemy.restore();
-        enemy.vy = 0;
-        enemy.vx = 0;
-      });
-    }, 1);
+    // setTimeout(() => {
+    //   this.player.restore();
+    //   this.enemies.forEach((enemy) => {
+    //     enemy.restore();
+    //   });
+    // }, 1);
   }
 
   enemyAlive() {
@@ -249,11 +253,12 @@ export class GAME {
     this.getDelta();
     if (!this.pause) {
       this.camera.begin();
+      this.cheat.checkKeys();
       if (this.shake) {
         this.camera.shake();
       }
-
       this.camera.moveTo(this.player.x + 100, this.player.y - 50);
+
       this.mainBackground.render();
 
       this.grounds.forEach((obj) => {
@@ -272,6 +277,7 @@ export class GAME {
         character.render();
       });
       this.backgrounds.forEach((obj) => {
+        // Fore ground
         obj.render();
       });
       this.flies.forEach((fly) => {

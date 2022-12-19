@@ -161,7 +161,6 @@ export class Character {
   logic() {
     // Incrementing the sprite
     this.spriteInterval += 60 * this.game.delta;
-    // console.log("sprite interval :", this.spriteInterval);
     if (this.spriteInterval > this.config.speed) {
       this.spriteIdx += 1;
       this.spriteInterval = 0;
@@ -181,7 +180,6 @@ export class Character {
     // Call parent method
     this.parentMethod();
 
-    // console.log("vx : ", this.vx);
     // If not grounded then gravity will turn down the player
 
     if (
@@ -231,17 +229,29 @@ export class Character {
       this.h = this.savedNode.h;
       this.savedNode = null;
     } else {
-      console.log("there's nothing to restore!");
     }
   }
 
-  save() {
-    this.savedNode = {
+  getCurrNode() {
+    return {
       x: this.x,
       y: this.y,
       w: this.w,
       h: this.h,
+      vx: this.vx,
+      vy: this.vy,
     };
+  }
+  save() {
+    const node = {
+      x: this.x,
+      y: this.y,
+      w: this.w,
+      h: this.h,
+      vx: this.vx,
+      vy: this.vy,
+    };
+    this.savedNode = { ...node };
   }
 
   restore() {
@@ -250,6 +260,8 @@ export class Character {
       this.y = this.savedNode.y;
       this.w = this.savedNode.w;
       this.h = this.savedNode.h;
+      this.vx = this.savedNode.vx;
+      this.vy = this.savedNode.vy;
       this.savedNode = null;
     } else {
       console.log("there's nothing to restore!");
@@ -296,10 +308,8 @@ export class Character {
 
   lookAt(obj) {
     if (isInTheLeft(obj, this)) {
-      console.log("backward");
       this.backward = true;
     } else {
-      console.log("forward");
       this.backward = false;
     }
   }
@@ -380,9 +390,6 @@ export class Character {
     this.logic();
 
     const idx = this.spriteIdx % this.config.max;
-
-    // !Debugging Purpose
-    // console.log("rendering : ", idx, " max : ", this.config.max);
 
     if (this.invert) {
     }
