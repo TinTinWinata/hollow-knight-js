@@ -1,3 +1,5 @@
+import { GAME } from "../game.js";
+
 export class MyAudio {
   static instance;
   static HOME = 0;
@@ -14,6 +16,7 @@ export class MyAudio {
   static FALSE_JUMP = 11;
   static FALSE_LAND = 12;
   static FALSE_STRIKE = 13;
+  static VICTORY = 14;
 
   constructor() {
     this.audios = [];
@@ -62,6 +65,7 @@ export class MyAudio {
       MyAudio.FALSE_STRIKE,
       "/assets/game/audio/false_knight_strike.wav"
     );
+    this.addAudio(MyAudio.VICTORY, "/assets/game/audio/victory.mp3");
   }
 
   addAudio(index, asset) {
@@ -89,6 +93,10 @@ export class MyAudio {
     });
   }
 
+  fadeVideo() {
+    TweenMax.to(this.audios, 1.5, { volume: 0 });
+  }
+
   setVolume(vol) {
     this.volume = vol;
     this.audios.forEach((audio) => {
@@ -106,6 +114,7 @@ export class MyAudio {
   play(state, loop = true) {
     this.audios[state].currentTime = 0;
     this.audios[state].play();
+    this.audios[state].volume = this.getValueFromRange();
     this.audios[state].loop = loop;
   }
 }

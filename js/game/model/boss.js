@@ -320,30 +320,7 @@ export class Boss extends Enemy {
     if (this.state == Boss.IDLE) this.setDefaultSize();
   }
 
-  checkCredit() {
-    // Credit
-    if (this.death) {
-      const credit = Credit.getInstance();
-      credit.showCredit();
-    }
-  }
-
   parentMethod() {
-    // console.log("----------------");
-    // console.log("|    BEFORE    |");
-    // console.log("----------------");
-    // console.log("x : ", this.x);
-    // console.log("y : ", this.y);
-    // console.log("vx : ", this.vx);
-    // console.log("vy : ", this.vy);
-    // console.log("----------------");
-    // this.game.debug(
-    //   this.x + this.offsetX,
-    //   this.y + this.offsetY,
-    //   this.w + this.offsetW,
-    //   this.h + this.offsetH
-    // );
-    this.checkCredit();
     this.checkIdleState();
     this.checkJumpState();
     this.checkOffset();
@@ -351,15 +328,6 @@ export class Boss extends Enemy {
     this.checkAttack();
     this.checkLanding();
     this.checkLandState();
-    // console.log("----------------");
-    // console.log("|     AFTER    |");
-    // console.log("----------------");
-    // console.log("x : ", this.x);
-    // console.log("y : ", this.y);
-    // console.log("vx : ", this.vx);
-    // console.log("vy : ", this.vy);
-    // console.log("----------------");
-
     this.checkDeathState();
     this.checkStunState();
     this.checkBound();
@@ -378,6 +346,8 @@ export class Boss extends Enemy {
     }
     this.maxSpeed = Setting.BOSS_DEATH_SPEED;
     this.changeState(Boss.DEATH);
+
+    this.game.finishGame();
   }
 
   decrementHealth() {

@@ -1,5 +1,6 @@
 import { MyAudio } from "./facade/audio.js";
 import { Cheat } from "./facade/cheat.js";
+import { Credit } from "./facade/credit.js";
 import { GET_BOSS_BG } from "./facade/file.js";
 import { Boofly } from "./model/boofly.js";
 import { Boss } from "./model/boss.js";
@@ -59,7 +60,7 @@ export class GAME {
     this.timeEllapsed = 0;
     this.tempTimeInterval = 0;
     this.tempFrameCounter = 0;
-
+    this.credit = false;
     this.ui = UI.getInstance();
     this.audio = MyAudio.getInstance();
     this.audio.play(MyAudio.HOME);
@@ -98,6 +99,35 @@ export class GAME {
       this.ctx.fillStyle = obj.color;
       this.ctx.fillRect(obj.x, obj.y, obj.w, obj.h);
     });
+  }
+
+  checkCredit() {
+    // Credit
+    if (this.credit) {
+      const credit = Credit.getInstance();
+      credit.showCredit();
+    }
+  }
+
+  finishGame() {
+    this.audio.fadeVideo();
+
+    setTimeout(() => {
+      // Hide The UI
+      this.ui.hideUi();
+
+      // Set Audio
+      this.audio.play(MyAudio.VICTORY, false);
+
+      // Set Black Scren After Boss Has Died
+      $("#black-screen").css("opacity", 0.4);
+      $("#black-screen").fadeIn(1000);
+
+      setTimeout(() => {
+        // Set credit scroll up
+        this.credit = true;
+      }, 3000);
+    }, 3000);
   }
 
   changeBossScene() {
@@ -252,6 +282,7 @@ export class GAME {
     this.calculateFps();
     this.getDelta();
     if (!this.pause) {
+      this.checkCredit();
       this.camera.begin();
       this.cheat.checkKeys();
       if (this.shake) {
@@ -276,12 +307,12 @@ export class GAME {
       this.characters.forEach((character) => {
         character.render();
       });
+      this.flies.forEach((fly) => {
+        fly.render();
+      });
       this.backgrounds.forEach((obj) => {
         // Fore ground
         obj.render();
-      });
-      this.flies.forEach((fly) => {
-        fly.render();
       });
       this.renderParticle();
       this.camera.end();

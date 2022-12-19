@@ -21,7 +21,6 @@ export class Background {
   }
 
   debug() {
-    // console.log("Debugging ", this.x, this.y, this.w, this.h);
     const game = GAME.getInstance();
     game.debug(this.x, this.y, this.w, this.h, "red");
   }

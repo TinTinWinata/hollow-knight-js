@@ -81,13 +81,13 @@
   background-size: cover;
 }
 #jumbotron-card-3{
-  background-image: url('/assets/landing/jumbotron_1.jpg');
+  background-image: url('../assets/landing/jumbotron_1.jpg');
 }
 #jumbotron-card-2{
-  background-image: url('/assets/landing/jumbotron_2.jpg');
+  background-image: url('../assets/landing/jumbotron_2.jpg');
 }
 #jumbotron-card-1{
-  background-image: url('/assets/landing/jumbotron_3.jpg'); 
+  background-image: url('../assets/landing/jumbotron_3.jpg'); 
 }
 
 .jumbotron-card-container div::after{
@@ -192,13 +192,13 @@
 }
 
 .latest-container #box-1{
-  background-image:url('/assets/landing/latest-1.jpg')
+  background-image:url('../assets/landing/latest-1.jpg')
 }
 .latest-container #box-2{
-  background-image:url('/assets/landing/latest-2.jpg')
+  background-image:url('../assets/landing/latest-2.jpg')
 }
 .latest-container #box-3{
-  background-image:url('/assets/landing/latest-3.jpg')
+  background-image:url('../assets/landing/latest-3.jpg')
 }
 
 .content{

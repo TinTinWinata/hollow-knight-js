@@ -26,54 +26,51 @@ let characters = [];
 // Pushing Character
 
 characters.push(
-  new Character("Broken Vessel", "/assets/landing/character/broken-vessel.webp")
+  new Character("Broken Vessel", "assets/landing/character/broken-vessel.webp")
 );
 characters.push(
-  new Character("Brooding Mawlek", "/assets/landing/character/brooding.webp")
+  new Character("Brooding Mawlek", "assets/landing/character/brooding.webp")
 );
 characters.push(
-  new Character("Brother Oro & Mato", "/assets/landing/character/brothers.webp")
+  new Character("Brother Oro & Mato", "assets/landing/character/brothers.webp")
 );
 characters.push(
   new Character(
     "Crystal Guardian",
-    "/assets/landing/character/crystal-guardian.webp"
+    "assets/landing/character/crystal-guardian.webp"
   )
 );
 characters.push(
-  new Character("Dung Defender", "/assets/landing/character/dung-defender.webp")
+  new Character("Dung Defender", "assets/landing/character/dung-defender.webp")
 );
 characters.push(
-  new Character("False Knight", "/assets/landing/character/false knight.webp")
+  new Character("False Knight", "assets/landing/character/false knight.webp")
 );
 characters.push(
-  new Character("Flukerman", "/assets/landing/character/flukermam.webp")
+  new Character("Flukerman", "assets/landing/character/flukermam.webp")
 );
 
 characters.push(
-  new Character("God Tamer", "/assets/landing/character/god-tamer.webp")
+  new Character("God Tamer", "assets/landing/character/god-tamer.webp")
 );
 characters.push(
-  new Character("Great Nailsage Fly", "/assets/landing/character/great.webp")
+  new Character("Great Nailsage Fly", "assets/landing/character/great.webp")
 );
-characters.push(new Character("Grimm", "/assets/landing/character/grimm.webp"));
+characters.push(new Character("Grimm", "assets/landing/character/grimm.webp"));
 characters.push(
-  new Character("Gruz Mother", "/assets/landing/character/gruz-mother.webp")
+  new Character("Gruz Mother", "assets/landing/character/gruz-mother.webp")
 );
 characters.push(
-  new Character("Hive Knight", "/assets/landing/character/hive-knight.webp")
+  new Character("Hive Knight", "assets/landing/character/hive-knight.webp")
 );
 characters.push(
   new Character(
     "Hornet Protector",
-    "/assets/landing/character/hornet-protector.webp"
+    "assets/landing/character/hornet-protector.webp"
   )
 );
 characters.push(
-  new Character(
-    "Massive Moss Changer",
-    "/assets/landing/character/massive.webp"
-  )
+  new Character("Massive Moss Changer", "assets/landing/character/massive.webp")
 );
 
 // ----------------------------------------------------------------

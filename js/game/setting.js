@@ -45,7 +45,7 @@ export class Setting {
   static BOOFLY_MAX_CHASE_SPEED = 100;
   static BOOFLY_CHECK_RADIUS = 400;
 
-  static GENERATED_FLIES = 30;
+  static GENERATED_FLIES = 15;
   static FLIES_WIDTH = 100;
   static FLIES_HEIGHT = 100;
   static KNOCKBACK_POWER = 3000;

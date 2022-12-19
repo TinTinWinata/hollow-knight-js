@@ -10,10 +10,9 @@ import { Setting } from "../setting.js";
 export class Character {
   static GenerateFlies() {
     const game = GAME.getInstance();
-    const totalFlies = Setting.GENERATED_FLIES;
     const w = Setting.FLIES_WIDTH;
-    const h = Setting.FLIES_HEIG333;
-    for (let i = 0; i < totalFlies; i++) {
+    const h = Setting.FLIES_HEIGHT;
+    for (let i = 0; i < Setting.GENERATED_FLIES; i++) {
       const x = Math.random() * game.width;
       const y = Math.random() * game.height - 350;
       game.flies.push(
@@ -266,6 +265,12 @@ export class Character {
     } else {
       console.log("there's nothing to restore!");
     }
+  }
+
+  debug() {
+    const game = GAME.getInstance();
+    console.log(this.x, this.y, this.w, this.h);
+    game.debug(this.x, this.y, this.w, this.h, "red");
   }
 
   isHitUpperWall() {

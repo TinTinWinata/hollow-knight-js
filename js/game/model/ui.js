@@ -55,6 +55,10 @@ export class UI {
     }, n);
   }
 
+  hideUi() {
+    $("#ui").fadeOut(1000);
+  }
+
   reset() {
     $(".health").show();
     $("#money-text").text(0);
@@ -92,8 +96,11 @@ export class UI {
     $("#money-text").text(n);
   }
 
+  hideTitle() {
+    $("#title").fadeOut(1000);
+  }
+
   changeTitle(str) {
-    console.log("changing title to : ", str);
     $("#title").html(str);
   }
   showTitle(n, str = "") {

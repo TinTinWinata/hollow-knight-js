@@ -3,6 +3,7 @@ import { GET_BOSS_DOOR } from "../facade/file.js";
 import { Object } from "../parent/object.js";
 import { Setting } from "../setting.js";
 import { Background } from "./background.js";
+import { UI } from "./ui.js";
 
 export class BossDoor {
   // Decide Render First
@@ -25,8 +26,8 @@ export class BossDoor {
     // console.log(img);
     const game = GAME.getInstance();
     const scale = 1.3;
-    const w = img.width * scale;
-    const h = img.height * scale;
+    const w = 591 * scale; // 591 -> IMAGE.png WIDTH
+    const h = 801 * scale; // 801 -> IMAGE.png HEIGHT
     const offsetY = 160;
     const x = Setting.WIDTH - w;
     const y = Setting.HEIGHT - h - offsetY;
@@ -63,8 +64,8 @@ export class BossDoor {
     const img = GET_BOSS_DOOR(BossDoor.BOSS_DOOR);
     const game = GAME.getInstance();
     const scale = 1.3;
-    const w = img.width * scale;
-    const h = img.height * scale;
+    const w = 574 * scale; // PNG WIDTH
+    const h = 497 * scale; // PNG HEIGHT
     const offsetY = 160;
     const x = Setting.WIDTH - w;
     const y = Setting.HEIGHT - h - offsetY;
@@ -89,6 +90,8 @@ export class BossDoor {
     if (Setting.PLAYER_INTERACT.includes(k)) {
       const game = GAME.getInstance();
       game.changeBossScene();
+      const ui = UI.getInstance();
+      ui.hideTitle();
     }
   }
 
@@ -120,11 +123,8 @@ export class BossDoor {
   }
 
   render() {
-    // console.log("Boss Door : ", this.bossDoors);
     this.logic();
     if (!this.open) {
-      // this.bossDoors[BossDoor.BOSS_DOOR].debug();
-      // this.bossDoors[BossDoor.BOSS_BACKGROUND].debug();
       this.bossDoors[BossDoor.BOSS_DOOR].render();
       this.bossDoors[BossDoor.BOSS_BACKGROUND].render();
     }

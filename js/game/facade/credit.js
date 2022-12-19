@@ -12,15 +12,18 @@ export class Credit {
   }
 
   constructor() {
+    this.afterScene = true;
+
     this.root = $("#credit-scene-root");
     this.total = 0;
-    this.addAllTemplate();
+    // this.addAllTemplate();
     this.bottom = 0;
     this.container = $("#credit-scene");
   }
 
   addAllTemplate() {
-    this.addTemplate("Created By TinTin Winata", "h4");
+    this.addTemplate("Created By TinTin Winata", "h2");
+    this.addTemplate("Web Design NAR 23-1", "h2");
     this.addTemplate(
       "Alongside Courage And Perseverance We Shape and Define Our Future",
       "h3"
@@ -41,10 +44,21 @@ export class Credit {
   }
 
   showCredit() {
-    console.log("bottom : ", this.bottom);
     this.container.show();
     this.root.css("bottom", `${this.bottom}%`);
     const game = GAME.getInstance();
-    this.bottom += Setting.CREDIT_SCENE_SPEED * game.delta;
+    if (this.bottom < 345) {
+      this.bottom += Setting.CREDIT_SCENE_SPEED * game.delta;
+    } else {
+      if (this.afterScene) {
+        this.afterScene = false;
+        this.root.fadeOut(5000);
+        $("#black-screen").animate({ opacity: 1 }, 5000);
+        setTimeout(() => {
+          $("#after-scene").currentTime = 0;
+          $("#after-scene").fadeIn(2000);
+        }, 5000);
+      }
+    }
   }
 }
