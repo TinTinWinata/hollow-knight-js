@@ -102,6 +102,9 @@ function start() {
     if (e.key == "Escape") {
       game.pauseGame(true);
     }
+    if (e.key == "f") {
+      game.fullscreen();
+    }
     if (game.canMove) {
       if (e.key == Setting.PLAYER_ATTACK) {
         player.attack();
@@ -139,6 +142,9 @@ function start() {
 }
 
 function startGame() {
+  // When Start Remove the Footer
+  $("#root-footer").hide();
+
   $("#start-menu").fadeOut();
   start();
 }

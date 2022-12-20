@@ -64,6 +64,28 @@ export class GAME {
     this.ui = UI.getInstance();
     this.audio = MyAudio.getInstance();
     this.audio.play(MyAudio.HOME);
+
+    this.mainWidth = 1000;
+    this.mainHeight = 600;
+
+    this.fullscreenFlag = false;
+  }
+
+  fullscreen() {
+    this.fullscreenFlag = !this.fullscreenFlag;
+    if (this.fullscreenFlag) {
+      $("#root-nav").hide();
+      $(".canvas-container").css({
+        width: "98vw",
+        height: "98vh",
+      });
+    } else {
+      $("#root-nav").show();
+      $(".canvas-container").css({
+        width: this.mainWidth + "px",
+        height: this.mainHeight + "px",
+      });
+    }
   }
 
   backToMenu() {

@@ -133,7 +133,13 @@
 }
 
 .marquee-header{
+  font-family: 'hollowKnight';
   text-align: center;
   font-size: 60px;
-  margin-bottom: 30px;
+  margin-right: 5px;
+  /* margin-bottom: 30px; */
+}
+.marquee-header-image{
+  margin-top: 10px;
+  margin-bottom: 50px;
 }

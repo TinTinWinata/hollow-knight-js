@@ -87,8 +87,8 @@ export class UI {
     $("#pause-game").hide();
   }
 
-  incrementMoney() {
-    this.money += 1;
+  incrementMoney(n = 1) {
+    this.money += n;
     this.changeMoney(this.money);
   }
 

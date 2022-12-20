@@ -4,6 +4,27 @@
   font-family: hollowKnight;
   src: url('/assets/font/Supernatural_Knight.ttf')
 }
+/* ===== Scrollbar CSS ===== */
+  /* Firefox */
+  * {
+    scrollbar-width: auto;
+    scrollbar-color: #ff5c5c #000000;
+  }
+
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 16px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: #000000;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: #ff5c5c;
+    border-radius: 10px;
+    border: 3px solid black;
+  }
 
 *{
   margin:0;
@@ -67,6 +88,10 @@ nav .menu{
   font-weight: 500;
   margin-left: 20px;
   transform: all 0.3s ease;
+}
+
+nav .menu:hover{
+  text-decoration: underline;
 }
 
 
@@ -183,3 +208,10 @@ footer .logos{
   cursor: pointer;
 }
 
+.hollow{
+  font-family: 'hollowKnight';
+}
+
+.fit-content{
+  width: fit-content;
+}

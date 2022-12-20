@@ -335,6 +335,7 @@ export class Boss extends Enemy {
   }
 
   die() {
+    if (this.state == Boss.JUMP) return;
     this.death = true;
     this.ghostDie();
     this.canCollide = false;
@@ -353,6 +354,7 @@ export class Boss extends Enemy {
   decrementHealth() {
     const game = GAME.getInstance();
     const dmg = game.player.damage;
+
     if (this.state == Boss.STUN) {
       this.health -= dmg;
       if (this.health <= 0) {
@@ -367,6 +369,7 @@ export class Boss extends Enemy {
   }
 
   stun() {
+    if (this.state == Boss.JUMP) return;
     this.canCollide = false;
     this.lookAtPlayer();
     if (this.backward) {

@@ -4,6 +4,16 @@
   width: 100%;
   overflow: hidden;
   height: 700px;
+  position: relative;
+}
+
+.jumbotron-video-container video{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0%;
+  left: 0%;
+  object-fit: cover;
 }
 
 .black-shade{
@@ -34,13 +44,10 @@
 }
 
 .jumbotron-card-container{
-  margin-top: 30px;
-
 }
 
 .jumbotron-card-container .relative{
   position: relative;
-  margin-top: 30px;
   width: 700px;
   height: 400px;
 }
@@ -202,7 +209,7 @@
 }
 
 .content{
-  width: var(--maxWidth);
+  max-width: var(--maxWidth);
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -233,9 +240,9 @@
   text-align: center;
 }
 
-.description-text .header{
-  margin-top: 50px;
-  font-size: 30px;
+#description-header{
+  font-size: 40px;
+  margin-bottom: 20px;
 }
 
 .circle-container{ 
@@ -308,6 +315,26 @@
   /* --------------- */
 }
 
+.character-text-container .button{
+  margin-top: 25px;
+  width: fit-content;
+  transition: all 0.5s ease;
+  cursor: pointer;
+  background-color: white;
+}
+
+
+.character-text-container .button a{
+  font-size: 15px;
+  padding: 15px;
+  color:black;
+}
+
+
+.character-text-container .button:hover{
+  background-color: rgb(218, 218, 218);
+}
+
 
 
 .content-card h1{
@@ -341,4 +368,111 @@
 
 .hero .text{
   text-indent: 50px;
+}
+
+@media only screen and (max-width: 1200px) {
+  #box-3{
+    display: none;
+  }
+
+  
+}
+
+@media only screen and (max-width: 1200px) {
+
+
+  .marquee-container{
+    max-width: 500px !important;
+    overflow: hidden;
+  }
+}
+
+@media only screen and (max-width: 1500px) {
+
+
+  .marquee-container{
+    max-width: 1000px !important;
+    overflow: hidden;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+
+  
+.jumbotron-card-container .relative{
+  width: 500px;
+  height: 300px;
+}
+
+
+  .content-card{
+    width: 100%;
+    flex-direction: column ;
+  }
+  body {
+    /* background-color: lightblue; */
+  }
+
+  #box-2{
+    display: none;
+  }
+  #hero img{
+    width: 300px;
+    height: 300px;
+  }
+
+  #character-header{
+    font-size: 30px;
+  }
+  #character-content-1{
+    font-size: 14px;
+  }
+
+  .marquee-container{
+    max-width: 400px !important;
+    overflow: hidden;
+  }
+  .content-card {
+    margin: 100px 0px 0px 0px;
+  } 
+  .marquee-header{
+    font-size: 40px !important;
+    margin-bottom: 10px;
+  }
+  .marquee-header-image img {
+    width: 100%;
+  }
+  .marquee-wrapper{
+    max-width: 400px !important;
+    margin: 0 auto;
+  }
+
+  iframe{
+    width: 600px;
+    height: 400px;
+  }
+  #description-header{
+    text-align: center;
+    font-size: 30px;
+  }
+
+  .description-container{
+    margin: 450px 0px 200px 0px;
+  }
+  .content-card .card{
+    margin-bottom: 100px;
+  }
+
+  #hero{
+    padding: 30px;
+  }
+
+  .store{
+    padding: 30px;
+  }
+
+  .store img{
+    margin: auto;
+    width: 300px;
+  }
 }

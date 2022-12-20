@@ -44,6 +44,7 @@
     <script src="js/landing.js" defer></script>
     <script src="js/marquee.js" defer></script>
     <script src="js/nav.js" defer></script>
+    <script src="js/footer.js" defer></script>
   </head>
 
   <body>
@@ -53,7 +54,6 @@
     <div id="root-nav"></div>
     <!-- Main -->
     <main>
-
       <!-- Jumbotron -->
       <div class="w-full jumbotron relative">
         <div class="relative jumbotron-video-container center">
@@ -108,6 +108,9 @@
             data-aos="fade-up"
             class="description-container text-center"
           >
+            <div id="description-header" class="center header">
+              Brave the Depths of a Forgotten Kingdom
+            </div>
             <div class="jumbotron-card-container w-full center">
               <div class="relative">
                 <div class="cursor left"><</div>
@@ -123,9 +126,6 @@
               <div class="circle"></div>
             </div>
             <div class="description-text">
-              <div id="description-header" class="header">
-                Brave the Depths of a Forgotten Kingdom
-              </div>
               <div class="center">
                 <div id="description-content" class="content">
                   Beneath the fading town of Dirtmouth sleeps a vast, ancient
@@ -198,9 +198,9 @@
 
           <!-- Hero -->
           <div id="hero" data-aos="fade-up" class="hero flex">
-            <div class="">
+            <div class="center">
               <img
-                data-anijs="if: click, do: tada animated"
+                data-anijs="if: click, do: flip animated"
                 id="character-image"
                 class="cursor-pointer"
                 width="700px"
@@ -217,24 +217,24 @@
                   Pale King and the White Lady,born in the Abyss with Void
                   inside their shell.Hornet is the Knight's sister through their
                   shared father. Like the rest of their Vessel siblings, the
-                  Knight is genderless.
+                  Knight is genderless. Pale King Abyss After climbing out of
+                  their birthplace in the Abyss
                 </div>
-                <div id="character-content-2" class="text">
-                  Pale King Abyss.png After climbing out of their birthplace in
-                  the Abyss, the Knight witnessed their sibling, the Hollow
-                  Knight, being taken out of the Abyss by the Pale King. The ent
-                  ce to the Abyss was sealed, causing the Knight to fall back
-                  down. Sometime after this, despite the entrance being sealed,
-                  the Knight and some of their siblings managed to escape the
-                  Abyss.
+                <div class="button center">
+                  <a href="https://hollowknight.fandom.com/wiki/Knight" class=""
+                    >View on Wikipedia</a
+                  >
                 </div>
               </div>
             </div>
           </div>
 
           <!-- Marquee -->
-          <div class="" data-aos="fade-up">
-            <!-- <h1 class="marquee-header">Hero List</h1> -->
+          <div class="marquee-container" data-aos="fade-up">
+            <h1 class="marquee-header">All Bosses</h1>
+            <div class="center marquee-header-image">
+              <img src="/assets/game/pause/option.png" alt="" />
+            </div>
             <article class="marquee-wrapper">
               <div class="marquee">
                 <ul class="marquee-root"></ul>
@@ -271,27 +271,15 @@
                 <div class="button">Purchase the Official Soundtrack</div>
               </div>
             </div>
-            <div class="right">
+            <div class="right center">
+              ,
               <img src="assets/landing/store.jpg" alt="" />
             </div>
           </div>
         </div>
       </div>
       <!-- Footer -->
-      <footer class="center flex-col">
-        <div class="flex logos">
-          <a href="https://discord.com/" class="logo-container center">
-            <img class="logo" src="assets/footer/discord.svg" alt="" />
-          </a>
-          <a href="https://facebook.com/" class="logo-container center">
-            <img class="logo" src="assets/footer/facebook.svg" alt="" />
-          </a>
-          <a href="https://twitter.com/" class="logo-container center">
-            <img class="logo" src="assets/footer/twitter.svg" alt="" />
-          </a>
-        </div>
-        <div class="text">Hollow Knight Clone Copyright 2022 TinTin Winata</div>
-      </footer>
+      <div id="root-footer"></div>
     </main>
   </body>
   <!-- AniJS core library -->

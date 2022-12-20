@@ -22,6 +22,7 @@
 
     <!-- Main Script -->
     <script src="js/nav.js" defer></script>
+    <script src="js/footer.js" defer></script>
 
     <!-- Game Script -->
     <script type="module" src="js/game/main.js" defer></script>
@@ -48,7 +49,7 @@
     <!-- <audio id="homeAudio" src="assets/game/audio/home.mp3"></audio> -->
 
     <!-- Main Content -->
-    <div class="full center">
+    <div class="full center min-h-screen global-container">
       <div class="">
         <div class="canvas-container">
           <!-- After Scnee -->
@@ -143,8 +144,16 @@
           </div>
           <canvas id="myCanvas"> </canvas>
         </div>
-        <input type="range" min="1" max="100" value="100" id="volumeRange" />
+        <input
+          hidden
+          type="range"
+          min="1"
+          max="100"
+          value="100"
+          id="volumeRange"
+        />
       </div>
     </div>
+    <div id="root-footer"></div>
   </body>
 </html>

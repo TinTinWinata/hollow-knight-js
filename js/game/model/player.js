@@ -202,7 +202,8 @@ export class Player extends Character {
     const w = this.w - this.offsetX;
     const h = this.h - this.offsetY;
 
-    if (this.invicible || this.dead || this.state == "dash") return;
+    if (this.cheat || this.invicible || this.dead || this.state == "dash")
+      return;
 
     this.game.enemies.forEach((enemy) => {
       if (enemy.isCollideBlock(x, y, w, h) && !enemy.dead) {
@@ -470,6 +471,7 @@ export class Player extends Character {
 
   constructor(x, y, w, h, sprite, maxSprite) {
     super(x, y, w, h, sprite, maxSprite);
+    this.cheat = false;
     this.fade = false;
     this.deadMaxY = Setting.CHARACTER_MAX_DEAD_HEIGHT;
     this.canMove = true;

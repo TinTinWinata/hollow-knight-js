@@ -89,7 +89,9 @@ export class BossDoor {
     const k = key.key;
     if (Setting.PLAYER_INTERACT.includes(k)) {
       const game = GAME.getInstance();
-      game.changeBossScene();
+      if (!game.bossFight) {
+        game.changeBossScene();
+      }
       const ui = UI.getInstance();
       ui.hideTitle();
     }

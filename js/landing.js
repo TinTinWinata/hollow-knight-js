@@ -46,20 +46,28 @@ function showDesc(idx) {
   descImage.eq(idx).fadeIn(time);
 }
 
-rightCursor.click(() => {
+setInterval(() => {
+  nextDesc();
+}, 3000);
+
+function nextDesc() {
   currIdx += 1;
   if (currIdx > maxLenght - 1) {
     currIdx = 0;
   }
   showDesc(currIdx);
-});
+}
 
-leftCursor.click(() => {
+function prevDesc() {
   currIdx -= 1;
   if (currIdx < 0) {
     currIdx = maxLenght - 1;
   }
   showDesc(currIdx);
-});
+}
+
+rightCursor.click(nextDesc);
+
+leftCursor.click(prevDesc);
 
 // -----------------------------------------------------

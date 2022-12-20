@@ -1,4 +1,5 @@
 import { GAME } from "../game.js";
+import { BossDoor } from "../model/bossdoor.js";
 import { UI } from "../model/ui.js";
 import { Setting } from "../setting.js";
 
@@ -36,6 +37,15 @@ export class Cheat {
     this.addCheat("hesoyam", () => {
       game.player.maxHealth();
       ui.changeHealth(game.player.health);
+    });
+    this.addCheat("candi", () => {
+      const totalIncrement = 10;
+      ui.incrementMoney(totalIncrement);
+      game.killedCrawlid += totalIncrement;
+      BossDoor.GetInstance().openDoor();
+    });
+    this.addCheat("rataampas", () => {
+      game.player.cheat = true;
     });
   }
 
