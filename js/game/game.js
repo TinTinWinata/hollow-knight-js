@@ -71,19 +71,23 @@ export class GAME {
     this.fullscreenFlag = false;
   }
 
+  
+
   fullscreen() {
     this.fullscreenFlag = !this.fullscreenFlag;
     if (this.fullscreenFlag) {
       $("#root-nav").hide();
       $(".canvas-container").css({
-        width: "98vw",
-        height: "98vh",
+        width: "100vw",
+        height: "100vh",
+        border: "none",
       });
     } else {
       $("#root-nav").show();
       $(".canvas-container").css({
         width: this.mainWidth + "px",
         height: this.mainHeight + "px",
+        border: "1px solid white",
       });
     }
   }

@@ -71,7 +71,6 @@ export class Player extends Character {
     if (this.state == state) return;
     switch (state) {
       case "dash":
-        console.log("Changing sprite to dash");
         this.game.audio.play(MyAudio.PLAYER_DASH, false);
         this.spriteIdx = 0;
         this.config = PLAYER_CONF.dash;

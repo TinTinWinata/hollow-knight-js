@@ -397,6 +397,5 @@ export class Boss extends Enemy {
   hit() {
     this.decrementHealth();
     this.attacked = true;
-    console.log(this.health);
   }
 }

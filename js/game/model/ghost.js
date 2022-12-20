@@ -6,7 +6,6 @@ export class Ghost extends Character {
   static Generate(backward, x, y, w) {
     const sprite = GET_BOSS_GHOST_SPRITE();
 
-    console.log(backward);
     const inc = backward ? 0 : w - 30;
 
     const ghost = new Ghost(

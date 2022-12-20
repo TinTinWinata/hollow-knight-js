@@ -53,7 +53,6 @@ export class Object {
     const game = GAME.getInstance();
     // game.debug(this.x, this.y, this.w, this.h)
     // game.debug(x, y, 30, 30);
-    // console.log('asd')
     return checkCollide(
       this.x + this.offsetX,
       this.y + this.offsetY,

@@ -99,5 +99,4 @@ for (let i = 0; i < rootLength; i++) {
 const imgContainer = $(".marquee-root li");
 imgContainer.hover(() => {
   var index = $(this).index();
-  console.log(index);
 });

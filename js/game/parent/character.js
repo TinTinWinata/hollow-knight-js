@@ -263,13 +263,11 @@ export class Character {
       this.vy = this.savedNode.vy;
       this.savedNode = null;
     } else {
-      console.log("there's nothing to restore!");
     }
   }
 
   debug() {
     const game = GAME.getInstance();
-    console.log(this.x, this.y, this.w, this.h);
     game.debug(this.x, this.y, this.w, this.h, "red");
   }
 

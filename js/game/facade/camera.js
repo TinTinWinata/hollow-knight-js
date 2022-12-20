@@ -26,7 +26,6 @@ export default class Camera {
   }
 
   init() {
-    this.addListeners();
     this.updateViewport();
   }
 
@@ -66,11 +65,9 @@ export default class Camera {
   }
 
   shake() {
-    const game = GAME.getInstance();
     var dx = Math.random() * Setting.SHAKE_SIZE;
     var dy = Math.random() * Setting.SHAKE_SIZE;
     this.context.translate(dx, dy);
-    // this.context.filter = `blur(2px)`;
   }
 
   moveTo(x, y) {
@@ -106,35 +103,5 @@ export default class Camera {
     obj.x = (x - this.viewport.left) * this.viewport.scale[0];
     obj.y = (y - this.viewport.top) * this.viewport.scale[1];
     return obj;
-  }
-
-  /**
-   * Event Listeners for:
-   *  -Zoom and scroll around world
-   *  -Center camera on "R" key
-   */
-  addListeners() {
-    // window.onwheel = (e) => {
-    //   if (e.ctrlKey) {
-    //     // Your zoom/scale factor
-    //     let zoomLevel = this.distance - e.deltaY * 20;
-    //     if (zoomLevel <= 1) {
-    //       zoomLevel = 1;
-    //     }
-    //     this.zoomTo(zoomLevel);
-    //   } else {
-    //     // Your track-pad X and Y positions
-    //     const x = this.lookAt[0] + e.deltaX * 2;
-    //     const y = this.lookAt[1] + e.deltaY * 2;
-    //     this.moveTo(x, y);
-    //   }
-    // };
-    // window.addEventListener("keydown", (e) => {
-    //   if (e.key === "r") {
-    //     console.log("hello world");
-    //     this.zoomTo(1000);
-    //     this.moveTo(0, 0);
-    //   }
-    // });
   }
 }

@@ -45,6 +45,7 @@ export class Credit {
 
   showCredit() {
     this.container.show();
+    const h = this.root.position();
     this.root.css("bottom", `${this.bottom}%`);
     const game = GAME.getInstance();
     if (this.bottom < 345) {
