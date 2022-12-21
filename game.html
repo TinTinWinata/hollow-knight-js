@@ -23,6 +23,7 @@
     <!-- Main Script -->
     <script src="js/nav.js" defer></script>
     <script src="js/footer.js" defer></script>
+    <script src="js/modal.js" defer></script>
 
     <!-- Game Script -->
     <script type="module" src="js/game/main.js" defer></script>
@@ -31,6 +32,7 @@
     <!-- CSS -->
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/game.css" />
+    <link rel="stylesheet" href="css/modal.css" />
 
     <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -48,19 +50,26 @@
     <div id="root-audio"></div>
     <!-- <audio id="homeAudio" src="assets/game/audio/home.mp3"></audio> -->
 
+    <!-- Modal -->
+    <div id="root-modal"></div>
+
     <!-- Main Content -->
     <div class="full center min-h-screen global-container">
       <div class="">
         <div class="canvas-container">
           <!-- After Scnee -->
-          <video
-            width="100%"
-            src="assets/landing/header.mp4"
-            autoplay
-            muted
-            loop
-            id="after-scene"
-          ></video>
+          <div id="after-scene-container">
+            <div class="black"></div>
+            <img src="/assets/game/end.png" alt="" />
+            <video
+              width="100%"
+              src="assets/landing/header.mp4"
+              autoplay
+              muted
+              loop
+              id="after-scene"
+            ></video>
+          </div>
           <div id="start-menu">
             <video
               src="assets/landing/landing-page.mp4"

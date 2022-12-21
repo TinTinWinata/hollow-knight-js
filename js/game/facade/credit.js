@@ -56,8 +56,8 @@ export class Credit {
         this.root.fadeOut(5000);
         $("#black-screen").animate({ opacity: 1 }, 5000);
         setTimeout(() => {
-          $("#after-scene").currentTime = 0;
-          $("#after-scene").fadeIn(2000);
+          $("#after-scene-container").currentTime = 0;
+          $("#after-scene-container").fadeIn(2000);
         }, 5000);
       }
     }

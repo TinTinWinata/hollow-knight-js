@@ -116,7 +116,7 @@ function start() {
 
   window.addEventListener("keydown", (e) => {
     if (game.canMove) {
-      if (e.key == Setting.PLAYER_JUMP) {
+      if (Setting.PLAYER_JUMP.includes(e.key)) {
         player.jump();
       }
       game.keys[e.key] = true;

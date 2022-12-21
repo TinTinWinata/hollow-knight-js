@@ -51,6 +51,7 @@
 }
 
 body{
+  transition: all 0.5s ease;
   color: white;
   font-family: 'Noto Sans', sans-serif;
   letter-spacing: 2px;
@@ -86,7 +87,7 @@ nav .container .play{
 nav .menu{
   cursor: pointer;
   font-weight: 500;
-  margin-left: 20px;
+  margin-right: 20px;
   transform: all 0.3s ease;
 }
 
@@ -137,6 +138,7 @@ footer .logo-container{
 footer .logos{
   margin-bottom: 20px;
 }
+
 
 
 /* Global Styling */
@@ -215,3 +217,4 @@ footer .logos{
 .fit-content{
   width: fit-content;
 }
+

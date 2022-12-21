@@ -7,9 +7,9 @@ const nav = `    <nav class="absolute w-full">
       </a>  
     </div>
     <div class="menu center">
-      <a href="home.html">
-        DEVICE
-      </a>  
+      <div href="home.html" class="how-to-play">
+        HOW TO PLAY
+      </div>  
     </div>
   </div>
   <a href="game.html" class="play cursor-pointer center">PLAY FOR FREE</a>

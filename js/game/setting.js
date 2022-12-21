@@ -8,7 +8,7 @@ export class Setting {
   static PLAYER_MOVEMENT_LEFT = "ArrowLeft";
   static PLAYER_MOVEMENT_RIGHT = "ArrowRight";
   static PLAYER_MOVEMENT_DOWN = "ArrowDown";
-  static PLAYER_JUMP = "z";
+  static PLAYER_JUMP = ["z", "ArrowUp"];
   static PLAYER_ATTACK = "x";
   static PLAYER_DASH = "s";
 

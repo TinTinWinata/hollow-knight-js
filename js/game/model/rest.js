@@ -2,6 +2,7 @@ import { GET_REST_SPRITE } from "../facade/file.js";
 import { checkBlockCollide } from "../facade/helper.js";
 import { GAME } from "../game.js";
 import { Object } from "../parent/object.js";
+import { Setting } from "../setting.js";
 import { UI } from "./ui.js";
 
 export class Rest extends Object {
@@ -22,7 +23,7 @@ export class Rest extends Object {
   listener(e) {
     const ui = UI.getInstance();
     const game = GAME.getInstance();
-    if (e.key == "ArrowUp") {
+    if (Setting.PLAYER_INTERACT.includes(e.key)) {
       /* Getting the instance of the UI class. */
       ui.whiteScreen(300);
       game.player.maxHealth();
