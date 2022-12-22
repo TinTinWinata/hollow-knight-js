@@ -1,7 +1,7 @@
 
 
 .keyboard-base {
-  max-width: 1155px;
+  max-width: 1000px;
   padding: 20px;
   /* position: absolute; */
   /* top: 50%; */
@@ -10,8 +10,8 @@
   background-color: rgb(128, 128, 128);
   border-radius: 10px;
   display: grid;
-  grid-template-columns: repeat(30, 30px);
-  grid-template-rows: repeat(5, 60px);
+  grid-template-columns: repeat(30, 27px);
+  grid-template-rows: repeat(5, 50px);
   grid-gap: 5px;
 }
 
@@ -20,7 +20,7 @@
   padding:10px;
   font-size: 30px;
   width: fit-content;
-  margin: 100px auto;
+  margin: 10px auto;
   border-bottom: 1px solid white;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   /* margin-top: 30px; */
@@ -37,7 +37,7 @@
   border: 1px solid rgba(82, 82, 82, 0.466);
   border-radius: 5px;
   grid-column: span 2;
-  font-size: 20px;
+  font-size: 15px;
   text-align: center;
   padding-top: 17px;
   cursor: pointer;
@@ -45,8 +45,8 @@
 }
 
 .key svg{
-  width: 30px;
-  height: 30px;
+  width: 20px;
+  height: 20px;
 }
 
 .modal .used{
@@ -140,7 +140,7 @@
 .modal .container{
   position: relative;;
   width: 1200px;
-  height: 800px;
+  height: 600px;
   border: 0.5px solid rgba(255, 255, 255, 0.274);
   background-size: cover;
   border-radius: 20px;

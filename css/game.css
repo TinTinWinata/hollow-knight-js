@@ -300,3 +300,18 @@ body {
   line-height: 40px;
   margin-bottom: 350px;
 }
+
+
+
+@media only screen and (max-width: 1500px){
+  .canvas-container{
+    width: 900px;
+    height: 500px;
+  }
+}
+
+@media only screen and (max-width: 1000px){
+  nav{
+    position: relative !important;
+  }
+}

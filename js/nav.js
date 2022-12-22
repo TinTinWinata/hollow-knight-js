@@ -6,8 +6,8 @@ const nav = `    <nav class="absolute w-full">
         HOME
       </a>  
     </div>
-    <div class="menu center">
-      <div href="home.html" class="how-to-play">
+    <div class="menu center how-to-play">
+      <div href="home.html" class="">
         HOW TO PLAY
       </div>  
     </div>
