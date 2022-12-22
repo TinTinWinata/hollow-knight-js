@@ -136,7 +136,9 @@
   height: 100%;
   width: 100%;
 }
-
+.modal .content-container{
+  padding: 20px;
+}
 .modal .container{
   position: relative;;
   width: 1200px;

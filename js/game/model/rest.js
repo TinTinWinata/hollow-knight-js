@@ -15,7 +15,6 @@ export class Rest extends Object {
     const h = 70;
     const obj = new this(x, y, w, h, GET_REST_SPRITE(), 1, game.ctx, false);
     game.objects.push(obj);
-
     return obj;
   }
 

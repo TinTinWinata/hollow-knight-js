@@ -76,7 +76,8 @@ const firstTemplate = `
   </div>
 </svg>
 </div>
-<ul >
+<div class="content-container">
+<ul>
   <li>
     On the start game you need to achieve 10 coin to open the boss
     door
@@ -96,6 +97,7 @@ const firstTemplate = `
     Boss HP will be decreased if the bunny is leaving the boss body
   </li>
 </ul>
+</div>
 `;
 
 const secondTemplate = `
