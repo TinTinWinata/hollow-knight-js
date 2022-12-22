@@ -149,20 +149,20 @@ export class Player extends Character {
   checkMovement() {
     if (this.state == "dash" && this.spriteIdx == this.config.max - 1) {
       if (this.backward) {
-        this.vx += -Setting.CHARACTER_DASH_FORCE * this.game.delta;
+        this.vx = -Setting.CHARACTER_DASH_FORCE;
       } else {
-        this.vx += Setting.CHARACTER_DASH_FORCE * this.game.delta;
+        this.vx = Setting.CHARACTER_DASH_FORCE;
       }
     } else if (this.canMove && this.game.keys[Setting.PLAYER_MOVEMENT_RIGHT]) {
       // this.game.moveBackground(false);
       this.changeSprite("walk");
       this.backward = false;
-      this.vx += this.speedX;
-      this.vx += this.speedX;
+      this.vx += this.speedX * this.game.delta;
+      this.vx += this.speedX * this.game.delta;
     } else if (this.canMove && this.game.keys[Setting.PLAYER_MOVEMENT_LEFT]) {
       // this.game.moveBackground(true);
       this.changeSprite("walk");
-      this.vx -= this.speedX;
+      this.vx -= this.speedX * this.game.delta;
       this.backward = true;
     } else {
       this.changeSprite("idle");

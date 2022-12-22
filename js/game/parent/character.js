@@ -334,9 +334,9 @@ export class Character {
 
   diedStop() {
     if (this.dead && this.vx > 0) {
-      this.vx -= 1;
+      this.vx -= Setting.ENEMY_DIED_STOP * this.game.delta;
     } else if (this.dead && this.vx < 0) {
-      this.vx += 1;
+      this.vx += Setting.ENEMY_DIED_STOP * this.game.delta;
     }
   }
 

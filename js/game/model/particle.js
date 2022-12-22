@@ -6,6 +6,7 @@ import {
   PLAYER_CONF,
 } from "../facade/file.js";
 import { getRandomFromArray } from "../facade/helper.js";
+import { Setting } from "../setting.js";
 
 export class Particle {
   static EmitAllParticle(x, y) {
@@ -88,7 +89,8 @@ export class Particle {
   }
 
   incrementIdx() {
-    this.interval += 1;
+    const game = GAME.getInstance();
+    this.interval += Setting.PARTICLE_SPEED * game.delta;
     if (this.interval >= this.config.speed) {
       this.interval = 0;
       this.spriteIdx += 1;

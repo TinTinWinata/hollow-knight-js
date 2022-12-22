@@ -8,9 +8,8 @@ import { UI } from "./ui.js";
 export class Rest extends Object {
   static GenerateRest() {
     const game = GAME.getInstance();
-    const sprite = GET_REST_SPRITE();
 
-    const x = 100;
+    const x = game.width - 900;
     const y = game.height - 270;
     const w = 150;
     const h = 70;
@@ -54,6 +53,6 @@ export class Rest extends Object {
   }
 
   constructor(x, y, w, h, sprite, maxSprite, ctx, color) {
-    super(x, y, w, h, sprite, maxSprite, ctx, color, false);
+    super(x, y, w, h, sprite, maxSprite, ctx, color, false, null,true);
   }
 }

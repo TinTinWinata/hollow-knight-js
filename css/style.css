@@ -2,7 +2,7 @@
 
 @font-face{
   font-family: hollowKnight;
-  src: url('/assets/font/Supernatural_Knight.ttf')
+  src: url('../assets/font/Supernatural_Knight.ttf')
 }
 /* ===== Scrollbar CSS ===== */
   /* Firefox */
@@ -56,7 +56,7 @@ body{
   font-family: 'Noto Sans', sans-serif;
   letter-spacing: 2px;
   background-color: black;
-  /* background-image: url('/assets/landing/batik.png'); */
+  /* background-image: url('assets/landing/batik.png'); */
 }
 
 a{

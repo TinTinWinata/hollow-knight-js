@@ -107,14 +107,30 @@ export class Object {
   }
   logic() {}
 
-  renderBackward() {}
+  renderBackward() {
+    if (!this.speed) this.spriteIdx++;
+    const idx = this.spriteIdx % this.maxSprite;
+    this.ctx.save();
+    this.ctx.translate(this.x + this.w / 2, this.y + this.h / 2);
+    this.ctx.scale(-1, 1);
+    this.ctx.drawImage(
+      this.sprite[idx],
+      -this.w / 2,
+      -this.h / 2,
+      this.w,
+      this.h
+    );
+    this.ctx.restore();
+  }
+
   render() {
     this.logic();
     if (this.color) {
       this.renderWithColor();
-    } else if (this.sprite) {
+    } else if (this.sprite && !this.backward) {
       this.renderWithSprite();
     } else {
+      this.renderBackward();
     }
   }
 }

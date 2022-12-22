@@ -232,7 +232,7 @@ const content = $(".modal .content");
 const keyText = ".modal .key-text";
 const keyPurpose = ".modal .key-purpose";
 
-console.log(keyText);
+
 
 const maxPage = 2;
 const page = 1;
@@ -244,7 +244,6 @@ window.addEventListener("keydown", (e) => {
   if (e.key) {
     const key = e.key.toLowerCase();
 
-    console.log(key);
     let elName = `.${key}`;
 
     switch (key) {

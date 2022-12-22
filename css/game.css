@@ -13,7 +13,7 @@ body {
 
 .global-container{
   background-size: cover;
-  background-image: url('/assets/game/background.webp');
+  background-image: url('../assets/game/background.webp');
 }
 
 .canvas-container{

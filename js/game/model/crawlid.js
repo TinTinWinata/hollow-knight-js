@@ -48,7 +48,7 @@ export class Crawlid extends Enemy {
     const knockback = this.backward
       ? -Setting.KNOCKBACK_POWER
       : Setting.KNOCKBACK_POWER;
-    this.vx += knockback;
+    this.vx = knockback;
     this.spriteIdx = 0;
     this.sprite = GET_CRAWLID_DIE();
     this.dead = true;

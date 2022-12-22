@@ -16,10 +16,10 @@ export class Setting {
 
   static CHARACTER_WIDTH = 150;
   static CHARACTER_HEIGHT = 170;
-  static CHARACTER_SPEED = 30;
+  static CHARACTER_SPEED = 2500;
   static CHARACTER_MAX_SPEED = 300;
   static CHARACTER_JUMP_FORCE = 1100;
-  static CHARACTER_DASH_FORCE = 150000;
+  static CHARACTER_DASH_FORCE = 1500;
   static CHARACTER_DASH_TIME = 500;
   static CHARACTER_DASH_TIMEOUT = 2000; // 2 seconds
   static CHARACTER_MAX_HEALTH = 5;
@@ -33,6 +33,8 @@ export class Setting {
   static CHARACTER_DEATH_BLACK_SCREEN_TIMEOUT = 2000;
 
   static GRAVITY = 2650;
+
+  static PARTICLE_SPEED = 300;
 
   static BOOFLY_WIDTH = 100;
   static BOOFLY_HEIGHT = 100;
@@ -73,6 +75,7 @@ export class Setting {
 
   static ENEMY_SPAWN_TIME = 10000; // 10 seconds
   static ENEMY_SPAWN_PER_TIME = 3;
+  static ENEMY_DIED_STOP = 200;
 
   static SHAKE_SIZE = 20;
 

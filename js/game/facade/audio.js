@@ -36,36 +36,36 @@ export class MyAudio {
   }
 
   addAllAudio() {
-    this.addAudio(MyAudio.HOME, "/assets/game/audio/home.mp3");
-    this.addAudio(MyAudio.BOSS, "/assets/game/audio/boss.mp3");
-    this.addAudio(MyAudio.PLAYER_ATTACK, "/assets/game/audio/sword.wav");
-    this.addAudio(MyAudio.HIT, "/assets/game/audio/hit.wav");
-    this.addAudio(MyAudio.CRAWLID_DIED, "/assets/game/audio/crawlid_death.wav");
+    this.addAudio(MyAudio.HOME, "assets/game/audio/home.mp3");
+    this.addAudio(MyAudio.BOSS, "assets/game/audio/boss.mp3");
+    this.addAudio(MyAudio.PLAYER_ATTACK, "assets/game/audio/sword.wav");
+    this.addAudio(MyAudio.HIT, "assets/game/audio/hit.wav");
+    this.addAudio(MyAudio.CRAWLID_DIED, "assets/game/audio/crawlid_death.wav");
     this.addAudio(
       MyAudio.VENGE_DIED,
-      "/assets/game/audio/enemy_death_sword.wav"
+      "assets/game/audio/enemy_death_sword.wav"
     );
-    this.addAudio(MyAudio.PLAYER_DASH, "/assets/game/audio/hero_dash.wav");
-    this.addAudio(MyAudio.PLAYER_JUMP, "/assets/game/audio/hero_jump.mp3");
-    this.addAudio(MyAudio.PLAYER_HIT, "/assets/game/audio/hero_hit.wav");
-    this.addAudio(MyAudio.PLAYER_LAND, "/assets/game/audio/hero_land_hard.wav");
+    this.addAudio(MyAudio.PLAYER_DASH, "assets/game/audio/hero_dash.wav");
+    this.addAudio(MyAudio.PLAYER_JUMP, "assets/game/audio/hero_jump.mp3");
+    this.addAudio(MyAudio.PLAYER_HIT, "assets/game/audio/hero_hit.wav");
+    this.addAudio(MyAudio.PLAYER_LAND, "assets/game/audio/hero_land_hard.wav");
     this.addAudio(
       MyAudio.FALSE_ATTACK,
-      "/assets/game/audio/false_knight_attack.wav"
+      "assets/game/audio/false_knight_attack.wav"
     );
     this.addAudio(
       MyAudio.FALSE_JUMP,
-      "/assets/game/audio/false_knight_jump.wav"
+      "assets/game/audio/false_knight_jump.wav"
     );
     this.addAudio(
       MyAudio.FALSE_LAND,
-      "/assets/game/audio/false_knight_land.wav"
+      "assets/game/audio/false_knight_land.wav"
     );
     this.addAudio(
       MyAudio.FALSE_STRIKE,
-      "/assets/game/audio/false_knight_strike.wav"
+      "assets/game/audio/false_knight_strike.wav"
     );
-    this.addAudio(MyAudio.VICTORY, "/assets/game/audio/victory.mp3");
+    this.addAudio(MyAudio.VICTORY, "assets/game/audio/victory.mp3");
   }
 
   addAudio(index, asset) {
