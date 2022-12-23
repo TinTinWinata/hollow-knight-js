@@ -31,6 +31,7 @@ export class Character {
     gravity = true,
     oneTimeRender = false
   ) {
+    this.finishState = false;
     this.oneTimeRender = oneTimeRender;
     this.canCollide = true;
     this.offsetX = 0;
@@ -157,11 +158,18 @@ export class Character {
     return false;
   }
 
+  checkFinishState() {
+    if (this.spriteIdx >= this.config.max) {
+      this.finishState = true;
+    }
+  }
+
   logic() {
     // Incrementing the sprite
     this.spriteInterval += 60 * this.game.delta;
     if (this.spriteInterval > this.config.speed) {
       this.spriteIdx += 1;
+      this.checkFinishState();
       this.spriteInterval = 0;
     }
 
@@ -370,6 +378,7 @@ export class Character {
     this.game.ctx.translate(this.x + this.w / 2, this.y + this.h / 2);
     this.game.ctx.scale(-1, 1);
     this.checkInvert();
+
     this.game.ctx.drawImage(
       this.sprite[idx],
       -this.w / 2,

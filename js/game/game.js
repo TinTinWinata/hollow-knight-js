@@ -71,7 +71,11 @@ export class GAME {
     this.fullscreenFlag = false;
   }
 
-  
+  aliveEnemy() {
+    const killed = this.killedCrawlid;
+    const allEnemies = this.enemies.length;
+    return allEnemies - killed;
+  }
 
   fullscreen() {
     this.fullscreenFlag = !this.fullscreenFlag;

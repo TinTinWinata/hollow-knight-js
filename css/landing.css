@@ -228,7 +228,7 @@
 }
 
 .description-container{
-  /* min-height: 100vh; */
+  min-height: 700px;
   margin: 350px 0px 200px 0px;
 }
 
@@ -457,6 +457,7 @@
   }
 
   .description-container{
+   
     margin: 450px 0px 200px 0px;
   }
   .content-card .card{

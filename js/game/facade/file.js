@@ -22,8 +22,12 @@ export const PLAYER_CONF = {
     speed: 3,
   },
   attack: {
-    max: 3,
+    max: 2,
     speed: 10,
+  },
+  attack2: {
+    max: 2,
+    speed: 7,
   },
   jump: {
     max: 11,
@@ -464,8 +468,25 @@ export function GET_PLAYER_DASH_SPRITE() {
   return imageList;
 }
 
-export function GET_PLAYER_ATTACK_SPRITE() {
-  const cacheName = "player_attack";
+export function GET_PLAYER_ATTACK2_SPRITE() {
+  const cacheName = "player_attack_2";
+  const cache = CACHE.get(cacheName);
+  if (cache != null) {
+    return cache;
+  }
+
+  const imageList = [];
+  for (let i = 1; i <= PLAYER_CONF.attack.max; i++) {
+    imageList.push(LOAD_IMAGE(`assets/game/hero/attack2/attack2_0${i}.png`));
+  }
+
+  CACHE.set(cacheName, imageList);
+
+  return imageList;
+}
+
+export function GET_PLAYER_ATTACK1_SPRITE() {
+  const cacheName = "player_attack_1";
   const cache = CACHE.get(cacheName);
   if (cache != null) {
     return cache;
@@ -479,6 +500,15 @@ export function GET_PLAYER_ATTACK_SPRITE() {
   CACHE.set(cacheName, imageList);
 
   return imageList;
+}
+
+export function GET_PLAYER_ATTACK_SPRITE(n) {
+  switch (n) {
+    case 1:
+      return GET_PLAYER_ATTACK1_SPRITE();
+    case 2:
+      return GET_PLAYER_ATTACK2_SPRITE();
+  }
 }
 
 export function GET_PLAYER_ATTACK_SPLASH_1_SPRITE() {
@@ -498,10 +528,9 @@ export function GET_PLAYER_ATTACK_SPLASH_2_SPRITE() {
 }
 
 export function GET_PLAYER_ATTACK_SPLASH_SPRITE(i) {
-  return GET_PLAYER_ATTACK_SPLASH_1_SPRITE();
   if (i == 1) {
     return GET_PLAYER_ATTACK_SPLASH_1_SPRITE();
-  } else {
+  } else if (i == 2) {
     return GET_PLAYER_ATTACK_SPLASH_2_SPRITE();
   }
 }

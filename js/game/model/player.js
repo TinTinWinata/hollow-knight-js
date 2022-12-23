@@ -90,8 +90,13 @@ export class Player extends Character {
       case "attack":
         this.game.audio.play(MyAudio.PLAYER_ATTACK, false);
         this.spriteIdx = 0;
-        this.config = PLAYER_CONF.attack;
-        this.sprite = GET_PLAYER_ATTACK_SPRITE();
+        this.sprite = GET_PLAYER_ATTACK_SPRITE(this.attackState);
+        if (this.attackState == 1) {
+          this.config = PLAYER_CONF.attack;
+        } else {
+          this.config = PLAYER_CONF.attack2;
+        }
+        this.incrementAttackState();
         break;
       case "jump":
         this.spriteIdx = 0;
@@ -104,7 +109,15 @@ export class Player extends Character {
         this.sprite = GET_PLAYER_DEAD();
         break;
     }
+    this.finishState = false;
     this.state = state;
+  }
+
+  incrementAttackState() {
+    this.attackState += 1;
+    if (this.attackState >= 3) {
+      this.attackState = 1;
+    }
   }
 
   attack() {
@@ -113,12 +126,9 @@ export class Player extends Character {
     // Get Node (x, y) in front of player position
     const node = this.inFrontNode(-10);
 
-    const idx = this.splashIndex % PLAYER_CONF.splash.max;
-    this.splashIndex += 1;
-
     this.changeSprite("attack");
-    const offsetX = 20;
-    const offsetTopY = -20;
+    const offsetX = 30 + (this.attackState == 2 ? 5 : 0);
+    const offsetTopY = -20 + (this.attackState == 2 ? 15 : 0);
 
     const x = this.backward
       ? node.x - this.splashWidth - offsetX
@@ -133,8 +143,8 @@ export class Player extends Character {
       y,
       w,
       h,
-      GET_PLAYER_ATTACK_SPLASH_SPRITE(idx),
-      PLAYER_CONF.splash,
+      GET_PLAYER_ATTACK_SPLASH_SPRITE(this.attackState),
+      this.attackState == 1 ? PLAYER_CONF.splash1 : PLAYER_CONF.splash2,
       this.backward,
       this.playerSplashAttack(x, y, w, h)
     );
@@ -164,7 +174,7 @@ export class Player extends Character {
       this.changeSprite("walk");
       this.vx -= this.speedX * this.game.delta;
       this.backward = true;
-    } else {
+    } else if (this.state != "dash") {
       this.changeSprite("idle");
       this.vx = 0;
     }
@@ -174,10 +184,7 @@ export class Player extends Character {
 
   checkAttackJumpState() {
     // Check if attacking state
-    if (
-      (this.state == "attack" || this.state == "jump") &&
-      this.spriteIdx == this.config.max - 1
-    ) {
+    if ((this.state == "jump" || this.state == "attack") && this.finishState) {
       this.state = "";
     }
   }
@@ -341,7 +348,6 @@ export class Player extends Character {
       const lastIdx = this.config.max - 1;
       // Keep Getting Last Index
       if (this.spriteIdx > lastIdx) {
-        this.spriteIdx = 1;
         this.spriteIdx = lastIdx;
       }
     }
@@ -379,6 +385,15 @@ export class Player extends Character {
   parentMethod() {
     // This method will be called every time (update methods)
 
+    // !Debugging Purposes
+    // const idx = this.spriteIdx % this.config.max;
+    // console.log("attack state : ", this.attackState);
+    // console.log("state : ", this.state);
+    // console.log("index : ", idx);
+    // console.log("max : ", this.config.max);
+    // console.log("images : ", this.sprite);
+    // console.log("image : ", this.sprite[idx]);
+
     this.checkIdleState();
     this.checkBackground();
     this.checkJumping();
@@ -406,14 +421,13 @@ export class Player extends Character {
   initPlayer() {
     this.splashWidth = 150;
     this.splashHeight = 150;
-    this.attackSprite = GET_PLAYER_ATTACK_SPLASH_SPRITE();
-    this.splashIndex = 0;
+    this.attackSprite = GET_PLAYER_ATTACK_SPLASH_SPRITE(this.attackState);
   }
 
   initAllSprite() {
     // Initial all sprite first (because there's some bug if init later)
     GET_PLAYER_WALK_SPRITE();
-    GET_PLAYER_ATTACK_SPLASH_SPRITE();
+    GET_PLAYER_ATTACK_SPLASH_SPRITE(1);
     GET_PLAYER_ATTACK_SPRITE();
     GET_PLAYER_WALK_SPRITE();
     GET_PLAYER_IDLE_SPRITE();
@@ -431,9 +445,14 @@ export class Player extends Character {
       this.w = 150; // Sprite width of dash
       this.changeSprite("dash");
       this.canDash = false;
+      let time = new Date();
+      console.log("dash");
       setTimeout(() => {
         this.restoreDefaultScale();
         this.state = "";
+        let now = new Date();
+        console.log(now.getMilliseconds() - time.getMilliseconds());
+        console.log("done");
         this.changeSprite("idle");
       }, Setting.CHARACTER_DASH_TIME);
       setTimeout(() => {
@@ -456,6 +475,7 @@ export class Player extends Character {
         speed: 4,
       };
       if (this.spriteIdx == this.config.max - 1) {
+        console.log("change idle in check jumping!");
         this.changeSprite("idle");
         this.postJump = false;
       }
@@ -470,6 +490,7 @@ export class Player extends Character {
 
   constructor(x, y, w, h, sprite, maxSprite) {
     super(x, y, w, h, sprite, maxSprite);
+    this.attackState = 1;
     this.cheat = false;
     this.fade = false;
     this.deadMaxY = Setting.CHARACTER_MAX_DEAD_HEIGHT;

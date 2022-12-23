@@ -29,6 +29,7 @@ function start() {
   const game = GAME.getInstance();
   game.canvas.width = game.width;
   game.canvas.height = game.height;
+  let dashTimeTemp = new Date();
 
   const player = new Player(
     game.width / 2 - 250,
@@ -65,7 +66,7 @@ function start() {
   // Spawn Enemy
   game.spawnEnemy();
   setInterval(() => {
-    if (!game.bossFight) {
+    if (!game.bossFight && game.aliveEnemy() < 10) {
       game.spawnEnemy();
     }
   }, 10000);
@@ -150,6 +151,12 @@ function startGame() {
 }
 
 // startGame();
+
+window.addEventListener("keypress", (e) => {
+  if (e.key == "Enter") {
+    startGame();
+  }
+});
 
 $("#start").click(() => {
   startGame();

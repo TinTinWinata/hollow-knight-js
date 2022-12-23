@@ -61,6 +61,11 @@
   background-color: rgb(139, 139, 139);
 }
 
+.modal .page-text{
+  margin-top: 10px;
+  font-size: 20px;
+}
+
 .delete {
   grid-column: span 4;
 }

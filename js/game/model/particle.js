@@ -133,7 +133,6 @@ export class Particle {
   }
   render() {
     if (!this.dead) {
-      const img = this.sprite[this.spriteIdx];
       const game = GAME.getInstance();
       // Render If there's any degree then rotate correspond with the degree
       if (this.degree > 0) {

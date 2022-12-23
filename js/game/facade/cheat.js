@@ -47,6 +47,9 @@ export class Cheat {
     this.addCheat("rataampas", () => {
       game.player.cheat = true;
     });
+    this.addCheat("crazy", () => {
+      Setting.CHARACTER_DASH_TIME = 3000;
+    });
   }
 
   constructor() {
