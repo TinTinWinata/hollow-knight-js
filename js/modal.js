@@ -234,8 +234,6 @@ const content = $(".modal .content");
 const keyText = ".modal .key-text";
 const keyPurpose = ".modal .key-purpose";
 
-
-
 const maxPage = 2;
 const page = 1;
 const time = 500;

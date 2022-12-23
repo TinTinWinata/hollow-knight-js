@@ -106,7 +106,7 @@ function start() {
     if (e.key == "f") {
       game.fullscreen();
     }
-    if (game.canMove) {
+    if (game.canMove && !game.pause) {
       if (e.key == Setting.PLAYER_ATTACK) {
         player.attack();
       } else if (e.key == Setting.PLAYER_DASH) {

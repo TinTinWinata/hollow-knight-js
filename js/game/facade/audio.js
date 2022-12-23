@@ -87,6 +87,10 @@ export class MyAudio {
     return val;
   }
 
+  setVolumeFromRange() {
+    this.setVolume(this.getValueFromRange());
+  }
+
   stopAllAudio() {
     this.audios.forEach((audio) => {
       audio.pause();
@@ -94,7 +98,11 @@ export class MyAudio {
   }
 
   fadeVideo() {
-    TweenMax.to(this.audios, 1.5, { volume: 0 });
+    const time = 1500;
+    TweenMax.to(this.audios, time / 1000, { volume: 0 });
+    setTimeout(() => {
+      this.stopAllAudio();
+    }, time);
   }
 
   setVolume(vol) {

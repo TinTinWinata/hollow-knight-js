@@ -215,7 +215,7 @@ export class Player extends Character {
       if (enemy.isCollideBlock(x, y, w, h) && !enemy.dead) {
         // Collide With Enemy!
         Particle.PlayerHit(this.x, this.y, this.backward);
-        this.game.pauseGame();
+        this.game.pauseGame(false, false);
         this.game.audio.play(MyAudio.PLAYER_HIT, false);
         this.clearKey();
         this.hit();
@@ -428,6 +428,7 @@ export class Player extends Character {
     // Initial all sprite first (because there's some bug if init later)
     GET_PLAYER_WALK_SPRITE();
     GET_PLAYER_ATTACK_SPLASH_SPRITE(1);
+    GET_PLAYER_ATTACK_SPLASH_SPRITE(2);
     GET_PLAYER_ATTACK_SPRITE();
     GET_PLAYER_WALK_SPRITE();
     GET_PLAYER_IDLE_SPRITE();
@@ -445,14 +446,9 @@ export class Player extends Character {
       this.w = 150; // Sprite width of dash
       this.changeSprite("dash");
       this.canDash = false;
-      let time = new Date();
-      console.log("dash");
       setTimeout(() => {
         this.restoreDefaultScale();
         this.state = "";
-        let now = new Date();
-        console.log(now.getMilliseconds() - time.getMilliseconds());
-        console.log("done");
         this.changeSprite("idle");
       }, Setting.CHARACTER_DASH_TIME);
       setTimeout(() => {

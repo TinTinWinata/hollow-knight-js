@@ -265,11 +265,12 @@ export class GAME {
     }
   }
 
-  pauseGame(openUi = false) {
+  pauseGame(openUi = false, audio = true) {
     if (!this.pause) {
       if (openUi) {
         this.ui.showPause();
       }
+      if (audio) this.audio.setVolume(0);
       this.save();
       this.pause = true;
     } else {
@@ -278,6 +279,7 @@ export class GAME {
   }
   resumeGame() {
     this.restore();
+    this.audio.setVolumeFromRange();
     this.ui.hidePause();
     this.pause = false;
   }

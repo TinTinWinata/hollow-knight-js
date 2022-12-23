@@ -31,7 +31,7 @@ export const PLAYER_CONF = {
   },
   jump: {
     max: 11,
-    speed: 6,
+    speed: 3,
   },
   dash: {
     max: 2,
