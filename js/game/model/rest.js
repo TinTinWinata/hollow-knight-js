@@ -52,6 +52,6 @@ export class Rest extends Object {
   }
 
   constructor(x, y, w, h, sprite, maxSprite, ctx, color) {
-    super(x, y, w, h, sprite, maxSprite, ctx, color, false, null,true);
+    super(x, y, w, h, sprite, maxSprite, ctx, color, false, null, true);
   }
 }

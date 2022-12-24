@@ -44,6 +44,9 @@ export class Cheat {
       game.killedCrawlid += totalIncrement;
       BossDoor.GetInstance().openDoor();
     });
+    this.addCheat("gotoboss", () => {
+      game.player.cheat = 0;
+    });
     this.addCheat("rataampas", () => {
       game.player.cheat = true;
     });

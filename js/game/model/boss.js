@@ -233,7 +233,7 @@ export class Boss extends Enemy {
       if (this.state == Boss.ATTACK_PREP) {
         this.changeState(Boss.ATTACK);
       }
-    }, Setting.BOSS_ATTACK_PREP_TIME * 1000);
+    }, Setting.BOSS_ATTACK_PREP_TIME);
   }
 
   incrementInvert(n) {

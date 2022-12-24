@@ -29,6 +29,8 @@ export class Setting {
   static CHARACTER_MAX_DEAD_HEIGHT = 200;
   static CHARACTER_FADE_TIMEOUT = 3000;
   static CHARACTER_INVICIBLE_TIME = 3000; // 1 second
+  static CHARACTER_KNOCKBACK_RESISTANCE = 1000;
+  static CHARACTER_KNOCKBACK_POWER = 200000;
 
   static CHARACTER_DEATH_BLACK_SCREEN_TIMEOUT = 2000;
 
@@ -60,7 +62,7 @@ export class Setting {
 
   static BOSS_INITIAL_X = 500;
   static BOSS_INITIAL_Y = Setting.HEIGHT - 350 - 250;
-  static BOSS_ATTACK_PREP_TIME = 3;
+  static BOSS_ATTACK_PREP_TIME = 3000;
   static BOSS_WIDTH = 550;
   static BOSS_HEIGHT = 400;
   static BOSS_ATTACK_TIMES = 3;

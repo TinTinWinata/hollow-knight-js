@@ -174,8 +174,9 @@ export class Player extends Character {
       this.changeSprite("walk");
       this.vx -= this.speedX * this.game.delta;
       this.backward = true;
-    } else if (this.state != "dash") {
+    } else if (this.state != "dash" && this.isKnockback == "") {
       this.changeSprite("idle");
+      console.log("changing to zero");
       this.vx = 0;
     }
   }
@@ -193,6 +194,7 @@ export class Player extends Character {
     const game = GAME.getInstance();
     game.enemies.forEach((enemy) => {
       if (enemy.isCollideBlock(x, y, w, h)) {
+        this.knockback(Setting.CHARACTER_KNOCKBACK_POWER);
         if (!enemy.isDead()) {
           this.game.audio.play(MyAudio.HIT, false);
           Particle.HitParticle(x + w, y + w / 2);
@@ -382,6 +384,22 @@ export class Player extends Character {
     }
   }
 
+  checkKnockbackState() {
+    // Recover From X Knockback
+    if (this.isKnockback == "knockback_left") {
+      this.vx += Setting.CHARACTER_KNOCKBACK_RESISTANCE * this.game.delta;
+      if (this.vx >= 0) {
+        console.log("reset knockback!");
+        this.isKnockback = "";
+      }
+    } else if (this.isKnockback == "knockback_right") {
+      this.vx -= Setting.CHARACTER_KNOCKBACK_RESISTANCE * this.game.delta;
+      if (this.vx <= 0) {
+        this.isKnockback = "";
+      }
+    }
+  }
+
   parentMethod() {
     // This method will be called every time (update methods)
 
@@ -394,6 +412,7 @@ export class Player extends Character {
     // console.log("images : ", this.sprite);
     // console.log("image : ", this.sprite[idx]);
 
+    this.checkKnockbackState();
     this.checkIdleState();
     this.checkBackground();
     this.checkJumping();
@@ -411,7 +430,6 @@ export class Player extends Character {
   jump() {
     if (this.canMove && this.canJump() && this.state != "dash") {
       this.game.audio.play(MyAudio.PLAYER_JUMP, false);
-
       this.jumping = true;
       this.vy -= Setting.CHARACTER_JUMP_FORCE;
       this.changeSprite("jump");
@@ -486,6 +504,7 @@ export class Player extends Character {
 
   constructor(x, y, w, h, sprite, maxSprite) {
     super(x, y, w, h, sprite, maxSprite);
+    this.isKnockback = "";
     this.attackState = 1;
     this.cheat = false;
     this.fade = false;

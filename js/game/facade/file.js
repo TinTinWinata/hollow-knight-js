@@ -259,7 +259,7 @@ export function GET_UI_MONEY() {
 export function GET_CRAWLID_WALK() {
   const imageList = [];
   for (let i = 1; i <= CRAWLID_CONF.walk.max; i++) {
-    imageList.push(LOAD_IMAGE(`assets/game/crawlid/crawlid_0${i}.png`));
+    imageList.push(LOAD_IMAGE(`assets/game/crawlid/walk/crawlid_0${i}.png`));
   }
   return imageList;
 }
