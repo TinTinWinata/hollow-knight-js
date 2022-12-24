@@ -20,7 +20,7 @@ export class Ground extends Object {
       {
         x: 400,
         y: 600,
-        w: 300,
+        w: 300, 
       },
     ];
     const game = GAME.getInstance();

@@ -176,7 +176,6 @@ export class Player extends Character {
       this.backward = true;
     } else if (this.state != "dash" && this.isKnockback == "") {
       this.changeSprite("idle");
-      console.log("changing to zero");
       this.vx = 0;
     }
   }
@@ -186,7 +185,15 @@ export class Player extends Character {
   checkAttackJumpState() {
     // Check if attacking state
     if ((this.state == "jump" || this.state == "attack") && this.finishState) {
-      this.state = "";
+      if (this.state == "attack" && this.jumping) {
+        // Check if last state is jumping
+        this.config = PLAYER_CONF.jump;
+        this.spriteIdx = PLAYER_CONF.jump.max - 1;
+        this.sprite = GET_PLAYER_JUMP_SPRITE();
+      } else {
+        // If jumping state then just make default stat
+        this.state = "";
+      }
     }
   }
 
@@ -194,8 +201,8 @@ export class Player extends Character {
     const game = GAME.getInstance();
     game.enemies.forEach((enemy) => {
       if (enemy.isCollideBlock(x, y, w, h)) {
-        this.knockback(Setting.CHARACTER_KNOCKBACK_POWER);
         if (!enemy.isDead()) {
+          this.knockback(Setting.CHARACTER_KNOCKBACK_POWER);
           this.game.audio.play(MyAudio.HIT, false);
           Particle.HitParticle(x + w, y + w / 2);
         }
@@ -401,17 +408,6 @@ export class Player extends Character {
   }
 
   parentMethod() {
-    // This method will be called every time (update methods)
-
-    // !Debugging Purposes
-    // const idx = this.spriteIdx % this.config.max;
-    // console.log("attack state : ", this.attackState);
-    // console.log("state : ", this.state);
-    // console.log("index : ", idx);
-    // console.log("max : ", this.config.max);
-    // console.log("images : ", this.sprite);
-    // console.log("image : ", this.sprite[idx]);
-
     this.checkKnockbackState();
     this.checkIdleState();
     this.checkBackground();
@@ -489,7 +485,6 @@ export class Player extends Character {
         speed: 4,
       };
       if (this.spriteIdx == this.config.max - 1) {
-        console.log("change idle in check jumping!");
         this.changeSprite("idle");
         this.postJump = false;
       }

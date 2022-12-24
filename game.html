@@ -127,9 +127,18 @@
             <div class="center container">
               <div class="content">
                 <img width="50%" src="assets/game/pause/option.png" alt="" />
-                <h3 id="start-game">START GAME</h3>
+                <h3 id="start-game">CONTINUE</h3>
                 <h3 id="option-fps">SHOW FPS</h3>
+                <h3 id="option-fps">VOLUME</h3>
+                <input
+                  type="range"
+                  min="1"
+                  max="100"
+                  value="100"
+                  id="volumeRange"
+                />
                 <h3 id="exit-game">EXIT GAME</h3>
+
                 <img
                   style="margin-top: 15px"
                   width="30%"
@@ -153,7 +162,6 @@
           </div>
           <canvas id="myCanvas"> </canvas>
         </div>
-        <input type="range" min="1" max="100" value="100" id="volumeRange" />
       </div>
     </div>
     <div id="root-footer"></div>

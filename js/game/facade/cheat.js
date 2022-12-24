@@ -45,7 +45,7 @@ export class Cheat {
       BossDoor.GetInstance().openDoor();
     });
     this.addCheat("gotoboss", () => {
-      game.player.cheat = 0;
+      game.changeBossScene();
     });
     this.addCheat("rataampas", () => {
       game.player.cheat = true;

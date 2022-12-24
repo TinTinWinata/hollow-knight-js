@@ -406,16 +406,24 @@ export class Character {
 
   render() {
     this.logic();
-
     const idx = this.spriteIdx % this.config.max;
 
-    if (this.invert) {
-    }
+    if (this.sprite[idx] != null) {
+      if (this.invert) {
+      }
 
-    if (this.backward) {
-      this.renderBackward(idx);
+      if (this.backward) {
+        this.renderBackward(idx);
+      } else {
+        this.renderForward(idx);
+      }
     } else {
-      this.renderForward(idx);
+      console.log("WARNING ERROR RENDERING");
+      console.log("state : ", this.state);
+      console.log("sprite : ", this.sprite);
+      console.log("idx : ", idx);
+      console.log("sprite idx : ", this.spriteIdx);
+      console.log("-----------------------");
     }
   }
 }
