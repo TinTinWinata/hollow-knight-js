@@ -142,7 +142,7 @@ const secondTemplate = `
           <div class="key rightbracket">]</div>
           <div class="key backslash">\\</div>
           <div class="key capslock">CapsLock</div>
-          <div class="key a">A</div>
+          <div class="key a used">A</div>
           <div class="key s used">S</div>
           <div class="key d">D</div>
           <div class="key f used">F</div>
@@ -222,6 +222,7 @@ keyMap.set("z", "Player Jump");
 keyMap.set("x", "Player Attack");
 keyMap.set("s", "Player Dash");
 keyMap.set("f", "Active Fullscreen Mode");
+keyMap.set("a", "Player Blast");
 keyMap.set("escape", "Pause The Game");
 
 const xButton = $(".close");

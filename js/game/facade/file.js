@@ -45,6 +45,22 @@ export const PLAYER_CONF = {
     max: 4,
     speed: 30,
   },
+  dash_effect: {
+    max: 5,
+    speed: 20,
+  },
+  blast: {
+    max: 7,
+    speed: 3,
+  },
+  blast_movement: {
+    max: 2,
+    speed: 10,
+  },
+  blast_particle: {
+    max: 7,
+    speed: 25,
+  },
 };
 
 export const BOSS_CONF = {
@@ -78,7 +94,7 @@ export const BOSS_CONF = {
   },
   ghost_die: {
     max: 4,
-    speed: 10,
+    speed: 5,
   },
 };
 
@@ -384,6 +400,56 @@ export function GET_HIT() {
   return imageList;
 }
 
+export function GET_PLAYER_BLAST_PARTICLE() {
+  const cacheName = "player_blast_particle";
+  const cache = CACHE.get(cacheName);
+  if (cache != null) {
+    return cache;
+  }
+
+  const imageList = [];
+  for (let i = 1; i <= PLAYER_CONF.blast_particle.max; i++) {
+    imageList.push(
+      LOAD_IMAGE(`assets/game/particle/blast_particle/blast_0${i}.png`)
+    );
+  }
+
+  CACHE.set(cacheName, imageList);
+  return imageList;
+}
+
+export function GET_PLAYER_BLAST_MOVEMENT() {
+  const cacheName = "player_blast_movement";
+  const cache = CACHE.get(cacheName);
+  if (cache != null) {
+    return cache;
+  }
+
+  const imageList = [];
+  for (let i = 1; i <= PLAYER_CONF.blast_movement.max; i++) {
+    imageList.push(LOAD_IMAGE(`assets/game/hero/blast/blast_0${i}.png`));
+  }
+
+  CACHE.set(cacheName, imageList);
+  return imageList;
+}
+
+export function GET_PLAYER_BLAST() {
+  const cacheName = "player_blast";
+  const cache = CACHE.get(cacheName);
+  if (cache != null) {
+    return cache;
+  }
+
+  const imageList = [];
+  for (let i = 1; i <= PLAYER_CONF.blast.max; i++) {
+    imageList.push(LOAD_IMAGE(`assets/game/particle/blast/blast_0${i}.png`));
+  }
+
+  CACHE.set(cacheName, imageList);
+  return imageList;
+}
+
 export function GET_PLAYER_DEAD() {
   const cacheName = "player_dead";
   const cache = CACHE.get(cacheName);
@@ -502,6 +568,25 @@ export function GET_PLAYER_ATTACK1_SPRITE() {
   return imageList;
 }
 
+export function GET_PLAYER_DASH_EFFECT() {
+  const cacheName = "player_dash_effect";
+  const cache = CACHE.get(cacheName);
+  if (cache != null) {
+    return cache;
+  }
+
+  const imageList = [];
+
+  for (let i = 1; i <= PLAYER_CONF.dash_effect.max; i++) {
+    imageList.push(
+      LOAD_IMAGE(`assets/game/hero/dash_effect/dash_effect_${i}.png`)
+    );
+  }
+
+  CACHE.set(cacheName, imageList);
+  return imageList;
+}
+
 export function GET_PLAYER_ATTACK_SPRITE(n) {
   switch (n) {
     case 1:
@@ -594,6 +679,7 @@ export function GET_BOSS_BG() {
 }
 
 export function GenerateAllFirst() {
+  GET_PLAYER_DASH_EFFECT();
   GET_PLAYER_HITTED();
   GET_BOSS_STUN_SPRITE();
   GET_BOSS_DIE_SPRITE();

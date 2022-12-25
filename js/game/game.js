@@ -35,6 +35,7 @@ export class GAME {
     this.particles = [];
     this.camera = null;
     this.shake = false;
+    this.blasts = [];
     this.backgrounds = [];
     this.foregrounds = [];
     this.mainBackground;
@@ -310,6 +311,17 @@ export class GAME {
     return flag;
   }
 
+  renderBlast() {
+    for (let i = 0; i < this.blasts.length; i++) {
+      const blast = this.blasts[i];
+      blast.render();
+
+      // Check Blast Death
+      if (blast.checkBound()) {
+        this.blasts.splice(i, 1);
+      }
+    }
+  }
   render() {
     this.calculateFps();
     this.getDelta();
@@ -333,6 +345,7 @@ export class GAME {
 
       if (!this.bossFight) this.bossDoor.render();
 
+      this.renderBlast();
       this.enemies.forEach((enemy) => {
         enemy.render();
       });

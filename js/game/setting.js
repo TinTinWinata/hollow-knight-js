@@ -11,6 +11,7 @@ export class Setting {
   static PLAYER_JUMP = ["z", "ArrowUp"];
   static PLAYER_ATTACK = "x";
   static PLAYER_DASH = "s";
+  static PLAYER_BLAST = "a";
 
   static PLAYER_INTERACT = [" ", "e"];
 
@@ -31,6 +32,9 @@ export class Setting {
   static CHARACTER_INVICIBLE_TIME = 3000; // 1 second
   static CHARACTER_KNOCKBACK_RESISTANCE = 1000;
   static CHARACTER_KNOCKBACK_POWER = 200000;
+  static CHARACTER_BLAST_SPEED = 3000;
+  static CHARACTER_BLAST_MAX_SPEED = 3000;
+  static CHARACTER_BLAST_TIMEOUT = 10000;
 
   static CHARACTER_DEATH_BLACK_SCREEN_TIMEOUT = 2000;
 

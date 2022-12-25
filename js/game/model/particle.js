@@ -1,6 +1,8 @@
 import { GAME } from "../game.js";
 import {
   GET_HIT,
+  GET_PLAYER_BLAST_PARTICLE,
+  GET_PLAYER_DASH_EFFECT,
   GET_PLAYER_HITTED,
   HIT_CONF,
   PLAYER_CONF,
@@ -12,6 +14,24 @@ export class Particle {
   static EmitAllParticle(x, y) {
     Particle.PlayerHit(x, y);
     Particle.HitParticle(x, y);
+  }
+
+  static BlastParticle(x, y, backward) {
+    const w = 300;
+    const h = 300;
+    const offsetX = backward ? 30 : -100;
+    const offsetY = -70;
+    Particle.Emit(
+      x + offsetX,
+      y + offsetY,
+      w,
+      h,
+      GET_PLAYER_BLAST_PARTICLE(),
+      PLAYER_CONF.blast_particle,
+      !backward,
+      null,
+      0
+    );
   }
   static PlayerHit(x, y) {
     const w = 500;
@@ -26,6 +46,23 @@ export class Particle {
       GET_PLAYER_HITTED(),
       PLAYER_CONF.hitted,
       false,
+      0
+    );
+  }
+  static DashParticle(x, y, backward) {
+    const w = 200;
+    const h = 150;
+    const offsetX = backward ? 150 : -200;
+    const offsetY = 0;
+    Particle.Emit(
+      x + offsetX,
+      y + offsetY,
+      w,
+      h,
+      GET_PLAYER_DASH_EFFECT(),
+      PLAYER_CONF.dash_effect,
+      !backward,
+      null,
       0
     );
   }

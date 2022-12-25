@@ -111,6 +111,8 @@ function start() {
         player.attack();
       } else if (e.key == Setting.PLAYER_DASH) {
         player.dash();
+      } else if (e.key == Setting.PLAYER_BLAST) {
+        player.blast();
       }
     }
   });

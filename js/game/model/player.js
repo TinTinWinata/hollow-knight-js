@@ -3,6 +3,7 @@ import {
   GET_HIT,
   GET_PLAYER_ATTACK_SPLASH_SPRITE,
   GET_PLAYER_ATTACK_SPRITE,
+  GET_PLAYER_BLAST_MOVEMENT,
   GET_PLAYER_DASH_SPRITE,
   GET_PLAYER_DEAD,
   GET_PLAYER_IDLE_SPRITE,
@@ -16,6 +17,7 @@ import { Setting } from "../setting.js";
 import { Particle } from "./particle.js";
 import { UI } from "./ui.js";
 import { MyAudio } from "../facade/audio.js";
+import { Blast } from "./blast.js";
 
 export class Player extends Character {
   move() {}
@@ -65,8 +67,9 @@ export class Player extends Character {
       (this.state == "attack" && state != "dash") ||
       (this.state == "jump" && state != "attack" && state != "jump") ||
       this.state == "dash"
-    )
-      return;
+    ) {
+      return false;
+    }
 
     if (this.state == state) return;
     switch (state) {
@@ -97,6 +100,11 @@ export class Player extends Character {
           this.config = PLAYER_CONF.attack2;
         }
         this.incrementAttackState();
+        break;
+      case "blast":
+        this.spriteIdx = 0;
+        this.config = PLAYER_CONF.blast_movement;
+        this.sprite = GET_PLAYER_BLAST_MOVEMENT();
         break;
       case "jump":
         this.spriteIdx = 0;
@@ -174,7 +182,11 @@ export class Player extends Character {
       this.changeSprite("walk");
       this.vx -= this.speedX * this.game.delta;
       this.backward = true;
-    } else if (this.state != "dash" && this.isKnockback == "") {
+    } else if (
+      this.state != "dash" &&
+      this.state != "blast" &&
+      this.isKnockback == ""
+    ) {
       this.changeSprite("idle");
       this.vx = 0;
     }
@@ -182,13 +194,21 @@ export class Player extends Character {
 
   // Always be called when super class render (object)
 
-  checkAttackJumpState() {
+  checkStateThatFinished() {
     // Check if attacking state
-    if ((this.state == "jump" || this.state == "attack") && this.finishState) {
+    if (
+      (this.state == "jump" ||
+        this.state == "attack" ||
+        this.state == "blast") &&
+      this.finishState
+    ) {
       if (this.state == "attack" && this.jumping) {
         // Check if last state is jumping
         this.config = PLAYER_CONF.jump;
-        this.spriteIdx = PLAYER_CONF.jump.max - 1;
+
+        // Jumping State
+        // this.state = "jump";
+        this.spriteIdx = PLAYER_CONF.jump.max - 4;
         this.sprite = GET_PLAYER_JUMP_SPRITE();
       } else {
         // If jumping state then just make default stat
@@ -198,8 +218,7 @@ export class Player extends Character {
   }
 
   playerSplashAttack(x, y, w, h) {
-    const game = GAME.getInstance();
-    game.enemies.forEach((enemy) => {
+    this.game.enemies.forEach((enemy) => {
       if (enemy.isCollideBlock(x, y, w, h)) {
         if (!enemy.isDead()) {
           this.knockback(Setting.CHARACTER_KNOCKBACK_POWER);
@@ -251,6 +270,23 @@ export class Player extends Character {
     setTimeout(() => {
       this.game.ui.deadScreen();
     }, Setting.CHARACTER_DEATH_BLACK_SCREEN_TIMEOUT);
+  }
+
+  blast() {
+    if (this.isGrounded() && this.canBlast) {
+      this.spawnedBlast = false;
+      this.changeSprite("blast");
+      this.canBlast = false;
+      setTimeout(() => {
+        this.canBlast = true;
+      }, Setting.CHARACTER_BLAST_TIMEOUT);
+    }
+  }
+  spawnBlast() {
+    Particle.BlastParticle(this.x, this.y);
+    const blast = new Blast(this.x, this.y + this.h / 2, this.backward);
+    this.game.blasts.push(blast);
+    this.spawnedBlast = true;
   }
 
   checkFade() {
@@ -396,7 +432,6 @@ export class Player extends Character {
     if (this.isKnockback == "knockback_left") {
       this.vx += Setting.CHARACTER_KNOCKBACK_RESISTANCE * this.game.delta;
       if (this.vx >= 0) {
-        console.log("reset knockback!");
         this.isKnockback = "";
       }
     } else if (this.isKnockback == "knockback_right") {
@@ -407,6 +442,16 @@ export class Player extends Character {
     }
   }
 
+  checkBlast() {
+    if (
+      this.state == "blast" &&
+      this.spriteIdx == this.config.max - 1 &&
+      this.spawnedBlast == false
+    ) {
+      this.spawnBlast();
+    }
+  }
+
   parentMethod() {
     this.checkKnockbackState();
     this.checkIdleState();
@@ -414,13 +459,14 @@ export class Player extends Character {
     this.checkJumping();
     this.checkAttack();
     this.checkCollideEnemy();
-    this.checkAttackJumpState();
+    this.checkStateThatFinished();
     this.checkMovement();
     this.checkDashState();
     this.renderLight();
     this.checkLand();
     this.checkDeadState();
     this.checkFade();
+    this.checkBlast();
   }
 
   jump() {
@@ -455,11 +501,14 @@ export class Player extends Character {
 
   dash() {
     if (this.canDash && this.canJump() && !this.jumping && !this.postJump) {
-      this.saveScale();
+      // If dash state cannot be activated then return
+      if (this.changeSprite("dash")) return;
+
       this.vx = 1000;
       this.w = 150; // Sprite width of dash
-      this.changeSprite("dash");
       this.canDash = false;
+      Particle.DashParticle(this.x, this.y, this.backward);
+      this.saveScale();
       setTimeout(() => {
         this.restoreDefaultScale();
         this.state = "";
@@ -499,6 +548,7 @@ export class Player extends Character {
 
   constructor(x, y, w, h, sprite, maxSprite) {
     super(x, y, w, h, sprite, maxSprite);
+    this.canBlast = true;
     this.isKnockback = "";
     this.attackState = 1;
     this.cheat = false;
@@ -512,6 +562,7 @@ export class Player extends Character {
     this.attackSpeed = 0.4;
     this.damage = 1;
     this.attackInterval = 0;
+    this.spawnedBlast = false;
     this.offsetX = 60;
     this.offsetY = 40;
     this.health = Setting.CHARACTER_MAX_HEALTH;
