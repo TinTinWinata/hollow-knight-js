@@ -1,12 +1,6 @@
 import { GAME } from "../game.js";
 import { Setting } from "../setting.js";
 
-/**
- * Camera by @robashton returns Camera object.
- *  constructor initial parameters:
- *  @param {context} str *required
- *  @param {settings} str *optional
- */
 export default class Camera {
   constructor(context, settings = {}) {
     this.distance = settings.distance || 1000.0;
