@@ -273,9 +273,9 @@ export class Player extends Character {
   }
 
   blast() {
-    if (this.isGrounded() && this.canBlast) {
+    console.log(this.isGrounded(), this.canBlast);
+    if (this.isGrounded() && this.canBlast && this.changeSprite("blast")) {
       this.spawnedBlast = false;
-      this.changeSprite("blast");
       this.canBlast = false;
       setTimeout(() => {
         this.canBlast = true;
