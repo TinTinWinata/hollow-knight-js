@@ -123,7 +123,7 @@ export class Player extends Character {
 
   incrementAttackState() {
     this.attackState += 1;
-    if (this.attackState >= 3) {
+    if (this.attackStater >= 3) {
       this.attackState = 1;
     }
   }
