@@ -77,7 +77,7 @@ export class Character {
 
   knockback(n) {
     const velocity = this.backward ? -n : n;
-    this.vx -= velocity * this.game.delta;
+    this.vx = -velocity;
     this.isKnockback = this.backward ? "knockback_right" : "knockback_left";
   }
 

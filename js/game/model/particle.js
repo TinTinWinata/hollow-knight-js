@@ -169,20 +169,25 @@ export class Particle {
     game.ctx.restore();
   }
 
-  checkCanBeRender(){
-    if(this.sprite[this.spriteIdx] == null){
-      
+  checkCanBeRender() {
+    if (this.sprite[this.spriteIdx] === undefined) {
+      return false;
+    } else {
+      return true;
     }
   }
 
   render() {
     if (!this.dead) {
       const game = GAME.getInstance();
-      
+
       // Render If there's any degree then rotate correspond with the degree
       if (this.degree > 0) {
         this.renderWithDegree(this.degree, game);
       } else {
+        if (!this.checkCanBeRender()) {
+          return;
+        }
         // Render if backward ( rotate 180 )
         if (this.backward) {
           this.renderBackward();

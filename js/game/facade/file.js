@@ -613,11 +613,13 @@ export function GET_PLAYER_ATTACK_SPLASH_2_SPRITE() {
 }
 
 export function GET_PLAYER_ATTACK_SPLASH_SPRITE(i) {
+  let image = "";
   if (i == 1) {
-    return GET_PLAYER_ATTACK_SPLASH_1_SPRITE();
+    image = GET_PLAYER_ATTACK_SPLASH_1_SPRITE();
   } else if (i == 2) {
-    return GET_PLAYER_ATTACK_SPLASH_2_SPRITE();
+    image = GET_PLAYER_ATTACK_SPLASH_2_SPRITE();
   }
+  return image;
 }
 
 function LOAD_IMAGE(str) {
