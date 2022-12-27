@@ -146,6 +146,19 @@ export function GET_REST_SPRITE() {
     return [img];
   }
 }
+export function GET_MIXUE_SPRITE() {
+  const cacheName = "mixue";
+  const cache = CACHE.get(cacheName);
+
+  if (cache != null) {
+    return cache;
+  } else {
+    const img = new Image();
+    img.src = "assets/game/object/mixue.png";
+    CACHE.set(cacheName, [img]);
+    return [img];
+  }
+}
 
 export function GET_UI_HEALTH() {
   const img = new Image();

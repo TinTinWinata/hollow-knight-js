@@ -69,6 +69,7 @@ export class GAME {
     this.mainWidth = 1000;
     this.mainHeight = 600;
 
+    this.rest = null;
     this.fullscreenFlag = false;
   }
 
@@ -322,6 +323,7 @@ export class GAME {
       }
     }
   }
+  
   render() {
     this.calculateFps();
     this.getDelta();
@@ -333,22 +335,20 @@ export class GAME {
         this.camera.shake();
       }
       this.camera.moveTo(this.player.x + 100, this.player.y - 50);
-
       this.mainBackground.render();
-
       this.grounds.forEach((obj) => {
         obj.render();
       });
       this.objects.forEach((object) => {
         object.render();
       });
-
       if (!this.bossFight) this.bossDoor.render();
 
       this.renderBlast();
       this.enemies.forEach((enemy) => {
         enemy.render();
       });
+
       this.characters.forEach((character) => {
         character.render();
       });
@@ -363,7 +363,6 @@ export class GAME {
       this.camera.end();
     }
     /* Rendering the particles. */
-    // this.renderDebugs();
     requestAnimationFrame(this.render.bind(this));
   }
 

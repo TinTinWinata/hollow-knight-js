@@ -91,8 +91,15 @@ body {
 
 #ui #money{
   position: absolute;
-  top: 50px;
+  top: 48px;
   left: 65px;
+  width: 15%;
+}
+
+#ui #skill{
+  position: absolute;
+  top: 50px;
+  left: 125px;
   width: 15%;
 }
 
@@ -155,6 +162,12 @@ body {
   position: absolute;
   top: 53px;
   left: 95px;
+}
+
+#ui #skill-text{
+  position: absolute;
+  top: 53px;
+  left: 155px;
 }
 
 #ui .health-container{

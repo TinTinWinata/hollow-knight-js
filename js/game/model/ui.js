@@ -4,7 +4,6 @@ import { Setting } from "../setting.js";
 
 export class UI {
   static instance;
-
   static getInstance = () => {
     if (this.instance == null) {
       this.instance = new UI();
@@ -16,7 +15,18 @@ export class UI {
     this.money = 0;
     this.totalHealth = 5;
     $("#ui").show();
+    this.skillText = $("#skill-text");
+    this.skillContainer = $("#skill-container");
     this.addPauseListener();
+  }
+
+  setSkillText(n) {
+    this.skillText.html(n);
+    if (n == 0) {
+      this.skillContainer.hide();
+    } else {
+      this.skillContainer.show();
+    }
   }
 
   addPauseListener() {
@@ -41,7 +51,7 @@ export class UI {
 
   deadScreen() {
     const game = GAME.getInstance();
-    $("#black-screen").fadeIn(Setting.DEATH_SCREEN_TIME);
+    $("#wck-screen").fadeIn(Setting.DEATH_SCREEN_TIME);
     $("#death-menu").fadeIn(Setting.DEATH_SCREEN_TIME);
     setTimeout(() => {
       game.backToMenu();

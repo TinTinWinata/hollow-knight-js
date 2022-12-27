@@ -4,6 +4,7 @@ import { GAME } from "../game.js";
 import { Character } from "../parent/character.js";
 import { Object } from "../parent/object.js";
 import { Setting } from "../setting.js";
+import { Boss } from "./boss.js";
 import { Particle } from "./particle.js";
 
 export class Blast extends Character {
@@ -17,6 +18,7 @@ export class Blast extends Character {
     super(x, y - 20, w, h, GET_PLAYER_BLAST(), PLAYER_CONF.blast, false, false);
     super.backward = backward;
     super.maxSpeed = Setting.CHARACTER_BLAST_MAX_SPEED;
+    this.hittedBoss = false;
   }
   move() {
     const game = GAME.getInstance();
@@ -31,6 +33,14 @@ export class Blast extends Character {
     game.enemies.forEach((enemy) => {
       if (enemy.isCollideBlock(x, y, w, h)) {
         if (!enemy.isDead()) {
+          // Check if hitted the boss
+          if (enemy instanceof Boss) {
+            if (this.hittedBoss) {
+              return;
+            } else {
+              this.hittedBoss = true;
+            }
+          }
           game.audio.play(MyAudio.HIT, false);
           Particle.HitParticle(x + w, y + w / 2);
         }

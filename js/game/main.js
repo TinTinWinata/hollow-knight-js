@@ -29,7 +29,6 @@ function start() {
   const game = GAME.getInstance();
   game.canvas.width = game.width;
   game.canvas.height = game.height;
-  let dashTimeTemp = new Date();
 
   const player = new Player(
     game.width / 2 - 250,

@@ -71,7 +71,7 @@ export class Player extends Character {
       return false;
     }
 
-    if (this.state == state) return;
+    if (this.state == state) return false;
     switch (state) {
       case "dash":
         this.game.audio.play(MyAudio.PLAYER_DASH, false);
@@ -119,6 +119,7 @@ export class Player extends Character {
     }
     this.finishState = false;
     this.state = state;
+    return true;
   }
 
   incrementAttackState() {
@@ -224,6 +225,7 @@ export class Player extends Character {
           this.knockback(Setting.CHARACTER_KNOCKBACK_POWER);
           this.game.audio.play(MyAudio.HIT, false);
           Particle.HitParticle(x + w, y + w / 2);
+          this.incrementBlastPower();
         }
         enemy.hit();
       }
@@ -273,16 +275,20 @@ export class Player extends Character {
   }
 
   blast() {
-    console.log(this.isGrounded(), this.canBlast);
-    if (this.isGrounded() && this.canBlast && this.changeSprite("blast")) {
+    console.log("blast power : ", this.blastPower);
+
+    if (
+      this.isGrounded() &&
+      this.blastPower > 0 &&
+      this.changeSprite("blast")
+    ) {
       this.spawnedBlast = false;
-      this.canBlast = false;
-      setTimeout(() => {
-        this.canBlast = true;
-      }, Setting.CHARACTER_BLAST_TIMEOUT);
+      this.decrementBlastPower();
+      this.spawnBlast();
     }
   }
   spawnBlast() {
+    console.log("Spawning blast . . .");
     Particle.BlastParticle(this.x, this.y);
     const blast = new Blast(this.x, this.y + this.h / 2, this.backward);
     this.game.blasts.push(blast);
@@ -502,8 +508,9 @@ export class Player extends Character {
   dash() {
     if (this.canDash && this.canJump() && !this.jumping && !this.postJump) {
       // If dash state cannot be activated then return
-      if (this.changeSprite("dash")) return;
+      if (!this.changeSprite("dash")) return;
 
+      console.log("dash!");
       this.vx = 1000;
       this.w = 150; // Sprite width of dash
       this.canDash = false;
@@ -513,10 +520,11 @@ export class Player extends Character {
         this.restoreDefaultScale();
         this.state = "";
         this.changeSprite("idle");
+        console.log("idling!");
+        setTimeout(() => {
+          this.canDash = true;
+        }, Setting.CHARACTER_DASH_TIMEOUT);
       }, Setting.CHARACTER_DASH_TIME);
-      setTimeout(() => {
-        this.canDash = true;
-      }, Setting.CHARACTER_DASH_TIMEOUT);
     }
   }
 
@@ -546,9 +554,26 @@ export class Player extends Character {
     }
   }
 
+  decrementBlastPower() {
+    this.blastPower -= 1;
+    const ui = UI.getInstance();
+    ui.setSkillText(this.blastPower);
+  }
+
+  incrementBlastPower() {
+    this.blastHitInterval += 1;
+    if (this.blastHitInterval >= Setting.CHARACTER_GET_BLAST) {
+      this.blastPower += 1;
+      this.blastHitInterval = 0;
+
+      // Set the blast power ui
+      const ui = UI.getInstance();
+      ui.setSkillText(this.blastPower);
+    }
+  }
+
   constructor(x, y, w, h, sprite, maxSprite) {
     super(x, y, w, h, sprite, maxSprite);
-    this.canBlast = true;
     this.isKnockback = "";
     this.attackState = 1;
     this.cheat = false;
@@ -566,5 +591,7 @@ export class Player extends Character {
     this.offsetX = 60;
     this.offsetY = 40;
     this.health = Setting.CHARACTER_MAX_HEALTH;
+    this.blastHitInterval = 0;
+    this.blastPower = 0;
   }
 }

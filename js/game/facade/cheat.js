@@ -2,6 +2,7 @@ import { GAME } from "../game.js";
 import { BossDoor } from "../model/bossdoor.js";
 import { UI } from "../model/ui.js";
 import { Setting } from "../setting.js";
+import { GET_MIXUE_SPRITE } from "./file.js";
 
 export class Cheat {
   static instance;
@@ -42,6 +43,8 @@ export class Cheat {
       const totalIncrement = 10;
       ui.incrementMoney(totalIncrement);
       game.killedCrawlid += totalIncrement;
+      game.player.blastPower += totalIncrement;
+      ui.setSkillText(game.player.blastPower);
       BossDoor.GetInstance().openDoor();
     });
     this.addCheat("gotoboss", () => {
@@ -52,6 +55,18 @@ export class Cheat {
     });
     this.addCheat("crazy", () => {
       Setting.CHARACTER_DASH_TIME = 3000;
+    });
+    this.addCheat("mixue", () => {
+      const h = 200;
+      const w = 200;
+      const x = game.width - 900;
+      const y = game.height - 200 - h;
+      game.rest.x = x;
+      game.rest.y = y;
+      game.rest.w = w;
+      game.rest.h = h;
+      game.rest.backward = false;
+      game.rest.sprite = GET_MIXUE_SPRITE();
     });
   }
 

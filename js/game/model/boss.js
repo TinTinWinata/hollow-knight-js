@@ -354,7 +354,6 @@ export class Boss extends Enemy {
   decrementHealth() {
     const game = GAME.getInstance();
     const dmg = game.player.damage;
-
     if (this.state == Boss.STUN) {
       this.health -= dmg;
       if (this.health <= 0) {
