@@ -10,7 +10,7 @@ export class Ghost extends Character {
 
     const ghost = new Ghost(
       x + inc,
-      y + 250,
+      y + 365,
       150,
       150,
       sprite,

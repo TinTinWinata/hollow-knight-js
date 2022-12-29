@@ -275,8 +275,6 @@ export class Player extends Character {
   }
 
   blast() {
-    console.log("blast power : ", this.blastPower);
-
     if (
       this.isGrounded() &&
       this.blastPower > 0 &&
@@ -288,7 +286,6 @@ export class Player extends Character {
     }
   }
   spawnBlast() {
-    console.log("Spawning blast . . .");
     Particle.BlastParticle(this.x, this.y);
     const blast = new Blast(this.x, this.y + this.h / 2, this.backward);
     this.game.blasts.push(blast);
@@ -419,6 +416,13 @@ export class Player extends Character {
     return this.vx == 0;
   }
 
+  isKnockbackState() {
+    return (
+      this.isKnockback == "knockback_left" ||
+      this.isKnockback == "knockback_right"
+    );
+  }
+
   checkBackground() {
     // Change Background
     const game = GAME.getInstance();
@@ -510,7 +514,6 @@ export class Player extends Character {
       // If dash state cannot be activated then return
       if (!this.changeSprite("dash")) return;
 
-      console.log("dash!");
       this.vx = 1000;
       this.w = 150; // Sprite width of dash
       this.canDash = false;
@@ -520,7 +523,6 @@ export class Player extends Character {
         this.restoreDefaultScale();
         this.state = "";
         this.changeSprite("idle");
-        console.log("idling!");
         setTimeout(() => {
           this.canDash = true;
         }, Setting.CHARACTER_DASH_TIMEOUT);

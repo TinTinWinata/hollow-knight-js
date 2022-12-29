@@ -54,6 +54,7 @@ export class GAME {
     this.killedCrawlid = 0;
     this.canMove = true;
     this.bossDoor = null;
+    this.blackCheat = false;
 
     this.cheat = Cheat.GetInstance();
 
@@ -323,7 +324,7 @@ export class GAME {
       }
     }
   }
-  
+
   render() {
     this.calculateFps();
     this.getDelta();
@@ -335,6 +336,7 @@ export class GAME {
         this.camera.shake();
       }
       this.camera.moveTo(this.player.x + 100, this.player.y - 50);
+      if (this.black) this.black.render();
       this.mainBackground.render();
       this.grounds.forEach((obj) => {
         obj.render();
@@ -343,8 +345,10 @@ export class GAME {
         object.render();
       });
       if (!this.bossFight) this.bossDoor.render();
+      if (this.black && this.blackCheat) this.black.render();
 
       this.renderBlast();
+
       this.enemies.forEach((enemy) => {
         enemy.render();
       });

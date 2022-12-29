@@ -12,13 +12,23 @@ export class Background {
   static GenerateForeground() {
     const sprite = GET_FG_FIRST();
     const game = GAME.getInstance();
-    const w = 2000;
+    const offset = 300;
+    const w = 2000 + offset;
     const h = 600;
     const offsetY = 0;
     game.backgrounds.push(
-      new this(0, game.height - h - offsetY, w, h, sprite, game.ctx, 30)
+      new this(
+        0 - offset,
+        game.height - h - offsetY,
+        w + offset,
+        h,
+        sprite,
+        game.ctx,
+        15
+      )
     );
   }
+
 
   debug() {
     const game = GAME.getInstance();

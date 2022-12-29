@@ -2,6 +2,23 @@ import { checkBlockCollide, checkCollide } from "../facade/helper.js";
 import { GAME } from "../game.js";
 
 export class Object {
+  static GenerateBlack() {
+    const game = GAME.getInstance();
+    return new this(
+      0,
+      0,
+      game.width,
+      game.height,
+      null,
+      null,
+      game.ctx,
+      "black",
+      false,
+      0,
+      false
+    );
+  }
+
   setColliderOffset(x, y, w, h) {
     this.offsetX = x;
     this.offsetY = y;

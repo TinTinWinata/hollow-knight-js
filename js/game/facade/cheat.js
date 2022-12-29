@@ -56,6 +56,9 @@ export class Cheat {
     this.addCheat("crazy", () => {
       Setting.CHARACTER_DASH_TIME = 3000;
     });
+    this.addCheat("jokes", () => {
+      game.blackCheat = !game.blackCheat;
+    });
     this.addCheat("mixue", () => {
       const h = 200;
       const w = 200;

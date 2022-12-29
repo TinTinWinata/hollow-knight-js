@@ -43,14 +43,17 @@ function start() {
   player.changeSprite("jump");
 
   const bg = new Background(
+    -500,
     0,
-    0,
-    game.width + 300,
+    game.width + 500,
     game.height,
     GET_BG_FIRST(),
     game.ctx,
-    50
+    30
   );
+
+  // Generate Black
+  game.black = Object.GenerateBlack();
 
   // Generate Foreground
   Background.GenerateForeground();

@@ -106,7 +106,7 @@ export class BossDoor {
       game.player.x <= 1800
     ) {
       this.changeTitle();
-      $("#title").fadeIn(2000);
+      $("#title").fadeIn(300);
       window.addEventListener("keypress", this.addListener);
     } else {
       $("#title").fadeOut(2000);
@@ -115,7 +115,7 @@ export class BossDoor {
   }
 
   changeTitle() {
-    $("#title").html("'Space' to interact");
+    $("#title").html("'Space to interact");
   }
 
   logic() {
