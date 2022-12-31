@@ -64,14 +64,15 @@ export class Player extends Character {
     if (state == "dead") {
     } else if (
       this.state == "dead" ||
-      (this.state == "attack" && state != "dash") ||
+      (this.state == "attack" && state != "dash" && state != "attack") ||
       (this.state == "jump" && state != "attack" && state != "jump") ||
       this.state == "dash"
     ) {
       return false;
     }
 
-    if (this.state == state) return false;
+    if (this.state == state && this.state != "attack" && state != "attack")
+      return false;
     switch (state) {
       case "dash":
         this.game.audio.play(MyAudio.PLAYER_DASH, false);
@@ -91,6 +92,7 @@ export class Player extends Character {
         this.sprite = GET_PLAYER_WALK_SPRITE();
         break;
       case "attack":
+        console.log("changging to attack");
         this.game.audio.play(MyAudio.PLAYER_ATTACK, false);
         this.spriteIdx = 0;
         this.sprite = GET_PLAYER_ATTACK_SPRITE(this.attackState);
@@ -204,13 +206,15 @@ export class Player extends Character {
       this.finishState
     ) {
       if (this.state == "attack" && this.jumping) {
+        // console.log("set last jump");
         // Check if last state is jumping
         this.config = PLAYER_CONF.jump;
 
         // Jumping State
-        // this.state = "jump";
         this.spriteIdx = PLAYER_CONF.jump.max - 4;
         this.sprite = GET_PLAYER_JUMP_SPRITE();
+        // this.state = "jump";
+        // this.state = "";
       } else {
         // If jumping state then just make default stat
         this.state = "";

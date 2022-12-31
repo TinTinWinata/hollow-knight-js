@@ -348,7 +348,7 @@ input[type=range]::-webkit-slider-thumb{
   }
 }
 
-@media only screen and (max-width: 1000px){
+@media only screen and (max-width: 1300px){
   nav{
     position: relative !important;
   }
