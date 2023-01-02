@@ -280,6 +280,7 @@
 
 .store{
   /* ------------- */
+  padding: 20px;
   margin-bottom: 200px;
   /* ------------- */ 
 }
@@ -370,25 +371,54 @@
   text-indent: 50px;
 }
 
+
 @media only screen and (max-width: 1200px) {
+  .content-card .card{
+    margin-bottom: 100px;
+  }
   #box-3{
     display: none;
   }
-
-  
-}
-
-@media only screen and (max-width: 1200px) {
-
-
   .marquee-container{
     max-width: 500px !important;
     overflow: hidden;
   }
+  .content{
+    max-width: 1000px;
+  }
+  .content-card{
+    width: 100%;
+    flex-direction: column ;
+  }
+  #hero h1{
+    font-size: 25px;
+  }
+  #hero img{
+    height: 400px;
+    width: 500px;
+  }
+  #hero #character-content-1{
+    font-size: 13px;
+  }
+  .store h1{
+    font-size: 20px;
+  }
+  .store p{
+    font-size: 15px;
+  }
+  .store .button{
+    font-size: 10px;
+  }
+  .store img{
+    margin: auto;
+    width: 450px;
+  }
 }
 
 @media only screen and (max-width: 1500px) {
-
+  .content {
+    max-width: 1300px;
+  }
 
   .marquee-container{
     max-width: 1000px !important;
@@ -398,6 +428,9 @@
 
 @media only screen and (max-width: 800px) {
 
+  .content{
+    max-width: 700px;
+  }
   
 .jumbotron-card-container .relative{
   width: 500px;
@@ -405,10 +438,7 @@
 }
 
 
-  .content-card{
-    width: 100%;
-    flex-direction: column ;
-  }
+
   body {
     /* background-color: lightblue; */
   }

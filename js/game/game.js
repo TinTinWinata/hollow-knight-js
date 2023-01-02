@@ -72,6 +72,7 @@ export class GAME {
 
     this.rest = null;
     this.fullscreenFlag = false;
+    this.canFullscreen = true;
   }
 
   aliveEnemy() {
@@ -81,6 +82,8 @@ export class GAME {
   }
 
   fullscreen() {
+    if (!this.canFullscreen) return;
+
     this.fullscreenFlag = !this.fullscreenFlag;
     if (this.fullscreenFlag) {
       $("#root-nav").hide();
@@ -330,12 +333,12 @@ export class GAME {
     this.getDelta();
     if (!this.pause) {
       this.checkCredit();
+      this.camera.moveTo(this.player.x + 100, this.player.y - 50);
       this.camera.begin();
       this.cheat.checkKeys();
       if (this.shake) {
         this.camera.shake();
       }
-      this.camera.moveTo(this.player.x + 100, this.player.y - 50);
       if (this.black) this.black.render();
       this.mainBackground.render();
       this.grounds.forEach((obj) => {
