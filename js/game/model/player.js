@@ -64,15 +64,19 @@ export class Player extends Character {
     if (state == "dead") {
     } else if (
       this.state == "dead" ||
-      (this.state == "attack" && state != "dash" && state != "attack") ||
+      (this.state == "attack" &&
+        state != "dash" &&
+        state != "attack" &&
+        state != "force_idle") ||
       (this.state == "jump" && state != "attack" && state != "jump") ||
       this.state == "dash"
     ) {
       return false;
     }
 
-    if (this.state == state && this.state != "attack" && state != "attack")
+    if (this.state == state && this.state != "attack" && state != "attack") {
       return false;
+    }
     switch (state) {
       case "dash":
         this.game.audio.play(MyAudio.PLAYER_DASH, false);
@@ -80,6 +84,7 @@ export class Player extends Character {
         this.config = PLAYER_CONF.dash;
         this.sprite = GET_PLAYER_DASH_SPRITE();
         break;
+      case "force_idle":
       case "idle":
         this.config = PLAYER_CONF.idle;
         this.sprite = GET_PLAYER_IDLE_SPRITE();
@@ -92,7 +97,6 @@ export class Player extends Character {
         this.sprite = GET_PLAYER_WALK_SPRITE();
         break;
       case "attack":
-        console.log("changging to attack");
         this.game.audio.play(MyAudio.PLAYER_ATTACK, false);
         this.spriteIdx = 0;
         this.sprite = GET_PLAYER_ATTACK_SPRITE(this.attackState);
@@ -216,7 +220,10 @@ export class Player extends Character {
         // this.state = "jump";
         // this.state = "";
       } else {
-        // If jumping state then just make default stat
+        // If attack state then change the sprite into idle
+        if (this.state == "attack" && this.isKnockback != "") {
+          console.log(this.changeSprite("force_idle"));
+        }
         this.state = "";
       }
     }
@@ -350,12 +357,6 @@ export class Player extends Character {
   }
 
   isGrounded() {
-    // this.game.debug(
-    //   this.x + 40,
-    //   this.y + this.h + this.vy * this.game.delta,
-    //   30,
-    //   1
-    // );
     return (
       this.game.isCollideObjectBlock(
         this.x + 40,
