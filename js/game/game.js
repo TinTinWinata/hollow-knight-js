@@ -55,6 +55,7 @@ export class GAME {
     this.canMove = true;
     this.bossDoor = null;
     this.blackCheat = false;
+    this.useCamera = true;
 
     this.cheat = Cheat.GetInstance();
 
@@ -334,7 +335,7 @@ export class GAME {
     if (!this.pause) {
       this.checkCredit();
       this.camera.moveTo(this.player.x + 100, this.player.y - 50);
-      this.camera.begin();
+      if (this.useCamera) this.camera.begin();
       this.cheat.checkKeys();
       if (this.shake) {
         this.camera.shake();
@@ -367,7 +368,7 @@ export class GAME {
         obj.render();
       });
       this.renderParticle();
-      this.camera.end();
+      if (this.useCamera) this.camera.end();
     }
     /* Rendering the particles. */
     requestAnimationFrame(this.render.bind(this));
