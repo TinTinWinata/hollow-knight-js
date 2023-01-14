@@ -1,7 +1,5 @@
 import { GAME } from "../game.js";
 import {
-  BARREL_PARTICLE_CONF,
-  GET_BARREL_PARTICLE_SPRITE,
   GET_HIT,
   GET_PLAYER_BLAST_PARTICLE,
   GET_PLAYER_DASH_EFFECT,
@@ -16,23 +14,6 @@ export class Particle {
   static EmitAllParticle(x, y) {
     Particle.PlayerHit(x, y);
     Particle.HitParticle(x, y);
-  }
-
-  static BarrelParticle(x, y) {
-    const w = 250;
-    const h = 150;
-
-    Particle.Emit(
-      x - w / 2,
-      y - h / 2,
-      w,
-      h,
-      GET_BARREL_PARTICLE_SPRITE(),
-      BARREL_PARTICLE_CONF,
-      false,
-      null,
-      0
-    );
   }
 
   static BlastParticle(x, y, backward) {

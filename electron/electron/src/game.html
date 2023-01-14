@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hollow Knight</title>
+
+    <!-- Jquery -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
+      integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <!-- GSAP -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js"
+      defer
+    ></script>
+
+    <!-- Main Script -->
+    <script src="js/nav.js" defer></script>
+    <script src="js/footer.js" defer></script>
+    <script src="js/modal.js" defer></script>
+
+    <!-- Game Script -->
+    <script type="module" src="js/game/main.js" defer></script>
+    <script type="module" src="js/game/setting.js" defer></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/game.css" />
+    <link rel="stylesheet" href="css/modal.css" />
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,500;0,700;0,900;1,400;1,600;1,900&display=swap"
+    rel="stylesheet />
+
+    <!-- Icon -->
+    <link rel="icon" href="assets/icon.ico" />
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+    <div id="root-nav"></div>
+
+    <!-- Audio -->
+    <div id="root-audio"></div>
+    <!-- <audio id="homeAudio" src="assets/game/audio/home.mp3"></audio> -->
+
+    <!-- Modal -->
+    <div id="root-modal"></div>
+
+    <!-- Main Content -->
+    <div class="full center min-h-screen global-container">
+      <div class="">
+        <div class="canvas-container">
+          <!-- After Scnee -->
+          <div id="after-scene-container">
+            <div class="black"></div>
+            <img src="assets/game/end.png" alt="" />
+            <video
+              width="100%"
+              src="assets/landing/header.mp4"
+              autoplay
+              muted
+              loop
+              id="after-scene"
+            ></video>
+          </div>
+          <div id="start-menu">
+            <video
+              src="assets/landing/landing-page.mp4"
+              id="video"
+              autoplay
+              muted
+              loop
+            ></video>
+            <div class="content">
+              <div class="center" style="margin-bottom: 30px">
+                <img width="600px" src="assets/landing/logo_main.png" alt="" />
+              </div>
+              <h1 id="start">Start Game</h1>
+            </div>
+          </div>
+          <!-- Black Screen And White Screen -->
+          <div id="black-screen"></div>
+          <div id="white-screen"></div>
+
+          <!-- Rest Text -->
+          <div id="rest">Rest</div>
+
+          <!-- Fps Counter -->
+          <div id="fps">0</div>
+
+          <!-- False Knight Title -->
+          <div id="title">False Knight</div>
+
+          <!-- Death Menu -->
+          <div id="death-menu">
+            <div class="black-death"></div>
+            <div class="content">
+              <h1>You're Dead</h1>
+            </div>
+          </div>
+          <!-- Credit -->
+          <div id="credit-scene">
+            <div id="credit-scene-root">
+              <h2 class="credit-text">Created By TinTin Winata</h2>
+              <h1 class="credit-text">Web Design NAR 23-1</h1>
+              <h2 class="credit-text">
+                Alongside Courage And Perseverance We Shape and Define Our
+                Future
+              </h2>
+              <h2 class="credit-text">JT 22-1</h2>
+              <h1 class="">JeTe Knight</h1>
+              <p class="" style="margin-top: 10px">Inspired by Hollow Knight</p>
+            </div>
+          </div>
+
+          <!-- Pause Game -->
+
+          <div id="pause-game">
+            <div class="black-pause"></div>
+            <div class="center container">
+              <div class="content">
+                <img width="50%" src="assets/game/pause/option.png" alt="" />
+                <h3 id="start-game">CONTINUE</h3>
+                <h3 id="option-fps">SHOW FPS</h3>
+                <h3 id="option-fps">VOLUME</h3>
+                <input
+                  type="range"
+                  min="1"
+                  max="100"
+                  value="100"
+                  id="volumeRange"
+                />
+                <h3 id="exit-game">EXIT GAME</h3>
+
+                <img
+                  style="margin-top: 15px"
+                  width="30%"
+                  src="assets/game/pause/option-last.png"
+                  alt=""
+                />
+              </div>
+            </div>
+          </div>
+          <div id="ui">
+            <img id="left" src="assets/game/ui/left.png" alt="" />
+            <img id="money" src="assets/game/ui/money.png" alt="" />
+            <div id="skill-container" hidden>
+              <img id="skill" src="assets/game/ui/skill.png" alt="" />
+              <div id="skill-text">0</div>
+            </div>
+            <div class="health-container">
+              <img class="health" src="assets/game/ui/health.png" alt="" />
+              <img class="health" src="assets/game/ui/health.png" alt="" />
+              <img class="health" src="assets/game/ui/health.png" alt="" />
+              <img class="health" src="assets/game/ui/health.png" alt="" />
+              <img class="health" src="assets/game/ui/health.png" alt="" />
+            </div>
+            <div id="money-text">0</div>
+          </div>
+          <canvas id="myCanvas"> </canvas>
+        </div>
+      </div>
+    </div>
+    <div id="root-footer"></div>
+  </body>
+</html>

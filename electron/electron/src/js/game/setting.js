@@ -36,7 +36,6 @@ export class Setting {
   static CHARACTER_BLAST_MAX_SPEED = 3000;
   static CHARACTER_BLAST_TIMEOUT = 10000;
   static CHARACTER_GET_BLAST = 3;
-  static CHARACTER_BLAST_DAMAGE = 3;
 
   static CHARACTER_DEATH_BLACK_SCREEN_TIMEOUT = 2000;
 
@@ -89,10 +88,6 @@ export class Setting {
 
   static TOTAL_PLATFORM = 10;
   static PLATFORM_HEIGHT = 30;
-
-  static METEOR_WIDTH = 100;
-  static METEOR_HEIGHT = 90;
-  static METEOR_SPAWN_PER_ATTACK = 3;
 
   static DEATH_SCREEN_TIME = 3000;
   static CREDIT_SCENE_SPEED = 10;

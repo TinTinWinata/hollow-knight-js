@@ -222,7 +222,7 @@ export class Player extends Character {
       } else {
         // If attack state then change the sprite into idle
         if (this.state == "attack" && this.isKnockback != "") {
-          this.changeSprite("force_idle");
+          console.log(this.changeSprite("force_idle"));
         }
         this.state = "";
       }

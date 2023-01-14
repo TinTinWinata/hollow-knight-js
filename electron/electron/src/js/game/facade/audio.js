@@ -18,9 +18,6 @@ export class MyAudio {
   static FALSE_STRIKE = 13;
   static VICTORY = 14;
   static PLAYER_BLAST = 15;
-  static BENCH_REST = 16;
-  static BARREL_DEATH = 17;
-  static FALSE_HEAD_HIT = 18;
 
   constructor() {
     this.audios = [];
@@ -40,11 +37,6 @@ export class MyAudio {
   }
 
   addAllAudio() {
-    this.addAudio(
-      MyAudio.FALSE_HEAD_HIT,
-      "assets/game/audio/false_knight_head_hit.wav"
-    );
-    this.addAudio(MyAudio.BARREL_DEATH, "assets/game/audio/barrel_death.wav");
     this.addAudio(MyAudio.HOME, "assets/game/audio/home.mp3");
     this.addAudio(MyAudio.BOSS, "assets/game/audio/boss.mp3");
     this.addAudio(MyAudio.PLAYER_ATTACK, "assets/game/audio/sword.wav");
@@ -55,7 +47,6 @@ export class MyAudio {
     this.addAudio(MyAudio.PLAYER_JUMP, "assets/game/audio/hero_jump.mp3");
     this.addAudio(MyAudio.PLAYER_HIT, "assets/game/audio/hero_hit.wav");
     this.addAudio(MyAudio.PLAYER_LAND, "assets/game/audio/hero_land_hard.wav");
-    this.addAudio(MyAudio.BENCH_REST, "assets/game/audio/bench_rest.wav");
     this.addAudio(
       MyAudio.FALSE_ATTACK,
       "assets/game/audio/false_knight_attack.wav"

@@ -329,16 +329,6 @@ export class GAME {
     }
   }
 
-  enemyRender() {
-    for (let i = 0; i < this.enemies.length; i++) {
-      const enemy = this.enemies[i];
-      enemy.render();
-      if (enemy.destroy) {
-        this.enemies.splice(i, 1);
-      }
-    }
-  }
-
   render() {
     this.calculateFps();
     this.getDelta();
@@ -347,7 +337,7 @@ export class GAME {
       this.camera.moveTo(this.player.x + 100, this.player.y - 50);
       if (this.useCamera) this.camera.begin();
       this.cheat.checkKeys();
-      if (this.useCamera && this.shake) {
+      if (this.shake) {
         this.camera.shake();
       }
       if (this.black) this.black.render();
@@ -362,7 +352,11 @@ export class GAME {
       if (this.black && this.blackCheat) this.black.render();
 
       this.renderBlast();
-      this.enemyRender();
+
+      this.enemies.forEach((enemy) => {
+        enemy.render();
+      });
+
       this.characters.forEach((character) => {
         character.render();
       });

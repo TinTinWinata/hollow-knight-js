@@ -58,9 +58,7 @@ export class UI {
     }, 5000);
   }
 
-  whiteScreen(n, opacity = 1) {
-    jQuery("#white-screen").css("opacity", opacity);
-
+  whiteScreen(n) {
     $("#white-screen").fadeIn(n);
     setTimeout(() => {
       $("#white-screen").fadeOut(n);

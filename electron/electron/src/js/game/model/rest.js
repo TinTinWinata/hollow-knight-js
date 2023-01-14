@@ -1,4 +1,3 @@
-import { MyAudio } from "../facade/audio.js";
 import { GET_REST_SPRITE } from "../facade/file.js";
 import { checkBlockCollide } from "../facade/helper.js";
 import { GAME } from "../game.js";
@@ -25,8 +24,7 @@ export class Rest extends Object {
     const game = GAME.getInstance();
     if (Setting.PLAYER_INTERACT.includes(e.key)) {
       /* Getting the instance of the UI class. */
-      ui.whiteScreen(200, 0.5);
-      game.audio.play(MyAudio.BENCH_REST, false);
+      ui.whiteScreen(300);
       game.player.maxHealth();
       ui.changeHealth(game.player.health);
     }

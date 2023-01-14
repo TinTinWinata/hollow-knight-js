@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hollow Knight</title>
+
+    <link rel="favicon" href="assets/landing/logo_main.png" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/landing.css" />
+    <link rel="stylesheet" href="css/marquee.css" />
+    <link rel="stylesheet" href="css/modal.css" />
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,500;0,700;0,900;1,400;1,600;1,900&display=swap"
+      rel="stylesheet"
+    />
+
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
+    <!-- AniJS CSS-->
+    <link
+      rel="stylesheet"
+      href="http://anijs.github.io/lib/anicollection/anicollection.css"
+    />
+
+    <!-- Jquery -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
+      integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <!-- AOS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <!-- Main Script -->
+    <script src="js/landing.js" defer></script>
+    <script src="js/marquee.js" defer></script>
+    <script src="js/nav.js" defer></script>
+    <script src="js/footer.js" defer></script>
+    <script src="js/modal.js" defer></script>
+
+    <!-- Icon -->
+    <link rel="icon" href="assets/icon.ico" />
+  </head>
+
+  <body>
+    <!-- Black -->
+    <div id="black"></div>
+    <!-- Navigation bar -->
+
+    <!-- Modal -->
+    <div id="root-modal"></div>
+
+    <div id="root-nav"></div>
+    <!-- Main -->
+    <main>
+      <!-- Jumbotron -->
+      <div class="w-full jumbotron relative">
+        <div class="relative jumbotron-video-container center">
+          <div class="black-shade"></div>
+          <video
+            width="100%"
+            src="assets/landing/header.mp4"
+            autoplay
+            muted
+            loop
+          ></video>
+          <image class="absolute" src="assets/landing/logo_main.png"></image>
+        </div>
+        <!-- Latest New -->
+        <div class="latest-container center">
+          <div class="">
+            <div class="flex relative header">
+              <p class="text-active">Latest News</p>
+              <p>View All</p>
+            </div>
+            <div class="flex relative">
+              <div id="box-1" class="box">
+                <div class="text">
+                  <p>December 16, 2022</p>
+                  <h1>The Knight 2022 Level Bundle</h1>
+                </div>
+                <div class="box-shade"></div>
+              </div>
+              <div id="box-2" class="box">
+                <div class="text">
+                  <p>December 2 , 2022</p>
+                  <h1>Hollow Knight Plus Update - Winter 2022</h1>
+                </div>
+                <div class="box-shade"></div>
+              </div>
+              <div id="box-3" class="box">
+                <div class="text">
+                  <p>November 23, 2022</p>
+                  <h1>The Knight 2022 Collector Cache</h1>
+                </div>
+                <div class="box-shade"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="w-full center content-container">
+        <div class="w-full center content">
+          <!-- Game Description -->
+          <div
+            id="description"
+            data-aos="fade-up"
+            class="description-container text-center"
+          >
+            <div id="description-header" class="center header">
+              Brave the Depths of a Forgotten Kingdom
+            </div>
+            <div class="jumbotron-card-container w-full center">
+              <div class="relative">
+                <div class="cursor left"><</div>
+                <div class="cursor right">></div>
+                <div class="jumbotron-card" id="jumbotron-card-1"></div>
+                <div class="jumbotron-card" id="jumbotron-card-2"></div>
+                <div class="jumbotron-card" id="jumbotron-card-3"></div>
+              </div>
+            </div>
+            <div class="center circle-container">
+              <div class="circle active"></div>
+              <div class="circle"></div>
+              <div class="circle"></div>
+            </div>
+            <div class="description-text">
+              <div class="center">
+                <div id="description-content" class="content">
+                  Beneath the fading town of Dirtmouth sleeps a vast, ancient
+                  kingdom. Many are drawn beneath the surface, searching for
+                  riches, or glory, or answers to old secrets. As the enigmatic
+                  Knight, you’ll traverse the depths, unravel its mysteries and
+                  conquer its evils.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Yotuube Video -->
+          <iframe
+            data-aos="fade-up"
+            width="1200px"
+            height="700px"
+            src="https://www.youtube.com/embed/JuP47fRBsWg"
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+          <!-- Content -->
+          <!-- <h1 style="margin-bottom: 50px">
+            Hollow Knight Expands with 4 Giant Free Content Packs
+          </h1> -->
+          <div class="flex content-card" data-aos="fade-up">
+            <div
+              class="card text-center"
+              data-anijs="if: click, do: swing animated"
+            >
+              <h1>Hidden Dreams</h1>
+              <img src="assets/landing/content_1.jpg" alt="" />
+              <div class="center">
+                <p>
+                  Mighty new foes emerge! New Boss fights. New Upgrades. New
+                  Music.
+                </p>
+              </div>
+            </div>
+            <div
+              class="card text-center"
+              data-anijs="if: click, do: swing animated"
+            >
+              <h1>The Grimm Troupe</h1>
+              <img src="assets/landing/content_2.jpg" alt="" />
+              <div class="center">
+                <p>
+                  Light the Nightmare Lantern. Summon the Troupe. New Major
+                  Quest. New Boss Fights. New Charms. New Enemies. New Friends.
+                </p>
+              </div>
+            </div>
+            <div
+              class="card text-center"
+              data-anijs="if: click, do: swing animated"
+            >
+              <h1>Lifeblood</h1>
+              <img src="assets/landing/content_3.jpg" alt="" />
+              <div class="center">
+                <p>
+                  A Kingdom Upgraded! New Boss. Upgraded Bosses. Tweaks and
+                  Refinements across the whole game.
+                </p>
+              </div>
+            </div>
+            <div
+              class="card text-center"
+              data-anijs="if: click, do: swing animated"
+            >
+              <h1>Godmaster</h1>
+              <img src="assets/landing/content_4.jpg" alt="" />
+              <div class="center">
+                <p>
+                  Take your place amongst the Gods. New Characters and Quest.
+                  New Boss Fights. Epic New Music!
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hero -->
+          <div id="hero" data-aos="fade-up" class="hero flex">
+            <div class="center">
+              <img
+                data-anijs="if: click, do: flip animated"
+                id="character-image"
+                class="cursor-pointer"
+                width="700px"
+                height="500px"
+                src="assets/landing/hero.png"
+                alt=""
+              />
+            </div>
+            <div class="center character-text-container">
+              <div class="flex flex-col">
+                <h1 id="character-header">Main Character</h1>
+                <div id="character-content-1" class="text">
+                  The Knight is a discarded Vessel. They are the child of the
+                  Pale King and the White Lady,born in the Abyss with Void
+                  inside their shell.Hornet is the Knight's sister through their
+                  shared father. Like the rest of their Vessel siblings, the
+                  Knight is genderless. Pale King Abyss After climbing out of
+                  their birthplace in the Abyss
+                </div>
+                <div class="button center">
+                  <a href="https://hollowknight.fandom.com/wiki/Knight" class=""
+                    >View on Wikipedia</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Marquee -->
+          <div class="marquee-container" data-aos="fade-up">
+            <h1 class="marquee-header">All Bosses</h1>
+            <div class="center marquee-header-image">
+              <img src="assets/game/pause/option.png" alt="" />
+            </div>
+            <article class="marquee-wrapper">
+              <div class="marquee">
+                <ul class="marquee-root"></ul>
+                <ul aria-hidden="true" class="marquee-root"></ul>
+              </div>
+
+              <div class="marquee marquee--reverse">
+                <ul class="marquee-root"></ul>
+                <ul aria-hidden="true" class="marquee-root"></ul>
+              </div>
+
+              <div class="marquee">
+                <ul class="marquee-root"></ul>
+                <ul aria-hidden="true" class="marquee-root"></ul>
+              </div>
+
+              <div class="marquee marquee--reverse">
+                <ul class="marquee-root"></ul>
+                <ul aria-hidden="true" class="marquee-root"></ul>
+              </div>
+            </article>
+          </div>
+
+          <!-- Store -->
+          <div class="store flex" data-aos="fade-up">
+            <div class="center">
+              <div class="left">
+                <h1>A Haunting, Orchestral Score</h1>
+                <p>
+                  Composed and produced by Christopher Larkin, Hollow Knight’s
+                  epic score is woven throughout the game, echoing the sadness
+                  of a majestic civilisation brought to ruin.
+                </p>
+                <a href="assets/game/audio/victory.mp3" download>
+                  <div class="button">Purchase the Official Soundtrack</div>
+                </a>
+              </div>
+            </div>
+            <div class="right center">
+              <img src="assets/landing/store.jpg" alt="" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Footer -->
+      <div id="root-footer"></div>
+    </main>
+  </body>
+  <!-- AniJS core library -->
+  <script src="https://anijs.github.io/lib/anijs/anijs-min.js" defer></script>
+
+  <!-- AOS Initialization -->
+  <script defer>
+    AOS.init();
+  </script>
+</html>

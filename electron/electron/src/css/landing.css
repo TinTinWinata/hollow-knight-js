@@ -1,0 +1,522 @@
+
+
+.jumbotron-video-container{
+  width: 100%;
+  overflow: hidden;
+  height: 700px;
+  position: relative;
+}
+
+.jumbotron-video-container video{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0%;
+  left: 0%;
+  object-fit: cover;
+}
+
+.black-shade{
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 20;
+  /* background-color: black; */
+  filter: brightness(80%);
+  background: rgb(0,0,0);
+  background: linear-gradient(180deg, rgba(0,0,0,0) 90%, rgba(0,0,0,1) 100%);
+}
+
+.jumbotron-video-container video{
+  filter: brightness(80%);
+  object-fit: cover;
+}
+
+.jumbotron-card{
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.jumbotron-card:hover{
+  /* width: 1000px; */
+  /* height: 700px; */
+}
+
+.jumbotron-card-container{
+}
+
+.jumbotron-card-container .relative{
+  position: relative;
+  width: 700px;
+  height: 400px;
+}
+
+.jumbotron-card-container .relative .cursor{
+  position: absolute;
+  transform: translateY(-50%);
+  z-index: 40;
+  color: white;
+  font-size: 50px;
+  width: fit-content;
+  height: fit-content;
+  cursor: pointer;
+}
+
+.jumbotron-card-container .relative .left{
+
+  position: absolute;
+  transform: translateY(-50%);
+  left: -50px;
+  top : 50%;
+}
+
+.jumbotron-card-container .relative .right{
+  position: absolute;
+  transform: translateY(-50%);
+  right: -50px;
+  top: 50%;
+}
+
+
+.jumbotron-card-container div{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  filter: brightness(90%) saturate(50%);
+
+  background-size: cover;
+}
+#jumbotron-card-3{
+  background-image: url('../assets/landing/jumbotron_1.jpg');
+}
+#jumbotron-card-2{
+  background-image: url('../assets/landing/jumbotron_2.jpg');
+}
+#jumbotron-card-1{
+  background-image: url('../assets/landing/jumbotron_3.jpg'); 
+}
+
+.jumbotron-card-container div::after{
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom, transparent 50%, black 100%);
+}
+
+/* Lastest New */
+.latest-container{
+  z-index: 30;
+  position: absolute;
+  bottom: -200px;
+  width: 100%;
+}
+
+.latest-container .container{
+  display: flex;
+  /* flex-direction: row; */
+}
+
+.latest-container .header{
+  z-index: 30;
+  margin-bottom: 10px;
+}
+
+.latest-container .text-active{
+  color: rgb(207, 207, 207);
+}
+
+.latest-container .header p {
+  cursor: pointer;
+  margin-right: 30px;
+}
+
+.latest-container .box {
+  -webkit-box-shadow: -3px 3px 96px 73px rgba(0,0,0,0.54);
+  -moz-box-shadow: -3px 3px 96px 73px rgba(0,0,0,0.54);
+  box-shadow: -3px 3px 96px 73px rgba(0,0,0,0.54);
+  margin-right: 20px;
+  width: 400px;
+  height: 255px;
+  background-size: cover;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.latest-container .box:hover {
+  width: 405px;
+  height: 260px;
+}
+.latest-container .text{
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  z-index: 30;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.latest-container p{
+  color: gray;
+}
+
+.latest-container h1{
+  font-size: 20px;
+}
+
+.latest-container .box-shade{
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 20;
+  filter: brightness(80%);
+  background: rgb(0,0,0);
+  background: linear-gradient(180deg, rgba(0,0,0,0) 30%, rgb(36, 36, 36) 100%);
+}
+
+.box:hover::after, .box::after{
+  background-color: var(--accent);
+
+}
+
+.box::after{
+  content: '';
+  /* left: 0; */
+  /* top: 0; */
+  transition: all 0.3s ease;
+  bottom: 0;
+  background-color: rgb(72, 72, 72);
+  height: 3px;
+  z-index: 30;
+  position: absolute;
+  width: 100%;
+}
+
+.latest-container #box-1{
+  background-image:url('../assets/landing/latest-1.jpg')
+}
+.latest-container #box-2{
+  background-image:url('../assets/landing/latest-2.jpg')
+}
+.latest-container #box-3{
+  background-image:url('../assets/landing/latest-3.jpg')
+}
+
+.content{
+  max-width: var(--maxWidth);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.content-container{
+  margin-top: 100px;
+}
+
+.content iframe{
+  margin-top: 100px;
+
+    /* ------------- */
+    margin-bottom: 200px;
+    /* ------------- */
+
+}
+
+.description-container{
+  min-height: 700px;
+  margin: 350px 0px 200px 0px;
+}
+
+.description-text{
+  margin-top: 10px;
+  /* ------------- */
+  margin-bottom: 50px;
+  /* ------------- */
+  text-align: center;
+}
+
+#description-header{
+  font-size: 40px;
+  margin-bottom: 20px;
+}
+
+.circle-container{ 
+  margin-top: 20px;
+}
+
+.circle-container .circle + .circle{
+  margin-left: 10px;
+}
+
+.circle{
+  width: 15px;
+  height: 15px;
+  background-color: rgb(56, 0, 0);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.active{
+  width: 15px;
+  height: 15px;
+  background-color: var(--accent);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+
+
+.description-text .content{
+  font-size: 16px;
+  margin-top: 20px;
+  width: 60%;
+  }
+  
+
+.store{
+  /* ------------- */
+  padding: 50px;
+  margin-bottom: 200px;
+  /* ------------- */ 
+}
+.store .left p{
+  font-size: 15px;
+  margin-top: 20px;
+}
+
+.store .left .button{
+  cursor: pointer;
+  width: fit-content;
+  padding: 15px;
+  margin-top: 20px;
+  background-color: white;
+  color: black;
+  transition: all 0.5s ease;
+}
+
+.store .left .button:hover{
+  background-color: rgb(235, 235, 235);
+}
+
+
+.content-card{
+    /* ------------- */
+    margin: 100px 0px 200px 0px;
+    /* ------------- */
+}
+
+.character-circle-container{
+  /* --------------- */
+  margin: 20px 0px 0px 10px;
+  /* --------------- */
+}
+
+.character-text-container .button{
+  margin-top: 25px;
+  width: fit-content;
+  transition: all 0.5s ease;
+  cursor: pointer;
+  background-color: white;
+}
+
+
+.character-text-container .button a{
+  font-size: 15px;
+  padding: 15px;
+  color:black;
+}
+
+
+.character-text-container .button:hover{
+  background-color: rgb(218, 218, 218);
+}
+
+
+
+.content-card h1{
+  margin-bottom: 15px;
+  font-size: 25px;
+}
+
+.content-card img{
+  margin-bottom: 20px;
+}
+
+.content-card p{
+  width: 70%;
+}
+
+.hero{
+    /* ------------- */
+    min-height: 500px;
+    margin: 100px 0px 200px 0px;
+    /* ------------- */
+}
+
+.hero img{
+  margin-right: 50px;
+}
+
+.hero h1{
+  margin-bottom: 20px;
+  font-size: 60px;
+}
+
+.hero .text{
+  text-indent: 50px;
+}
+
+
+@media only screen and (max-width: 1200px) {
+  .content-card .card{
+    margin-bottom: 100px;
+  }
+  #box-3{
+    display: none;
+  }
+  .marquee-container{
+    max-width: 500px;
+    overflow: hidden;
+  }
+  .content{
+    max-width: 1000px;
+  }
+  .content-card p{
+    width: 50%;
+  }
+  .content-card{
+    width: 100%;
+    flex-direction: column ;
+  }
+  #hero h1{
+    font-size: 25px;
+  }
+  #hero img{
+    height: 400px;
+    width: 500px;
+  }
+  #hero #character-content-1{
+    font-size: 13px;
+  }
+  .store h1{
+    font-size: 20px;
+  }
+  .store p{
+    font-size: 15px;
+  }
+  .store .button{
+    font-size: 10px;
+  }
+  .store img{
+    margin: auto;
+    width: 450px;
+  }
+  iframe{
+    width: 800px;
+    height: 500px;
+  }
+}
+
+@media only screen and (max-width: 1500px) {
+  .content {
+    max-width: 1300px;
+  }
+
+  .marquee-container{
+    max-width: 1000px !important;
+    overflow: hidden;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+
+  .content{
+    max-width: 700px;
+  }
+  
+.jumbotron-card-container .relative{
+  width: 500px;
+  height: 300px;
+}
+
+  #hero{
+    flex-direction: column;
+  }
+
+  #box-2{
+    display: none;
+  }
+  #hero img{
+    width: 400px;
+    height: 300px;
+    margin-bottom: 30px;
+  }
+
+  #character-header{
+    font-size: 30px;
+  }
+  #character-content-1{
+    font-size: 14px;
+  }
+
+  .marquee-container{
+    max-width: 700px !important;
+    overflow: hidden;
+  }
+  .content-card {
+    margin: 100px 0px 0px 0px;
+  } 
+  .marquee-header{
+    font-size: 40px !important;
+    margin-bottom: 10px;
+  }
+  .marquee-header-image img {
+    width: 100%;
+  }
+  .marquee-wrapper{
+    max-width: 400px !important;
+    margin: 0 auto;
+  }
+
+  iframe{
+    width: 600px;
+    height: 400px;
+  }
+  #description-header{
+    text-align: center;
+    font-size: 30px;
+  }
+
+  .description-container{
+    margin: 450px 0px 200px 0px;
+  }
+  .content-card .card{
+    margin-bottom: 100px;
+  }
+
+  #hero #character-header{
+    text-align: center;
+  }
+
+  #hero{
+    padding: 30px;
+  }
+  .store{
+    padding: 30px;
+  }
+  .store h1{
+    font-size: 15px;
+  }
+  .store p{
+    font-size: 11px !important;
+  }
+  .store img{
+    margin-left: 10px;
+    width: 300px;
+  }
+}

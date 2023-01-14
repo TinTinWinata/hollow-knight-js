@@ -63,16 +63,6 @@ export const PLAYER_CONF = {
   },
 };
 
-export const BARREL_PARTICLE_CONF = {
-  max: 4,
-  speed: 30,
-};
-
-export const BARREL_CONF = {
-  max: 1,
-  speed: 1,
-};
-
 export const BOSS_CONF = {
   idle: {
     max: 5,
@@ -267,36 +257,6 @@ export function GET_BOSS_LAND_SPRITE() {
   return imageList;
 }
 
-export function GET_BARREL_SPRITE() {
-  const cacheName = "barrel";
-  const cache = CACHE.get(cacheName);
-  if (cache != null) {
-    return cache;
-  }
-
-  const imageList = [];
-  imageList.push(LOAD_IMAGE(`assets/game/object/barrel.png`));
-
-  CACHE.set(cacheName, imageList);
-  return imageList;
-}
-
-export function GET_BARREL_PARTICLE_SPRITE() {
-  const cacheName = "barrel_particle";
-  const cache = CACHE.get(cacheName);
-  if (cache != null) {
-    return cache;
-  }
-
-  const imageList = [];
-
-  for (let i = 1; i <= BARREL_PARTICLE_CONF.max; i++) {
-    imageList.push(LOAD_IMAGE(`assets/game/particle/barrel/barrel-0${i}.png`));
-  }
-
-  CACHE.set(cacheName, imageList);
-  return imageList;
-}
 export function GET_CRAWLID_DIE() {
   const cacheName = "crawlid_die";
   const cache = CACHE.get(cacheName);
