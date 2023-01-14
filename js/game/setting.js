@@ -90,9 +90,10 @@ export class Setting {
   static TOTAL_PLATFORM = 10;
   static PLATFORM_HEIGHT = 30;
 
-  static METEOR_WIDTH = 100;
-  static METEOR_HEIGHT = 90;
+  static METEOR_WIDTH = 150;
+  static METEOR_HEIGHT = 140;
   static METEOR_SPAWN_PER_ATTACK = 3;
+  static METEOR_SPEED = 1000;
 
   static DEATH_SCREEN_TIME = 3000;
   static CREDIT_SCENE_SPEED = 10;

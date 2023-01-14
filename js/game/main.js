@@ -106,10 +106,6 @@ function start() {
     if (e.key == "Escape") {
       game.pauseGame(true);
     }
-    if (e.key == "t") {
-      Meteor.GenerateMeteor();
-    }
-
     if (e.key == "r") {
       game.useCamera = !game.useCamera;
     }

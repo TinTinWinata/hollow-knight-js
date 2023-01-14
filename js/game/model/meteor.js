@@ -10,8 +10,8 @@ export class Meteor extends Enemy {
     const sprite = GET_BARREL_SPRITE();
     const config = BARREL_CONF;
     super(x, y, w, h, sprite, config);
-    super.speed = 30;
-    super.maxSpeed = 1;
+    super.speed = Setting.METEOR_SPEED;
+    super.gravity = false;
     super.canCollide = true;
   }
 
@@ -22,7 +22,9 @@ export class Meteor extends Enemy {
     }
   }
 
-  hit() {}
+  hit() {
+    this.destroyObject();
+  }
 
   static GenerateMeteor() {
     const game = GAME.getInstance();
@@ -33,18 +35,23 @@ export class Meteor extends Enemy {
     game.enemies.push(meteor);
   }
 
+  destroyObject() {
+    const audio = MyAudio.getInstance();
+    this.dead = true;
+    this.destroy = true;
+    Particle.BarrelParticle(this.x + this.w / 2, this.y + 90);
+    audio.play(MyAudio.BARREL_DEATH, false);
+  }
+
   parentMethod() {
     if (this.dead) return;
 
     if (this.isGrounded()) {
-      const audio = MyAudio.getInstance();
-      this.dead = true;
-      this.destroy = true;
-      Particle.BarrelParticle(this.x, this.y + 30);
-      audio.play(MyAudio.BARREL_DEATH, false);
+      this.destroyObject();
     }
 
     // this.checkOutsideMap();
-    // this.vy += this.speed * this.game.delta;
+    const rand = Math.random() * (-2 + 2) - 2;
+    this.y += this.speed * this.game.delta;
   }
 }
