@@ -417,13 +417,6 @@ export class Character {
       } else {
         this.renderForward(idx);
       }
-    } else {
-      console.log("WARNING ERROR RENDERING");
-      console.log("state : ", this.state);
-      console.log("sprite : ", this.sprite);
-      console.log("idx : ", idx);
-      console.log("sprite idx : ", this.spriteIdx);
-      console.log("-----------------------");
     }
   }
 }

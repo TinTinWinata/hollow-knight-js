@@ -75,12 +75,44 @@ nav{
   z-index: 50;
 }
 
+
+
 nav .container .play{
   border-radius: 5px;
-  border:2px solid rgb(154, 154, 154);
+  border: 2px solid rgb(154, 154, 154);
   padding: 13px 30px;
   font-size: 20px;
-  transition: all 0.5s ease;
+  transition: all 0.1s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+nav .container .play:hover{
+  border-color: var(--secondary);
+  color: black;
+}
+
+nav .container .play span{
+    z-index: 5;
+    position: relative;
+    transition: color 350ms ease;
+}
+
+nav .container .play::before{
+  z-index: -1;
+  content: ' ';
+  position: absolute;
+  left: -150%;
+  background-color: white;
+  height: 100%;
+  transform: skew(30deg);
+  width: 140%;
+  transition: all 0.7s ease;
+}
+
+
+nav .container .play:hover::before{
+  left: -20%;
 }
 
 
@@ -100,13 +132,12 @@ nav .left div + div{
   margin-left:20px;
 }
 
-nav .container .play:hover{
-  border-color: var(--secondary);
-}
 
 nav .container{
   padding: 20px; 
 }
+
+
 
 /* Footer */
 footer{

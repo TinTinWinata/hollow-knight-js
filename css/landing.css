@@ -261,7 +261,7 @@
   cursor: pointer;
 }
 
-.active{
+.circle-container .active{
   width: 15px;
   height: 15px;
   background-color: var(--accent);

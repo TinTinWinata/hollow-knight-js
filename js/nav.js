@@ -12,7 +12,9 @@ const nav = `    <nav class="absolute w-full">
       </div>  
     </div>
   </div>
-  <a href="game.html" class="play cursor-pointer center">PLAY FOR FREE</a>
+  <a href="game.html" class="play cursor-pointer center">
+    <span>PLAY FOR FREE</span>
+  </a>
 </div>
 </nav>
 `;
