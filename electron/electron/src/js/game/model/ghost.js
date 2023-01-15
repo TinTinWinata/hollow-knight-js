@@ -22,7 +22,6 @@ export class Ghost extends Character {
     const game = GAME.getInstance();
     game.characters.push(ghost);
   }
-
   checkState() {
     if (this.spriteIdx >= this.config.max - 1) {
       this.vx = 0;

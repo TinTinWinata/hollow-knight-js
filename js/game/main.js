@@ -106,9 +106,10 @@ function start() {
     if (e.key == "Escape") {
       game.pauseGame(true);
     }
-    if (e.key == "r") {
-      game.useCamera = !game.useCamera;
-    }
+    // Disabled NAR Presentation Only
+    // if (e.key == "r") {
+    //   game.useCamera = !game.useCamera;
+    // }
     if (e.key == "f") {
       game.fullscreen();
     }

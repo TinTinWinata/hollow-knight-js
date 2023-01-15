@@ -9,18 +9,20 @@ if (require("electron-squirrel-startup")) {
 const createWindow = () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
+    icon: __dirname + "/assets/icon.ico",
     width: 800,
     height: 600,
+    fullscreen: true,
+    autoHideMenuBar: true,
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
+      devTools: false,
     },
   });
 
   // and load the index.html of the app.
   mainWindow.loadFile(path.join(__dirname, "home.html"));
-
-  // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  // mainWindow.maximize();
 };
 
 // This method will be called when Electron has finished

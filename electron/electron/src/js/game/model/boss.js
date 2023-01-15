@@ -18,6 +18,7 @@ import { Enemy } from "../parent/enemies.js";
 import { Object } from "../parent/object.js";
 import { Setting } from "../setting.js";
 import { Ghost } from "./ghost.js";
+import { Meteor } from "./meteor.js";
 
 export class Boss extends Enemy {
   static IDLE = 1;
@@ -38,7 +39,7 @@ export class Boss extends Enemy {
     this.armor = Setting.BOSS_ARMOR;
     this.state = Boss.IDLE;
     this.health = Setting.BOSS_HEALTH;
-
+    this.isStrike = true;
     this.jumping = false;
   }
 
@@ -196,12 +197,17 @@ export class Boss extends Enemy {
   }
 
   checkAttack() {
-    if (this.state == Boss.ATTACK && this.spriteIdx == 2) {
+    if (this.state == Boss.ATTACK && this.spriteIdx == 2 && this.isStrike) {
       // Strike
+      for (let i = 0; i < Setting.METEOR_SPAWN_PER_ATTACK; i++) {
+        Meteor.GenerateMeteor();
+      }
       this.game.audio.play(MyAudio.FALSE_STRIKE, false);
       this.game.shakeScene(2);
+      this.isStrike = false;
     }
     if (this.state == Boss.ATTACK && this.spriteIdx >= this.config.max - 1) {
+      this.isStrike = true;
       this.spriteIdx = 0;
       this.attackTimes += 1;
       if (this.attackTimes >= Setting.BOSS_ATTACK_TIMES) {
@@ -351,11 +357,12 @@ export class Boss extends Enemy {
     this.game.finishGame();
   }
 
-  decrementHealth() {
+  decrementHealth(n = 0) {
     const game = GAME.getInstance();
-    const dmg = game.player.damage;
+    const dmg = n == 0 ? game.player.damage : n;
     if (this.state == Boss.STUN) {
       this.health -= dmg;
+      game.audio.play(MyAudio.FALSE_HEAD_HIT, false);
       if (this.health <= 0) {
         this.die();
       }
@@ -393,8 +400,8 @@ export class Boss extends Enemy {
     }, Setting.BOSS_STUN_TIME);
   }
 
-  hit() {
-    this.decrementHealth();
+  hit(n = 0) {
+    this.decrementHealth(n);
     this.attacked = true;
   }
 }

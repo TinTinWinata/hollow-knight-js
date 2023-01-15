@@ -12,43 +12,21 @@ export class Credit {
   }
 
   constructor() {
+    this.totalText = 5;
+    this.stop = 345;
     this.afterScene = true;
 
     this.root = $("#credit-scene-root");
-    this.total = 0;
-    // this.addAllTemplate();
     this.bottom = 0;
     this.container = $("#credit-scene");
   }
 
-  addAllTemplate() {
-    this.addTemplate("Created By TinTin Winata", "h2");
-    this.addTemplate("Web Design NAR 23-1", "h2");
-    this.addTemplate(
-      "Alongside Courage And Perseverance We Shape and Define Our Future",
-      "h3"
-    );
-    this.addTemplate("- JT 22-1", "h2");
-    this.addTemplate("Hollow Knight", "h1");
-  }
-
-  addTemplate(name, el) {
-    this.root.append(this.createTemplate(name, el));
-  }
-
-  createTemplate(name, el = "h1") {
-    const template = `
-      <${el} class="credit-text" id="credit-${this.total}">${name}</${el}>
-    `;
-    return template;
-  }
-
   showCredit() {
     this.container.show();
-    const h = this.root.position();
     this.root.css("bottom", `${this.bottom}%`);
+    // console.log("botom : ", this.bottom);
     const game = GAME.getInstance();
-    if (this.bottom < 345) {
+    if (this.bottom < this.stop) {
       this.bottom += Setting.CREDIT_SCENE_SPEED * game.delta;
     } else {
       if (this.afterScene) {

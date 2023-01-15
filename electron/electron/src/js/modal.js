@@ -325,9 +325,16 @@ function showPage(n) {
 
 xButton.click(() => {
   modal.fadeOut(time);
+
+  document.removeEventListener("keypress", removePreventDefault);
 });
 
+function removePreventDefault(e) {
+  if (e.key === " ") e.preventDefault();
+}
+
 howToPlay.click(() => {
+  document.addEventListener("keypress", removePreventDefault);
   modal.fadeIn(time);
 });
 

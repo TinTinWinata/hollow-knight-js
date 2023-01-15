@@ -19,6 +19,7 @@ import { Object } from "./parent/object.js";
 import { Boofly } from "./model/boofly.js";
 import { Rest } from "./model/rest.js";
 import { Particle } from "./model/particle.js";
+import { Meteor } from "./model/meteor.js";
 
 function start() {
   if (GAME.START) {
@@ -145,7 +146,6 @@ function start() {
   game.camera = camera;
 
   // !Debugging Purpose
-  // game.changeBossScene();
   game.render();
 }
 

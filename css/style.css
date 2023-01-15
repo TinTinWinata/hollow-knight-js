@@ -120,11 +120,24 @@ nav .menu{
   cursor: pointer;
   font-weight: 500;
   margin-right: 20px;
-  transform: all 0.3s ease;
+  transition: all 0.5s ease;
+  position: relative;
+  overflow: hidden;
 }
 
-nav .menu:hover{
-  text-decoration: underline;
+nav .menu::before{
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 1%;
+  bottom: 27%;
+  left: -100%;
+  transition: all 0.5s ease;
+  background-color: white;
+}
+
+nav .menu:hover::before{
+  left: 0%;
 }
 
 
@@ -154,7 +167,6 @@ footer .logo-container:hover{
 }
 
 footer .logo{
-
   filter: invert(51%) sepia(85%) saturate(7415%) hue-rotate(339deg) brightness(96%) contrast(89%);
 }
 

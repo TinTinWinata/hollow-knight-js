@@ -44,7 +44,7 @@ export class Blast extends Character {
           game.audio.play(MyAudio.HIT, false);
           Particle.HitParticle(x + w, y + w / 2);
         }
-        enemy.hit();
+        enemy.hit(Setting.CHARACTER_BLAST_DAMAGE);
       }
     });
   }
