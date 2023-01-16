@@ -104,7 +104,7 @@ export class GAME {
   }
 
   backToMenu() {
-    window.location.replace("/game.html");
+    window.location.reload();
   }
 
   spawnEnemy() {
