@@ -248,9 +248,9 @@
 }
 
 .description-container svg{
-  color: white;
-  width: 50px;
-  height: 50px;
+  color: rgba(255, 255, 255, 0.32);
+  width: 30px;
+  height: 30px;
   margin-right: 20px;
 }
 
@@ -278,11 +278,11 @@
 
 .description-header-container::before{
   position: absolute;
-  background-color: rgba(129, 129, 129, 0.39);
+  background-color: rgba(255, 255, 255, 0.376);
   width: 100%;
   content: '';
   height: 1px;
-  bottom: -10px;
+  bottom: -8px;
 }
 
 #description-content{
