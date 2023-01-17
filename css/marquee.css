@@ -2,7 +2,7 @@
   --color-text: navy;
   --color-bg: papayawhip;
   --color-bg-accent: #ecdcc0;
-  --gap: 10px;
+  --gap:10px;
   --duration: 30s;
   --scroll-start: 0;
   --scroll-end: calc(-100% - var(--gap));
@@ -18,6 +18,7 @@
 
 
 .marquee::before{
+
   background: rgb(2,0,36);
   background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(0,0,0,1) 0%, rgba(255,255,255,0) 100%);
   content : "";
@@ -28,6 +29,7 @@
   height: 100%;
   z-index: 30;
 }
+
 
 .marquee::after{
   background: rgb(2,0,36);
@@ -46,7 +48,7 @@
   display: flex;
   overflow: hidden;
   user-select: none;
-  gap: var(--gap);
+  /* gap: var(--gap); */
   mask-image: linear-gradient(
     var(--mask-direction, to right),
     hsl(0 0% 0% / 0),
@@ -54,11 +56,14 @@
     hsl(0 0% 0% / 1) 80%,
     hsl(0 0% 0% / 0)
   );
+}
 
+.marquee ul{
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 .marquee-root {
-  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -93,6 +98,7 @@
 
 .img-container .container:hover > p{
   /* display: block; */
+  color: rgba(217, 217, 217, 1);
   visibility: visible;
   /* animation : showText 3s; */
 }

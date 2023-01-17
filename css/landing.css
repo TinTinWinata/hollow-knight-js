@@ -478,10 +478,11 @@
 }
 
 @media only screen and (max-width: 800px) {
-
+  
   .content{
     max-width: 700px;
   }
+
   
 .jumbotron-card-container .relative{
   width: 500px;
@@ -508,6 +509,19 @@
     font-size: 14px;
   }
 
+  .marquee::before{
+    width: 100px;
+  }
+
+  .img-container .container > p{
+    visibility: visible !important;
+    color: rgba(217, 217, 217, 0.582);
+    font-size: 15px;
+  }
+
+  .marquee::after{
+    width: 100px;
+  }
   .marquee-container{
     max-width: 700px !important;
     overflow: hidden;
@@ -515,6 +529,9 @@
   .content-card {
     margin: 100px 0px 0px 0px;
   } 
+  .marquee-root{
+    min-width: auto !important;
+  }
   .marquee-header{
     font-size: 40px !important;
     margin-bottom: 10px;
@@ -533,7 +550,6 @@
   }
 
   #description-header{
-    
     text-align: center;
     font-size: 30px;
   }

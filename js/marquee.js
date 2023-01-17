@@ -96,7 +96,7 @@ for (let i = 0; i < rootLength; i++) {
 
 // Listener
 
-const imgContainer = $(".marquee-root li");
-imgContainer.hover(() => {
-  var index = $(this).index();
-});
+// const imgContainer = $(".marquee-root li");
+// imgContainer.hover(() => {
+//   var index = $(this).index();
+// });
