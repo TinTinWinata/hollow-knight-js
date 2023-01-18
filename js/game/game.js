@@ -82,6 +82,10 @@ export class GAME {
     return allEnemies - killed;
   }
 
+  isFullscreen() {
+    return this.fullscreenFlag;
+  }
+
   fullscreen() {
     if (!this.canFullscreen) return;
 

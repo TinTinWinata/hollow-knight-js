@@ -317,6 +317,15 @@ body {
   transform: translateY(100%);
 }
 
+#credit-scene .stop{
+  position: absolute;
+  top: 0;
+  /* Debugging Purpose */
+  /* background-color: red; */
+  width: 100%;
+  height: 50%;
+}
+
 .credit-text{
   line-height: 40px;
   margin-bottom: 350px;

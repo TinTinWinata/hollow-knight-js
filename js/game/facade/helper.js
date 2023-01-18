@@ -36,6 +36,30 @@ export function checkBlockCollide(x1, y1, w1, h1, x2, y2, w2, h2) {
   }
 }
 
+export function isDivColliding(div1, div2) {
+  var offset1 = div1.offset();
+  var offset2 = div2.offset();
+
+  var x1 = offset1.left;
+  var y1 = offset1.top;
+  var h1 = div1.outerHeight(true);
+  var w1 = div1.outerWidth(true);
+
+  var x2 = offset2.left;
+  var y2 = offset2.top;
+  var h2 = div2.outerHeight(true);
+  var w2 = div2.outerWidth(true);
+
+  if (x2 <= 0 || y2 <= 0) return false;
+  if (y1 + h1 < y2 || y1 > y2 + h2 || x1 + w1 < x2 || x1 > x2 + w2)
+    return false;
+  return true;
+}
+
+export function getWindowSize() {
+  return { w: window.innerWidth, h: window.innerHeight };
+}
+
 export function randomInt(min, max) {
   return Math.round(Math.random() * (max - min) + min);
 }
