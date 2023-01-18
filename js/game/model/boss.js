@@ -11,7 +11,7 @@ import {
   GET_BOSS_LAND_SPRITE,
   GET_BOSS_STUN_SPRITE,
 } from "../facade/file.js";
-import { isInTheLeft } from "../facade/helper.js";
+import { isInTheLeft, randomInt } from "../facade/helper.js";
 import { GAME } from "../game.js";
 import { Character } from "../parent/character.js";
 import { Enemy } from "../parent/enemies.js";
@@ -228,7 +228,11 @@ export class Boss extends Enemy {
     }
 
     this.changeState(Boss.JUMP);
-    this.vy = -Setting.BOSS_JUMP_FORCE;
+    const jumpForce = randomInt(
+      Setting.BOSS_JUMP_FORCE - Setting.BOSS_JUMP_RANDOM,
+      Setting.BOSS_JUMP_FORCE + Setting.BOSS_JUMP_RANDOM
+    );
+    this.vy = -jumpForce;
     this.jumping = true;
   }
 

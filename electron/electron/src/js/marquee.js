@@ -44,7 +44,7 @@ characters.push(
   new Character("Dung Defender", "assets/landing/character/dung-defender.webp")
 );
 characters.push(
-  new Character("False Knight", "assets/landing/character/false knight.webp")
+  new Character("False Knight", "assets/landing/character/false-knight.webp")
 );
 characters.push(
   new Character("Flukerman", "assets/landing/character/flukermam.webp")

@@ -93,7 +93,7 @@ export class Credit {
         $("#after-scene-container").fadeIn(2000);
       }, 5000);
     } else if (!this.alreadyCollide) {
-      this.bottom += Setting.CREDIT_SCENE_SPEED * game.delta * 30;
+      this.bottom += Setting.CREDIT_SCENE_SPEED * game.delta;
     }
   }
 }
