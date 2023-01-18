@@ -3,10 +3,6 @@
 .keyboard-base {
   max-width: 1000px;
   padding: 20px;
-  /* position: absolute; */
-  /* top: 50%; */
-  /* left: 50%; */
-  /* transform: translate(-50%, -50%); */
   background-color: rgb(128, 128, 128);
   border-radius: 10px;
   display: grid;
@@ -31,6 +27,9 @@
 }
 
 .key {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   color: black;
   background-color: rgb(197, 197, 197);
   box-shadow: rgba(0, 0, 0, 0.05) 1.95px 1.95px 2.6px;
@@ -62,7 +61,7 @@
 }
 
 .modal .page-text{
-  margin-top: 10px;
+  margin: 10px 0px;
   font-size: 20px;
 }
 
@@ -119,6 +118,8 @@
   display: none;
   width: 100vw;
   height: 100vh;
+  top: 0;
+  left: 0;
   position: fixed;
   z-index: 100;
 }
@@ -139,19 +140,20 @@
 .modal .content{
   padding: 50px;
   height: 100%;
+  min-height: 600px;
   width: 100%;
 }
 .modal .content-container{
   padding: 20px;
 }
+
 .modal .container{
   position: relative;;
   width: 1200px;
-  height: 600px;
+  
   border: 0.5px solid rgba(255, 255, 255, 0.274);
   background-size: cover;
   border-radius: 20px;
-
 
   background-color: rgb(17, 17, 17);
 }
@@ -213,3 +215,47 @@
   left: -30px;
   transform: translate(-50%, -50%);
 }
+
+
+@media only screen and (max-width: 1100px) {
+  .modal .container{
+    width: 800px;
+  }
+
+  .modal .key-text-container{
+    font-size: 20px;
+
+  }
+
+
+  .keyboard-base {
+    max-width: 800px;
+    grid-gap: 10px;
+    grid-template-columns: repeat(30, 10px);
+    grid-template-rows: repeat(5, 50px);
+  }
+
+  
+}
+
+@media only screen and (max-width: 800px) {
+  .modal .container{
+
+    width: 600px;
+  }
+
+
+  .modal .key{
+    font-size: 10px;
+  }
+
+
+  .keyboard-base {
+    max-width: 600px;
+    grid-gap: 3px;
+    grid-template-columns: repeat(30, 10px);
+    grid-template-rows: repeat(5, 40px);
+  }
+
+}
+

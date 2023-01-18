@@ -355,12 +355,10 @@ input[type=range]::-webkit-slider-thumb{
     width: 900px;
     height: 500px;
   }
-}
-
-@media only screen and (max-width: 1300px){
   nav{
     position: relative !important;
   }
 }
+
 
 

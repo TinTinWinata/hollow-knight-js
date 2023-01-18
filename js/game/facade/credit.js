@@ -9,9 +9,9 @@ const SETTING_TEXT = [
     marginBottom: "350px",
   },
   {
-    fontSize: "50px",
+    fontSize: "40px",
     lineHeight: "85px",
-    marginBottom: "930px",
+    marginBottom: "650px",
   },
 ];
 

@@ -223,12 +223,13 @@
   background-image:url('../assets/landing/latest-3.jpg')
 }
 
-.content{
+.content-container .content{
   max-width: var(--maxWidth);
   height: 100%;
   display: flex;
   flex-direction: column;
 }
+
 .content-container{
   margin-top: 100px;
 }
@@ -243,8 +244,7 @@
 }
 
 .description-container{
-  min-height: 700px;
-  margin: 350px 0px 200px 0px;
+  margin: 350px 0px 100px 0px;
 }
 
 .description-container svg{
@@ -286,6 +286,7 @@
 }
 
 #description-content{
+  min-height: 300px;
   padding: 30px;
 }
 
@@ -553,6 +554,7 @@
     text-align: center;
     font-size: 30px;
   }
+
 
   .description-container{
     margin: 450px 0px 200px 0px;
