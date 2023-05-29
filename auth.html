@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hollow Knight</title>
+
+    <link rel="stylesheet" href="css/login.css" />
+    <link rel="stylesheet" href="css/register.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="favicon" href="assets/landing/logo_main.png" />
+
+    <!-- Script -->
+    <script src="js/system/firebase.js" type="module" defer></script>
+
+    <!-- Jquery -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
+      integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+  </head>
+  <body>
+    <div class="w-full h-full">
+      <div class="login-background"></div>
+      <div class="black"></div>
+
+      <!-- Login Form -->
+      <div class="login-form-container">
+        <div class="login-form">
+          <!-- Register Button -->
+          <div class="register-button cursor-pointer"></div>
+          <div class="inside-form">
+            <h1 class="title hollow">Sign In</h1>
+            <input
+              id="loginEmail"
+              class="input-form"
+              type="text"
+              placeholder="Email"
+            />
+            <input
+              id="loginPassword"
+              class="input-form"
+              type="password"
+              placeholder="Password"
+            />
+            <button id="loginButton">Login</button>
+          </div>
+          <div class="login-black"></div>
+        </div>
+
+        <div class="register-form">
+          <!-- Register Button -->
+          <div class="login-button cursor-pointer"></div>
+          <div class="inside-form">
+            <h1 class="title hollow">Sign Up</h1>
+            <input
+              id="registerEmail"
+              class="input-form"
+              type="text"
+              placeholder="Email"
+            />
+            <input
+              id="registerFirstName"
+              class="input-form"
+              type="text"
+              placeholder="First Name"
+            />
+            <input
+              id="registerLastName"
+              class="input-form"
+              type="text"
+              placeholder="Last Name"
+            />
+            <select
+              id="registerLocation"
+              class="input-form"
+              type="text"
+              placeholder="Location"
+            >
+              <option value="Indonesia">Indonesia</option>
+              <option value="Singapore">Singapore</option>
+              <option value="Malaysia">Malaysia</option>
+            </select>
+            <input
+              id="registerUsername"
+              class="input-form"
+              type="text"
+              placeholder="Username"
+            />
+            <input
+              id="registerPassword"
+              class="input-form"
+              type="password"
+              placeholder="Password"
+            />
+            <button id="registerButton">Register</button>
+          </div>
+          <div class="register-black"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

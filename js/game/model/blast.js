@@ -1,11 +1,10 @@
-import { MyAudio } from "../facade/audio.js";
-import { GET_PLAYER_BLAST, PLAYER_CONF } from "../facade/file.js";
-import { GAME } from "../game.js";
-import { Character } from "../parent/character.js";
-import { Object } from "../parent/object.js";
-import { Setting } from "../setting.js";
-import { Boss } from "./boss.js";
-import { Particle } from "./particle.js";
+import { MyAudio } from '../facade/audio.js';
+import { GET_PLAYER_BLAST, PLAYER_CONF } from '../facade/file.js';
+import { GAME } from '../game.js';
+import { Character } from '../parent/character.js';
+import { Setting } from '../setting.js';
+import { Boss } from './boss.js';
+import { Particle } from './particle.js';
 
 export class Blast extends Character {
   constructor(x, y, backward) {

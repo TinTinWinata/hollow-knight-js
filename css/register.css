@@ -1,0 +1,110 @@
+.login-background{
+  background-image: url('/assets/login/login.jpg');
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+.black{
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  opacity: 50%;
+  position: absolute;
+}
+
+.register-form .register-black{
+  position: absolute;
+  background-color: black;
+  width: 100%;
+  height: 100%;
+  z-index: 20;
+}
+
+.register-form{
+  letter-spacing: 4px;
+  height: 100%;
+  /* background-color: black; */
+  position: absolute;
+  z-index: 30;
+  right: 0;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+.login-button{
+  width: 100px;
+  height: 100px;
+  left: 20px;
+  z-index: 20;
+  top: 45%;
+  transform: translateX(-50%);
+  border-radius: 100%;
+  background-color: rgba(169, 169, 169, 0.3);
+  position: absolute;
+}
+
+.register-form .title{
+  margin-bottom: 15px;
+  font-size: 40px;
+}
+
+.register-form input{
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.524);
+  
+  /* border-radius: 10px; */
+  padding: 10px 20px;
+  margin-top: 10px;
+  width: 100%;
+  margin-bottom: 10px;
+  color: white;
+}
+
+.register-form select{
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.524);
+  /* border-radius: 10px; */
+  padding: 10px 20px;
+  margin-top: 10px;
+  width: 100%;
+  margin-bottom: 10px;
+  color: white;
+}
+
+.register-form option{
+  margin: 10px;
+  background-color: black;
+}
+
+.inside-form{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 30;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.register-form button {
+  width: 100%;
+  padding: 10px 0px;
+  margin-top: 10px;
+  border-radius: 0px;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.register-form button:hover {
+  background-color: rgb(186, 186, 186);
+}
+
+
+

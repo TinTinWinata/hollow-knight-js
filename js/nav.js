@@ -11,6 +11,11 @@ const nav = `    <nav class="absolute w-full">
         HOW TO PLAY
       </div>  
     </div>
+    <div class="menu center how-to-play">
+      <a href="auth.html">
+        Login
+      </a>  
+    </div>
   </div>
   <a href="game.html" class="play cursor-pointer center">
     <span>PLAY FOR FREE</span>
@@ -19,4 +24,4 @@ const nav = `    <nav class="absolute w-full">
 </nav>
 `;
 
-$("#root-nav").html(nav);
+$('#root-nav').html(nav);
