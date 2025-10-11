@@ -4,7 +4,7 @@ A web-based implementation of Hollow Knight built with vanilla JavaScript, HTML5
 
 **Project Initiated: 2022** | **Created WITHOUT the use of any Artificial Intelligence**
 
-![Hollow Knight Game Screenshot](./assets/images/screenshot.jpg)
+![Hollow Knight Game Screenshot](https://raw.githubusercontent.com/TinTinWinata/hollow-knight-js/tintin/master/updates_20251011/image.png)
 
 ## 🎮 Game Overview
 
